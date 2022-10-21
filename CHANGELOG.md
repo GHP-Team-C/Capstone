@@ -12,12 +12,18 @@
 - _add_ @babel/preset-env at 7.19.4
 - @babel/preset-react update to 7.18.6 from 7.12.10
 - @babel/register update to 7.18.9 from 7.12.10
+- _add_ @reduxjs/toolkit
 - babel-loader update to 8.2.5 from 8.2.2
 - react update to 18.2.0 from 16.8.6
 - react-dom update to 18.2.0 from 16.8.6
 - react-redux update to 8.0.4 from 7.0.1
 - react-router-dom update to 6.4.2 from 5.0.0
 - react-test-renderer update to 18.2.0 from 16.4.2
+- _remove_ react-test-renderer (unused)
+- _remove_ redux (included in @reduxjs/toolkit)
+- _remove_ redux-devtools-extention (included in @reduxjs/toolkit)
+- _remove_ redux-mock-store (unused)
+- _remove_ redux-thunk (included in @reduxjs/toolkit)
 - webpack update to 5.74.0 from 5.15.0
 - webpack-cli update to 4.10.0 from 4.3.1
 - _remove_ enzyme (deprecated)
@@ -25,11 +31,12 @@
 
 ### Refactor
 
+- update store abd components for compatibility with Redux Toolkit
 - update React initialization approach to use createRoot for compatibility with React version 18
 - update components and store for compatiblity with React Router version 6
 - update webpack.config.js to follow best practices & include babel/preset-env
 - remove .babelrc (babel configuration now in webpack.config.js)
-- remove Home component testing until full testing tech stack change can be prioritized (enzyme deprecated)
+- remove Redux & Redux testing until full testing tech stack change can be prioritized (enzyme deprecated, RTK requires different testing approach)
 
 ## Monday, December 28th, 2020
 

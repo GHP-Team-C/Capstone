@@ -17,7 +17,7 @@ const AuthForm = ({ name, displayName }) => {
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    dispatch(authenticate(username, password, formName));
+    dispatch(authenticate({ username, password, method: formName }));
   };
 
   return (
@@ -38,7 +38,7 @@ const AuthForm = ({ name, displayName }) => {
         <div>
           <button type="submit">{displayName}</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {error && <div> {error} </div>}
       </form>
     </div>
   );
