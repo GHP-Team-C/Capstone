@@ -6,12 +6,21 @@
 
 ### DevDependencies
 
-- remove enzyme (deprecated)
-- remove enzyme-adapter-react-16 (deprecated)
+- @babel/core update to 7.19.6 from 7.12.10
+- _add_ @babel/preset-env at 7.19.4
+- @babel/preset-react update to 7.18.6 from 7.12.10
+- @babel/register update to 7.18.9 from 7.12.10
+- babel-loader update to 8.2.5 from 8.2.2
+- webpack update to 5.74.0 from 5.15.0
+- webpack-cli update to 4.10.0 from 4.3.1
+- _remove_ enzyme (deprecated)
+- _remove_ enzyme-adapter-react-16 (deprecated)
 
 ### Refactor
 
-- remove Home component test file until full testing tech stack change can be prioritized
+- update webpack.config.js to follow best practices & include babel/preset-env
+- remove .babelrc (babel configuration now in webpack.config.js)
+- remove Home component testing until full testing tech stack change can be prioritized (enzyme deprecated)
 
 ## Monday, December 28th, 2020
 
