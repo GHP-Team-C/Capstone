@@ -31,6 +31,7 @@
 
 ### Refactor
 
+- update client file structure to adhere to Redux Toolkit best practices
 - update store abd components for compatibility with Redux Toolkit
 - update React initialization approach to use createRoot for compatibility with React version 18
 - update components and store for compatiblity with React Router version 6
