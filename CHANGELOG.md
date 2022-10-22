@@ -4,6 +4,12 @@
 
 ### Dependencies
 
+- bcrypt update to 5.1.0 from 5.0.0
+- compression update to 1.7.4 from 1.7.3
+- express update to 4.18.2 from 4.16.4
+- morgan update to 1.10.0 from 1.9.1
+- pg update to 8.8.0 from 8.5.1
+- sequelize update to 6.25.3 from 6.3.5
 - _remove_ history (no longer used with react-router-dom version 6)
 
 ### DevDependencies
@@ -13,7 +19,12 @@
 - @babel/preset-react update to 7.18.6 from 7.12.10
 - @babel/register update to 7.18.9 from 7.12.10
 - _add_ @reduxjs/toolkit
+- axios update to 1.1.3 from 0.21.1
+- axios-mock-adapter update to 1.21.2 from 1.16.0
 - babel-loader update to 8.2.5 from 8.2.2
+- chai update to 4.3.6 from 4.2.0
+- mocha update to 10.1.0 from 6.2.3
+- nodemon update to 2.0.20 from 1.19.4
 - react update to 18.2.0 from 16.8.6
 - react-dom update to 18.2.0 from 16.8.6
 - react-redux update to 8.0.4 from 7.0.1
@@ -24,6 +35,7 @@
 - _remove_ redux-devtools-extention (included in @reduxjs/toolkit)
 - _remove_ redux-mock-store (unused)
 - _remove_ redux-thunk (included in @reduxjs/toolkit)
+- supertest update to 6.3.0 from 4.0.2
 - webpack update to 5.74.0 from 5.15.0
 - webpack-cli update to 4.10.0 from 4.3.1
 - _remove_ enzyme (deprecated)
