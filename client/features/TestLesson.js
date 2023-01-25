@@ -4,7 +4,6 @@ import { Instrument } from "piano-chart";
 
 
 const TestLesson = () => {
-console.log("Test Lesson was called")
 
   const pianoContainer = document.createElement('div');
   pianoContainer.setAttribute('id', 'container');
