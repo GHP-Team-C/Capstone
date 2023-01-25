@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
@@ -11,8 +11,12 @@ import {
   Avatar,
   Typography,
   Box,
+  Drawer,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
-import { ShoppingCart, Home } from "@mui/icons-material";
+import { ShoppingCart, Home, Mail } from "@mui/icons-material";
 import { grey, blue } from "@mui/material/colors";
 
 const Navbar = () => {
@@ -24,6 +28,8 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <div>
@@ -33,6 +39,19 @@ const Navbar = () => {
               <IconButton href="/">
                 <Home></Home>
               </IconButton>
+              <div>
+                <Button onClick={() => setOpen(true)}>Lessons</Button>
+                <Drawer
+                  open={open}
+                  anchor={"left"}
+                  onClose={() => setOpen(false)}
+                >
+                  <div style={{ width: 250 }} onClick={() => setOpen(false)}>
+                    <Button>Beginner Lesson</Button>
+                    <Button>Intermediate Lesson</Button>
+                  </div>
+                </Drawer>
+              </div>
             </Box>
             <div>
               {isLoggedIn ? (
