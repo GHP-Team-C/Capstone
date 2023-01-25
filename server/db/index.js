@@ -7,7 +7,8 @@ const Lesson = require("./models/Lesson");
 const UserLesson = require("./models/UserLesson");
 
 //associations could go here!
-User.belongsToMany(User, { through: UserLesson });
+User.belongsToMany(Lesson, { through: UserLesson });
+Lesson.belongsToMany(User, { through: UserLesson });
 
 module.exports = {
   db,

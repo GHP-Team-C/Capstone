@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User },
+  models: { User, Lesson },
 } = require("../server/db");
 
 /**
@@ -15,11 +15,40 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody@cody.edu", password: "123" }),
-    User.create({ username: "murphy@murphy.gov", password: "123" }),
+    User.create({
+      username: "cody@cody.edu",
+      firstName: "Cody",
+      lastName: "Pug",
+      password: "123",
+    }),
+    User.create({
+      username: "murphy@murphy.gov",
+      firstName: "Murphy",
+      lastName: "Octopus",
+      password: "123",
+    }),
   ]);
 
+  // Creating Lessons
+  const lessons = await Promise.all([
+    Lesson.create({
+      name: "CMaj",
+      level: 1,
+    }),
+    Lesson.create({
+      name: "CMin",
+      level: 1,
+    }),
+  ]);
+
+  await Promise.all(
+    [users[0].addLesson(1)],
+    [users[0].addLesson(2)],
+    [users[1].addLesson(2)]
+  );
+
   console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${lessons.length} lessons`);
   console.log(`seeded successfully`);
   return {
     users: {
