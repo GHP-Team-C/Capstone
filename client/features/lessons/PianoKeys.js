@@ -3,7 +3,7 @@ import { Instrument } from "piano-chart";
 
 
 
-const TestLesson = () => {
+const PianoKeys = (props) => {
 
   const pianoContainer = document.createElement('div');
   pianoContainer.setAttribute('id', 'container');
@@ -11,14 +11,16 @@ const TestLesson = () => {
 
   const piano = new Instrument(document.getElementById('container'))
 
-  const cMaj = ["C4", "E4", "G4"]
+  const notes = props.pianoNotes
+
+  console.log("notes: ", notes)
 
 
   console.log("piano : ", piano)
 
 
     piano.create()
-    cMaj.forEach(note=>piano.keyDown(`${note}`))
+    notes.forEach(note=>piano.keyDown(`${note}`))
 
 
   return (
@@ -31,4 +33,4 @@ const TestLesson = () => {
 
 }
 
-export default TestLesson
+export default PianoKeys
