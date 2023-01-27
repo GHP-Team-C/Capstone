@@ -16,13 +16,15 @@ async function seed() {
   // Creating Users
   const users = await Promise.all([
     User.create({
-      username: "cody@cody.edu",
+      username: "cody",
+      email: "cody@cody.edu",
       firstName: "Cody",
       lastName: "Pug",
       password: "123",
     }),
     User.create({
-      username: "murphy@murphy.gov",
+      username: "murphy",
+      email: "murphy@murphy.gov",
       firstName: "Murphy",
       lastName: "Octopus",
       password: "123",
@@ -33,11 +35,11 @@ async function seed() {
   const lessons = await Promise.all([
     Lesson.create({
       name: "CMaj",
-      level: 1,
+      level: "beginner",
     }),
     Lesson.create({
       name: "CMin",
-      level: 1,
+      level: "intermediate",
     }),
   ]);
 
