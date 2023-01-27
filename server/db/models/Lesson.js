@@ -4,10 +4,17 @@ const db = require("../db");
 const Lesson = db.define("lesson", {
   name: {
     type: Sequelize.STRING,
-    unique: true,
   },
   level: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isIn: [["beginner", "intermediate", "advanced"]],
+    },
+  },
+  visible: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 
