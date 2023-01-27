@@ -2,12 +2,17 @@ import React from 'react';
 import { Stack } from '@mui/system';
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
 
 
 /**
  * COMPONENT
  */
 const Home = () => {
+const navigate = useNavigate();
+const redirectToLesson = () => {
+  navigate("/lesson")
+}
 
   return (
     <div className='landing'>
@@ -17,7 +22,7 @@ const Home = () => {
         Welcome to AugmentED!
       </Typography>
           <Typography variant="h4"> Learn to play music!</Typography>
-          <Button> Start Lesson</Button>
+          <Button onClick={redirectToLesson}> Start Lesson</Button>
 
       </Stack>
     </div>

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import AuthForm from '../features/auth/AuthForm';
 import Home from '../features/home/Home';
-import TestLesson from '../features/TestLesson';
 import { me } from './store';
 import LessonTemplate from '../features/lessons/LessonTemplate';
 

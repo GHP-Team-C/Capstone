@@ -12,8 +12,9 @@ const LessonTemplate = () => {
   return (
     <>
     <h1> Lessons Template </h1>
+    <div id='staff'>
       <MusicalStaff />
-
+      </div>
       <PianoKeys pianoNotes={pianoNotes}/>
 
     </>
