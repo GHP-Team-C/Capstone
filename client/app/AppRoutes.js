@@ -5,6 +5,7 @@ import AuthForm from '../features/auth/AuthForm';
 import Home from '../features/home/Home';
 import TestLesson from '../features/TestLesson';
 import { me } from './store';
+import LessonTemplate from '../features/lessons/LessonTemplate';
 
 /**
  * COMPONENT
@@ -24,7 +25,7 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
-          <Route path="/testlesson" element={<TestLesson />} />
+          <Route path="/lesson" element={<LessonTemplate />} />
         </Routes>
       ) : (
         <Routes>
