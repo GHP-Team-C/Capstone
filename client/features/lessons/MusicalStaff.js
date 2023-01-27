@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Vex from "vexflow";
 
 
 
 
-const MusicalStaff = () => {
+const MusicalStaff = ({note}) => {
+
+
+  // useEffect(()=>{
+  //   const staffDiv = document.getElementById('staff')
+  // document.body.removeChild(staffDiv)}, [note])
 
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow
 
   // Create an SVG renderer and attach it to the DIV element named "boo".
-  const output = document.createElement('div');
-  output.setAttribute('id', 'output')
-  document.body.appendChild(output)
+  const staff = document.createElement('div');
+  staff.setAttribute('id', 'staff')
+  document.body.appendChild(staff)
 
 
-  const div = document.getElementById("output");
+  const div = document.getElementById("staff");
   const renderer = new Renderer(div, Renderer.Backends.SVG);
 
   // Configure the rendering context.
-  renderer.resize(500, 500);
+  renderer.resize(500, 200);
   const context = renderer.getContext();
 
   // Create a stave of width 400 at position 10, 40 on the canvas.
@@ -33,7 +38,7 @@ stave.setContext(context).draw();
 
 const notes = [
   // A quarter-note C.
-  new StaveNote({ keys: ["c/4"], duration: "q" }),
+  new StaveNote({ keys: [`${note}/4`], duration: "q" }),
 
   // A quarter-note D.
   new StaveNote({ keys: ["d/4"], duration: "q" }),
@@ -59,7 +64,7 @@ voice.draw(context, stave);
   return (
     <div>
     <h1>Musical Staff</h1>
-    <div id="output"></div>
+    <div id="staff"></div>
     </div>
   )
 }
