@@ -21,6 +21,13 @@ export default function StaffForm() {
     if (staffSvg) staffDiv.removeChild(staffSvg);
   };
 
+  const handleDurationChange = (event) => {
+    setDuration(event.target.value);
+    const staffSvg = document.getElementById("staff");
+    const staffDiv = document.getElementById("staffDiv");
+    if (staffSvg) staffDiv.removeChild(staffSvg);
+  };
+
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const durationArray = ["w", "h", "q", "8", "16"];
@@ -59,7 +66,23 @@ export default function StaffForm() {
           ))}
         </Select>
       </FormControl>
-      <MusicalStaff note={note} octave={octave} />
+      {/* <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="select-duration">Duration</InputLabel>
+        <Select
+          labelId="select-duration"
+          id="select-duration"
+          value={duration}
+          label="duration"
+          onChange={handleDurationChange}
+        >
+          {durationArray.map((duration) => (
+            <MenuItem key={duration} value={duration}>
+              {duration}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl> */}
+      <MusicalStaff note={note} octave={octave} duration={duration} />
     </div>
   );
 }
