@@ -16,7 +16,8 @@ const MusicalStaff = ({ note }) => {
   }, [note]);
 
   useEffect(() => {
-    if (div) {
+    const svg = document.getElementById("staff");
+    if (div && !svg) {
       const renderer = new Renderer(div, Renderer.Backends.SVG);
       renderer.ctx.element.children[0].setAttribute("id", "staff");
 
