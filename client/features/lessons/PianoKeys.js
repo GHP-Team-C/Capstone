@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Instrument } from "piano-chart";
 
-const PianoKeys = (props) => {
+const PianoKeys = ({ pianoNotes }) => {
   /*const pianoContainer = document.createElement("div");
   pianoContainer.setAttribute("id", "container");
   document.body.appendChild(pianoContainer);*/
@@ -10,22 +10,21 @@ const PianoKeys = (props) => {
 
   useEffect(() => {
     pianoDiv = document.getElementById("pianoDiv");
-  }, [props]);
+  }, [pianoNotes]);
 
   useEffect(() => {
     if (pianoDiv) {
       const piano = new Instrument(document.getElementById("pianoDiv"));
 
-      const notes = props.pianoNotes;
+      console.log("notes: ", pianoNotes);
 
-      console.log("notes: ", notes);
-
-      console.log("piano : ", piano);
+      console.log("piano : ", piano.container.children);
 
       piano.create();
-      notes.forEach((note) => piano.keyDown(`${note}`));
+      piano.container.children[0].setAttribute("id", "piano");
+      pianoNotes.forEach((note) => piano.keyDown(`${note}`));
     }
-  }, [pianoDiv, props]);
+  }, [pianoDiv, pianoNotes]);
 
   return (
     <>
