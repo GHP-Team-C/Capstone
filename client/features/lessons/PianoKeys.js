@@ -1,36 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Instrument } from "piano-chart";
 
+const PianoKeys = ({ pianoNotes }) => {
+  /*const pianoContainer = document.createElement("div");
+  pianoContainer.setAttribute("id", "container");
+  document.body.appendChild(pianoContainer);*/
 
+  let pianoDiv = document.getElementById("pianoDiv");
 
-const PianoKeys = (props) => {
+  useEffect(() => {
+    pianoDiv = document.getElementById("pianoDiv");
+  }, [pianoNotes]);
 
-  const pianoContainer = document.createElement('div');
-  pianoContainer.setAttribute('id', 'container');
-  document.body.appendChild(pianoContainer);
+  useEffect(() => {
+    if (pianoDiv) {
+      const piano = new Instrument(document.getElementById("pianoDiv"));
 
-  const piano = new Instrument(document.getElementById('container'))
+      console.log("notes: ", pianoNotes);
 
-  const notes = props.pianoNotes
+      console.log("piano : ", piano.container.children);
 
-  console.log("notes: ", notes)
-
-
-  console.log("piano : ", piano)
-
-
-    piano.create()
-    notes.forEach(note=>piano.keyDown(`${note}`))
-
+      piano.create();
+      piano.container.children[0].setAttribute("id", "piano");
+      pianoNotes.forEach((note) => piano.keyDown(`${note}`));
+    }
+  }, [pianoDiv, pianoNotes]);
 
   return (
     <>
-    <h1>A Piano!</h1>
-
-
+      <h1>A Piano!</h1>
+      <div id="pianoDiv"></div>
     </>
-  )
+  );
+};
 
-}
-
-export default PianoKeys
+export default PianoKeys;
