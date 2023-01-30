@@ -4,26 +4,37 @@ import MusicalStaff from "./MusicalStaff";
 
 export default function StaffForm() {
   const [note, setNote] = useState("c");
+  const [octave, setOctave] = useState("4");
+  const [duration, setDuration] = useState("q");
 
-  const handleChange = (event) => {
+  const handleNoteChange = (event) => {
     setNote(event.target.value);
     const staffSvg = document.getElementById("staff");
     const staffDiv = document.getElementById("staffDiv");
     if (staffSvg) staffDiv.removeChild(staffSvg);
   };
 
+  const handleOctaveChange = (event) => {
+    setOctave(event.target.value);
+    const staffSvg = document.getElementById("staff");
+    const staffDiv = document.getElementById("staffDiv");
+    if (staffSvg) staffDiv.removeChild(staffSvg);
+  };
+
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
+  const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
+  const durationArray = ["w", "h", "q", "8", "16"];
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel id="demo-select-small">Note</InputLabel>
+        <InputLabel id="select-note">Note</InputLabel>
         <Select
-          labelId="demo-select-small"
-          id="demo-select-small"
+          labelId="select-note"
+          id="select-note"
           value={note}
           label="note"
-          onChange={handleChange}
+          onChange={handleNoteChange}
         >
           {noteArray.map((note) => (
             <MenuItem key={note} value={note}>
@@ -32,7 +43,23 @@ export default function StaffForm() {
           ))}
         </Select>
       </FormControl>
-      <MusicalStaff note={note} />
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="select-octave">Octave</InputLabel>
+        <Select
+          labelId="select-octave"
+          id="select-octave"
+          value={octave}
+          label="octave"
+          onChange={handleOctaveChange}
+        >
+          {octaveArray.map((octave) => (
+            <MenuItem key={octave} value={octave}>
+              {octave}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <MusicalStaff note={note} octave={octave} />
     </div>
   );
 }
