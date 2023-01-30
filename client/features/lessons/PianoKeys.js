@@ -56,7 +56,6 @@ const PianoKeys = ({ pianoNotes }) => {
           ))}
         </Select>
       </FormControl>
-      <h1>A Piano!</h1>
       <div id="pianoDiv"></div>
     </div>
   );
