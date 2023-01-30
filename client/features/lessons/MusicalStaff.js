@@ -36,15 +36,15 @@ const MusicalStaff = ({ note, octave }) => {
       // Connect it to the rendering context and draw!
       stave.setContext(context).draw();
 
-      const CNote = new StaveNote({
+      const note1 = new StaveNote({
         keys: [`${note}/${octave}`],
         duration: "q",
       });
-      CNote.attrs.id = "CNote";
+      note1.attrs.id = "note1";
 
       const notes = [
         // A quarter-note C.
-        CNote,
+        note1,
         // new StaveNote({ keys: [`${note}/4`], duration: "q" }),
 
         // A quarter-note D.
