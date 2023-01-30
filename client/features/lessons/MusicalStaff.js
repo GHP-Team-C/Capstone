@@ -72,7 +72,6 @@ const MusicalStaff = ({ note, octave }) => {
 
   return (
     <div>
-      <h1>Musical Staff</h1>
       <div id="staffDiv"></div>
     </div>
   );

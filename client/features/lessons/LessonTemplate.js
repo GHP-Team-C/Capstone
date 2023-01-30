@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PianoKeys from "./PianoKeys";
 import MusicalStaff from "./MusicalStaff";
+import { Box, Stack, Button} from "@mui/material";
 import StaffForm from "./StaffForm";
 import LessonText from "./LessonText";
 
@@ -16,11 +17,28 @@ const LessonTemplate = () => {
 
   return (
     <>
+      <Box  m={1}
+  display="flex"
+  justifyContent="center"
+  alignItems="center">
       <h1> Lessons Template </h1>
-      <StaffForm />
-      <button onClick={handleClick}>Press me!</button>
-      <PianoKeys pianoNotes={pianoNotes} />
-      <LessonText />
+      </Box>
+
+      <Stack direction="row" spacing={2} justifyContent="space-evenly">
+
+          <StaffForm />
+          <PianoKeys pianoNotes={pianoNotes} />
+        </Stack>
+
+      <Box m={1}
+  display="flex"
+  justifyContent="center"
+  alignItems="center"
+  flexDirection="column">
+        <LessonText />
+        <Button variant="contained" onClick={handleClick}>Press me!</Button>
+      </Box>
+
     </>
   );
 };
