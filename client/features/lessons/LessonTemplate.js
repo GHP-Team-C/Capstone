@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-
 import PianoKeys from "./PianoKeys";
 import MusicalStaff from "./MusicalStaff";
 import StaffForm from "./StaffForm";
+import LessonText from "./LessonText";
 
 const LessonTemplate = () => {
   const [pianoNotes, setPianoNotes] = useState(["c4", "e4", "g4", "b4"]);
@@ -20,6 +20,7 @@ const LessonTemplate = () => {
       <StaffForm />
       <button onClick={handleClick}>Press me!</button>
       <PianoKeys pianoNotes={pianoNotes} />
+      <LessonText />
     </>
   );
 };
