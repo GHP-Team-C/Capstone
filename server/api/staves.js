@@ -23,3 +23,18 @@ router.post("/", async (req, res, next) => {
     next(err);
   }
 });
+
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const staff = await Staff.findByPk(req.params.id);
+    const note = await staff.getNotes({where:{id: req.body.id}})
+    await note[0].update(req.body)
+    res.json(note);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+

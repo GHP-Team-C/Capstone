@@ -18,7 +18,9 @@ export default function StaffForm() {
     setOctave(event.target.value);
     const staffSvg = document.getElementById("staff");
     const staffDiv = document.getElementById("staffDiv");
+    console.log("This is removes the svg", staffSvg)
     if (staffSvg) staffDiv.removeChild(staffSvg);
+
   };
 
   const handleDurationChange = (event) => {
