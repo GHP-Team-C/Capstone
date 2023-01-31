@@ -26,7 +26,7 @@ const MusicalStaff = ({ note, octave }) => {
     div = document.getElementById("staffDiv");
   }, [note, octave, lesson]);
 
-  const [activeElement, setActiveElement] = useState({});
+  const [activeElement, setActiveElement] = useState(-1);
   const notes = []
 
   useEffect(() => {
@@ -59,6 +59,14 @@ const MusicalStaff = ({ note, octave }) => {
         notes.push(newNote);
         })
 
+        if(activeElement > -1){
+         const newNote = new StaveNote({
+            keys: [`${note}/${octave}`],
+            duration: "q"
+          })
+          newNote.attrs.id = `note${activeElement + 1}`
+          notes[activeElement] = newNote
+        }
 
       // Create a voice in 4/4 and add above notes
       const voice = new Voice({ num_beats: 4, beat_value: 4 });
@@ -70,13 +78,13 @@ const MusicalStaff = ({ note, octave }) => {
       // Render voice
       voice.draw(context, stave);
     }
-  }, [div, note, octave, lesson]);
+  }, [div, note, octave, lesson, activeElement]);
 
   useEffect(()=> {
     if(notes.length){
       notes.forEach((note, idx)=>{
         const noteSVG = document.getElementById(`vf-note${idx+1}`)
-        noteSVG.addEventListener("click", ()=>console.log(idx+1))
+        noteSVG.addEventListener("click", ()=>{setActiveElement(idx)})
       })
     }
   }, [notes])
