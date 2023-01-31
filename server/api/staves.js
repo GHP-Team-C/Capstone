@@ -11,3 +11,13 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+router.post("/", async (req, res, next) => {
+  try {
+    const staff = await Staff.create(req.body.staff);
+    req.body.notes.forEach((note) => staff.addNote(note));
+    res.json(staff);
+  } catch (err) {
+    next(err);
+  }
+});
