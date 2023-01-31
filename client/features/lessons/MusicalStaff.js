@@ -27,6 +27,7 @@ const MusicalStaff = ({ note, octave }) => {
   }, [note, octave, lesson]);
 
   const [activeElement, setActiveElement] = useState({});
+  const notes = []
 
   useEffect(() => {
     const svg = document.getElementById("staff");
@@ -47,7 +48,7 @@ const MusicalStaff = ({ note, octave }) => {
       // Connect it to the rendering context and draw!
       stave.setContext(context).draw();
 
-      const notes = []
+
 
       lesson.map((note)=> {
         const newNote = new StaveNote({
@@ -58,24 +59,6 @@ const MusicalStaff = ({ note, octave }) => {
         notes.push(newNote);
         })
 
-        console.log("these r the notes maybe idk: ", notes)
-
-/*
-      const notes = [
-        // A quarter-note C.
-        note1,
-        // new StaveNote({ keys: [`${note}/4`], duration: "q" }),
-
-        // A quarter-note D.
-        new StaveNote({ keys: ["d/4"], duration: "q" }),
-
-        // A quarter-note rest. Note that the key (b/4) specifies the vertical
-        // position of the rest.
-        new StaveNote({ keys: ["b/4"], duration: "qr" }),
-
-        // A C-Major chord.
-        new StaveNote({ keys: ["c/4", "e/4", "g/4"], duration: "q" }),
-      ]; */
 
       // Create a voice in 4/4 and add above notes
       const voice = new Voice({ num_beats: 4, beat_value: 4 });
@@ -88,6 +71,15 @@ const MusicalStaff = ({ note, octave }) => {
       voice.draw(context, stave);
     }
   }, [div, note, octave, lesson]);
+
+  useEffect(()=> {
+    if(notes.length){
+      notes.forEach((note, idx)=>{
+        const noteSVG = document.getElementById(`vf-note${idx+1}`)
+        noteSVG.addEventListener("click", ()=>console.log(idx+1))
+      })
+    }
+  }, [notes])
 
   return (
     <div>
