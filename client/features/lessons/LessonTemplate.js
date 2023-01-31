@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PianoKeys from "./PianoKeys";
-import MusicalStaff from "./MusicalStaff";
 import { Box, Stack, Button} from "@mui/material";
 import StaffForm from "./StaffForm";
 import LessonText from "./LessonText";
+import { useDispatch } from "react-redux";
+import { fetchStaffNotes } from "./lessonSlice";
 
 const LessonTemplate = () => {
   const [pianoNotes, setPianoNotes] = useState(["c4", "e4", "g4", "b4"]);
+
 
   const handleClick = () => {
     const pianoSvg = document.getElementById("piano");

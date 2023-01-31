@@ -7,7 +7,7 @@ module.exports = router;
 router.get("/:id", async (req, res, next) => {
   try {
     const staff = await Staff.findByPk(req.params.id);
-    const notes = await staff.getNotes();
+    const notes = await staff.getNotes({order: ['domId']});
     res.json(notes);
   } catch (err) {
     next(err);

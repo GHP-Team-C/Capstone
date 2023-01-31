@@ -4,7 +4,10 @@ import authReducer from "../features/auth/authSlice";
 import lessonReducer from "../features/lessons/lessonSlice";
 
 const store = configureStore({
-  reducer: { auth: authReducer, lesson: lessonReducer },
+  reducer: {
+    auth: authReducer,
+    lesson: lessonReducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
