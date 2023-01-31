@@ -2,10 +2,11 @@
 
 const {
   db,
-  models: { User, Lesson,Note },
+  models: { User, Lesson,Note, Staff},
 } = require("../server/db");
 
 const noteData = require('./data/note');
+const staffData = require('./data/staff');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -19,6 +20,13 @@ async function seed() {
   const note = await Promise.all(
     noteData.map((data) => {
       return Note.create(data);
+    })
+  );
+
+  // Creating Staff
+  const staff = await Promise.all(
+    staffData.map((data) => {
+      return Staff.create(data);
     })
   );
 
@@ -58,9 +66,18 @@ async function seed() {
     [users[1].addLesson(2)]
   );
 
+
+  await Promise.all(
+    [note[0].addStaff(1)],
+    [note[1].addStaff(1)],
+    [note[2].addStaff(1)],
+    [note[3].addStaff(1)]
+  );
+
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${lessons.length} lessons`);
   console.log(`seeded ${note.length} lessons`);
+  console.log(`seeded ${staff.length} lessons`);
   console.log(`seeded successfully`);
   return {
     users: {
