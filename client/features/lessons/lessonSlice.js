@@ -10,6 +10,18 @@ export const fetchStaffNotes = createAsyncThunk("staves/get", async (id) => {
   }
 });
 
+export const postStaffNotes = createAsyncThunk(
+  "staves/post",
+  async (staff, notes) => {
+    try {
+      const { data } = await axios.post("/api/staves", { staff, notes });
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 const lessonSlice = createSlice({
   name: "lesson",
   initialState: [],
