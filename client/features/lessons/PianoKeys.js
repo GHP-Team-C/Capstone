@@ -1,5 +1,5 @@
-import React, { useEffect, useState} from "react";
-import { FormControl, InputLabel, Select, MenuItem} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { Instrument } from "piano-chart";
 
 const PianoKeys = ({ pianoNotes }) => {
@@ -15,11 +15,14 @@ const PianoKeys = ({ pianoNotes }) => {
 
   useEffect(() => {
     if (pianoDiv) {
-      const piano = new Instrument(document.getElementById("pianoDiv"), {startOctave:3, endOctave: 5});
+      const piano = new Instrument(document.getElementById("pianoDiv"), {
+        startOctave: 3,
+        endOctave: 5,
+      });
 
-      console.log("notes: ", pianoNotes);
+      // console.log("notes: ", pianoNotes);
 
-      console.log("piano : ", piano.container.children);
+      // console.log("piano : ", piano.container.children);
 
       piano.create();
       piano.container.children[0].setAttribute("id", "piano");
@@ -27,8 +30,7 @@ const PianoKeys = ({ pianoNotes }) => {
     }
   }, [pianoDiv, pianoNotes]);
 
-
-//this below is a place holder for the controls
+  //this below is a place holder for the controls
   const [note, setNote] = useState("c");
 
   const handleChange = (event) => {
@@ -40,7 +42,7 @@ const PianoKeys = ({ pianoNotes }) => {
   return (
     <div>
       {/* this below is a place holder for the controls */}
-       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <InputLabel id="demo-select-small">Note</InputLabel>
         <Select
           labelId="demo-select-small"
