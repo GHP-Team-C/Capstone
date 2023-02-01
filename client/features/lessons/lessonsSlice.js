@@ -10,14 +10,17 @@ export const fetchAllLessons = createAsyncThunk("lessons/get", async () => {
   }
 });
 
-export const fetchUserLessons = createAsyncThunk("lessons/get", async (id) => {
-  try {
-    const { data } = await axios.get("/api/lessons/${id}");
-    return data;
-  } catch (err) {
-    return err.message;
+export const fetchUserLessons = createAsyncThunk(
+  "userLessons/get",
+  async (id) => {
+    try {
+      const { data } = await axios.get("/api/lessons/${id}");
+      return data;
+    } catch (err) {
+      return err.message;
+    }
   }
-});
+);
 
 const lessonsSlice = createSlice({
   name: "lessons",
