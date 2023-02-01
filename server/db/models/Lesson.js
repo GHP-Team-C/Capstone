@@ -12,10 +12,16 @@ const Lesson = db.define("lesson", {
       isIn: [["beginner", "intermediate", "advanced"]],
     },
   },
-  visible: {
+  visibleTo: {
+    type: Sequelize.ENUM('Public', 'Private', 'Organization'),
+    defaultValue: 'Public'
+  },
+  published: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
-  },
+  }
 });
+
+
 
 module.exports = Lesson;
