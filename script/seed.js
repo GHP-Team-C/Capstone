@@ -2,11 +2,15 @@
 
 const {
   db,
-  models: { User, Lesson,Note, Staff},
+  models: { User, Lesson, Note, Staff, Slide },
 } = require("../server/db");
 
 const noteData = require('./data/note');
 const staffData = require('./data/staff');
+const lessonData = require('./data/lesson');
+const slideData = require('./data/slide');
+const note = require("./data/note");
+
 
 /**
  * seed - this function clears the database, updates tables to
@@ -17,16 +21,29 @@ async function seed() {
   console.log("db synced!");
 
   // Creating Notes
-  const note = await Promise.all(
+  const notes = await Promise.all(
     noteData.map((data) => {
       return Note.create(data);
     })
   );
 
   // Creating Staff
-  const staff = await Promise.all(
+  const staffs = await Promise.all(
     staffData.map((data) => {
       return Staff.create(data);
+    })
+  );
+
+  // Creating Lessons
+  const lessons = await Promise.all(
+    lessonData.map((data) => {
+      return Lesson.create(data);
+    })
+  );
+   // Creating Slides
+   const slides = await Promise.all(
+    slideData.map((data) => {
+      return Slide.create(data);
     })
   );
 
@@ -49,35 +66,36 @@ async function seed() {
   ]);
 
   // Creating Lessons
-  const lessons = await Promise.all([
-    Lesson.create({
-      name: "CMaj",
-      level: "beginner",
-    }),
-    Lesson.create({
-      name: "CMin",
-      level: "intermediate",
-    }),
-  ]);
+
+await Promise.all(
+  [lessons[0].setUser(1)],
+  [lessons[1].setUser(2)],
+  [lessons[2].setUser(1)],
+)
+
+
+  //NEED TO ADD NOTES TO ALL STAFFS
+await Promise.all(
+  notes.map((note, idx)=>staffs.forEach((staff, idx)=>note.addStaff(idx+1))
+))
 
   await Promise.all(
-    [users[0].addLesson(1)],
-    [users[0].addLesson(2)],
-    [users[1].addLesson(2)]
-  );
-
+    [lessons[0].addSlides([1,2,3])],
+    [lessons[1].addSlides([4,5,6])],
+    [lessons[2].addSlides([7,8])]
+  )
 
   await Promise.all(
-    [note[0].addStaff(1)],
-    [note[1].addStaff(1)],
-    [note[2].addStaff(1)],
-    [note[3].addStaff(1)]
-  );
+    staffs.map((staff,idx)=>staff.setSlide(idx+1))
+  )
+
+
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${lessons.length} lessons`);
-  console.log(`seeded ${note.length} lessons`);
-  console.log(`seeded ${staff.length} lessons`);
+  console.log(`seeded ${notes.length} lessons`);
+  console.log(`seeded ${staffs.length} lessons`);
+  console.log(`seeded ${slides.length} slides`);
   console.log(`seeded successfully`);
   return {
     users: {
