@@ -13,6 +13,15 @@ const PianoKeys = ({ pianoNotes }) => {
     pianoDiv = document.getElementById("pianoDiv");
   }, [pianoNotes]);
 
+  const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
+  const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
+  const pianoKeyboard = {}
+  noteArray.forEach((note)=> {octaveArray.forEach((octave)=>{
+    pianoKeyboard[`${note}${octave}`] = false;
+    pianoKeyboard[`${note}#${octave}`] = false
+  })})
+
+
   useEffect(() => {
     if (pianoDiv) {
       const piano = new Instrument(document.getElementById("pianoDiv"), {
@@ -25,8 +34,18 @@ const PianoKeys = ({ pianoNotes }) => {
       // console.log("piano : ", piano.container.children);
 
       piano.create();
+      piano.addKeyMouseDownListener((note)=>{
+        if(pianoKeyboard[`${note.note}${note.accidental}${note.octave}`]){
+          piano.keyUp(note)
+          pianoKeyboard[`${note.note}${note.accidental}${note.octave}`] = false
+        } else{
+          piano.keyDown(note)
+          pianoKeyboard[`${note.note}${note.accidental}${note.octave}`] = true
+        }
+      });
       piano.container.children[0].setAttribute("id", "piano");
       pianoNotes.forEach((note) => piano.keyDown(`${note}`));
+
     }
   }, [pianoDiv, pianoNotes]);
 
@@ -37,7 +56,7 @@ const PianoKeys = ({ pianoNotes }) => {
     setNote(event.target.value);
   };
 
-  const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
+
 
   return (
     <div>
