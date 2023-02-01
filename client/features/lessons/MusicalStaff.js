@@ -32,7 +32,12 @@ const MusicalStaff = ({ note, octave }) => {
   const notes = []
 
   useEffect(() => {
-    const svg = document.getElementById("staff");
+    let svg = document.getElementById("staff");
+    if(svg){
+      const svgDiv = document.getElementById("staffDiv")
+      svgDiv.removeChild(svg)
+    }
+    // svg = document.getElementById("staff")
     console.log("This is the start of the useEffect", svg)
     if (div && !svg && lesson.length) {
       const renderer = new Renderer(div, Renderer.Backends.SVG);
@@ -61,28 +66,19 @@ const MusicalStaff = ({ note, octave }) => {
         //   newNote.attrs.id = `note${activeElement + 1}`
         //   notes[activeElement] = newNote
           await dispatch(updateStaffNote({id: 1, note: {id: activeElement.id, noteName: note, octave: octave, duration: "q", domId: activeElement.idx + 1}}))
-          dispatch(fetchStaffNotes(1))
-
-        }
-      }
-
-      elementUpdater();
-
-      lesson.map((note)=> {
-        console.log("This is the note in", notes)
-        const newNote = new StaveNote({
-          keys: [`${note.noteName}/${note.octave}`],
-          duration: `${note.duration}`,
-        });
-        newNote.attrs.id = `note${note.domId}`
-        newNote.attrs.pk = note.id
-        notes.push(newNote);
-        console.log("This is the note out", notes)
-        })
-
-
-
-      // Create a voice in 4/4 and add above notes
+          await dispatch(fetchStaffNotes(1))
+          lesson.map((note)=> {
+            console.log("This is the note in async", notes)
+            const newNote = new StaveNote({
+              keys: [`${note.noteName}/${note.octave}`],
+              duration: `${note.duration}`,
+            });
+            newNote.attrs.id = `note${note.domId}`
+            newNote.attrs.pk = note.id
+            notes.push(newNote);
+            console.log("This is the note out async", notes)
+            })
+            // Create a voice in 4/4 and add above notes
       const voice = new Voice({ num_beats: 4, beat_value: 4 });
       voice.addTickables(notes);
 
@@ -91,8 +87,38 @@ const MusicalStaff = ({ note, octave }) => {
 
       // Render voice
       voice.draw(context, stave);
+        }
+      }
+
+      elementUpdater();
+
+      if(activeElement.idx < 0){
+        lesson.map((note)=> {
+        console.log("This is the note insync", notes)
+        const newNote = new StaveNote({
+          keys: [`${note.noteName}/${note.octave}`],
+          duration: `${note.duration}`,
+        });
+        newNote.attrs.id = `note${note.domId}`
+        newNote.attrs.pk = note.id
+        notes.push(newNote);
+        console.log("This is the note out sync", notes)
+        })
+        // Create a voice in 4/4 and add above notes
+      const voice = new Voice({ num_beats: 4, beat_value: 4 });
+      voice.addTickables(notes);
+
+      // Format and justify the notes to 400 pixels.
+      new Formatter().joinVoices([voice]).format([voice], 350);
+
+      // Render voice
+      voice.draw(context, stave);
+      }
+
+
+
     }
-  }, [div, note, octave, lesson, activeElement]);
+  }, [ note, octave, lesson]);
 
   useEffect(()=> {
     if(notes.length){
@@ -102,6 +128,8 @@ const MusicalStaff = ({ note, octave }) => {
       })
     }
   }, [notes])
+
+
 
   return (
     <div>

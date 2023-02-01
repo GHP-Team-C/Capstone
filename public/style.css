@@ -21,3 +21,9 @@ form div {
 }
 
 
+
+.vf-stavenote:hover {
+  fill: blue;
+  stroke: blue;
+}
+
