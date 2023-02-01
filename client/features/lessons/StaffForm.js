@@ -9,23 +9,14 @@ export default function StaffForm() {
 
   const handleNoteChange = (event) => {
     setNote(event.target.value);
-    const staffSvg = document.getElementById("staff");
-    const staffDiv = document.getElementById("staffDiv");
-    if (staffSvg) staffDiv.removeChild(staffSvg);
   };
 
   const handleOctaveChange = (event) => {
     setOctave(event.target.value);
-    const staffSvg = document.getElementById("staff");
-    const staffDiv = document.getElementById("staffDiv");
-    if (staffSvg) staffDiv.removeChild(staffSvg);
   };
 
   const handleDurationChange = (event) => {
     setDuration(event.target.value);
-    const staffSvg = document.getElementById("staff");
-    const staffDiv = document.getElementById("staffDiv");
-    if (staffSvg) staffDiv.removeChild(staffSvg);
   };
 
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
