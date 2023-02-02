@@ -27,7 +27,13 @@ module.exports=[
     noteName: "b",
     octave: "4",
     duration: "q",
-    domId: "3"
+    domId: "1"
+  },
+  {
+    noteName: "b",
+    octave: "4",
+    duration: "q",
+    domId: "2"
   },
   {
     noteName: "b",
@@ -39,12 +45,6 @@ module.exports=[
     noteName: "b",
     octave: "4",
     duration: "q",
-    domId: "3"
-  },
-  {
-    noteName: "b",
-    octave: "4",
-    duration: "q",
-    domId: "3"
+    domId: "4"
   },
 ]

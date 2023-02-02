@@ -86,6 +86,12 @@ async function seed() {
   await Promise.all(
     [staffs[0].addNotes([1,2,3,4])],
     [staffs[1].addNotes([5,6,7,8])],
+    [staffs[2].addNotes([2,1,3,4])],
+    [staffs[3].addNotes([5,6,7,8])],
+    [staffs[4].addNotes([1,2,4,3])],
+    [staffs[5].addNotes([5,6,7,8])],
+    [staffs[6].addNotes([3,4,1,2])],
+    [staffs[7].addNotes([5,6,7,8])],
   );
 
   await Promise.all(
