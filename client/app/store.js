@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import authReducer from "../features/auth/authSlice";
-import lessonReducer from "../features/lessons/lessonSlice";
+import singleLessonReducer from "../features/lessons/singleLessonSlice";
+import lessonsReducer from "../features/lessons/lessonsSlice";
 import singleUserReducer from "../features/users/singleUserSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    lesson: lessonReducer,
+    singleLesson: singleLessonReducer,
+    lessons: lessonsReducer,
     singleUser: singleUserReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

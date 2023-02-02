@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Vex from "vexflow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStaffNotes, updateStaffNote } from "./lessonSlice";
+import { fetchStaffNotes, updateStaffNote } from "./singleLessonSlice";
 
 const MusicalStaff = ({ note, octave }) => {
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;

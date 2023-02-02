@@ -24,9 +24,9 @@ export const postStaffNotes = createAsyncThunk(
 
 export const updateStaffNote = createAsyncThunk(
   "staves/put",
-  async ({id, note}) => {
+  async ({ id, note }) => {
     try {
-      const { data } = await axios.put(`/api/staves/${id}`, note );
+      const { data } = await axios.put(`/api/staves/${id}`, note);
       return data;
     } catch (err) {
       return err.message;
@@ -34,15 +34,15 @@ export const updateStaffNote = createAsyncThunk(
   }
 );
 
-const lessonSlice = createSlice({
+const singleLessonSlice = createSlice({
   name: "lesson",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchStaffNotes.fulfilled, (state, action) => {
       return action.payload;
-    })
+    });
   },
 });
 
-export default lessonSlice.reducer;
+export default singleLessonSlice.reducer;

@@ -21,6 +21,7 @@ Slide.belongsTo(Lesson);
 Lesson.hasMany(Slide);
 
 Staff.belongsTo(Slide);
+Slide.hasOne(Staff);
 
 Piano.belongsTo(Slide);
 Slide.hasOne(Piano);
