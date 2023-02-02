@@ -115,6 +115,16 @@ const MusicalStaff = ({ note, octave }) => {
     }
   }, [notes]);
 
+  useEffect(() => {
+    notes.forEach((note, idx) => {
+      const noteSVG = document.getElementById(`vf-note${idx + 1}`);
+      if (note.attrs.pk === activeElement.id) {
+        noteSVG.setAttribute("fill", "orange");
+        noteSVG.setAttribute("stroke", "orange");
+      }
+    });
+  }, [activeElement, notes]);
+
   return (
     <div>
       <div id="staffDiv"></div>
