@@ -3,7 +3,7 @@ import * as Vex from "vexflow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStaffNotes, updateStaffNote } from "./singleLessonSlice";
 
-const MusicalStaff = ({ note, octave, slide}) => {
+const MusicalStaff = ({ note, octave, slide }) => {
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
 
   // Create an SVG renderer and attach it to the DIV element named "boo".
@@ -16,7 +16,7 @@ const MusicalStaff = ({ note, octave, slide}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(slide)dispatch(fetchStaffNotes(slide.staff.id));
+    if (slide) dispatch(fetchStaffNotes(slide.staff.id));
   }, [slide]);
 
   const lesson = useSelector((state) => state.singleLesson.notes);
@@ -39,10 +39,10 @@ const MusicalStaff = ({ note, octave, slide}) => {
 
   useEffect(() => {
     const staffCreator = async () => {
-      if (activeElement.idx > -1 && toChange) {
+      if (activeElement.idx > -1 && toChange && slide) {
         await dispatch(
           updateStaffNote({
-            id: 1,
+            id: slide.staff.id,
             note: {
               id: activeElement.id,
               noteName: note,
@@ -53,7 +53,7 @@ const MusicalStaff = ({ note, octave, slide}) => {
           })
         );
         setToChange(false);
-        if(slide)dispatch(fetchStaffNotes(slide.staff.id));
+        if (slide) dispatch(fetchStaffNotes(slide.staff.id));
       } else {
         if (lesson) {
           lesson.map((note) => {
