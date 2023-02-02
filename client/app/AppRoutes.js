@@ -25,7 +25,10 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
-          <Route path="/lesson" element={<LessonTemplate />} />
+          <Route
+            path="/lessons/:lId/slides/:sId"
+            element={<LessonTemplate />}
+          />
           <Route path="/creator-dashboard" element={<CreatorDashboard />} />
         </Routes>
       ) : (
@@ -33,6 +36,10 @@ const AppRoutes = () => {
           <Route
             path="/*"
             element={<AuthForm name="login" displayName="Login" />}
+          />
+          <Route
+            path="/lessons/:lId/slides/:sId"
+            element={<LessonTemplate />}
           />
           <Route
             path="/login"

@@ -65,39 +65,39 @@ const MusicalStaff = ({ note, octave }) => {
             newNote.attrs.pk = note.id;
             notes.push(newNote);
           });
-        }
-        let svg = document.getElementById("staff");
-        if (svg) {
-          const staffDiv = document.getElementById("staffDiv");
-          if (svg) staffDiv.removeChild(svg);
-        }
-        svg = document.getElementById("staff");
-        if (div && !svg && lesson.length) {
-          const renderer = new Renderer(div, Renderer.Backends.SVG);
-          renderer.ctx.element.children[0].setAttribute("id", "staff");
+          let svg = document.getElementById("staff");
+          if (svg) {
+            const staffDiv = document.getElementById("staffDiv");
+            if (svg) staffDiv.removeChild(svg);
+          }
+          svg = document.getElementById("staff");
+          if (div && !svg && lesson.length) {
+            const renderer = new Renderer(div, Renderer.Backends.SVG);
+            renderer.ctx.element.children[0].setAttribute("id", "staff");
 
-          // Configure the rendering context.
-          renderer.resize(500, 200);
-          const context = renderer.getContext();
+            // Configure the rendering context.
+            renderer.resize(500, 200);
+            const context = renderer.getContext();
 
-          // Create a stave of width 400 at position 10, 40 on the canvas.
-          const stave = new Stave(10, 40, 400);
+            // Create a stave of width 400 at position 10, 40 on the canvas.
+            const stave = new Stave(10, 40, 400);
 
-          // Add a clef and time signature.
-          stave.addClef("treble").addTimeSignature("4/4");
+            // Add a clef and time signature.
+            stave.addClef("treble").addTimeSignature("4/4");
 
-          // Connect it to the rendering context and draw!
-          stave.setContext(context).draw();
+            // Connect it to the rendering context and draw!
+            stave.setContext(context).draw();
 
-          // Create a voice in 4/4 and add above notes
-          const voice = new Voice({ num_beats: 4, beat_value: 4 });
-          voice.addTickables(notes);
+            // Create a voice in 4/4 and add above notes
+            const voice = new Voice({ num_beats: 4, beat_value: 4 });
+            voice.addTickables(notes);
 
-          // Format and justify the notes to 400 pixels.
-          new Formatter().joinVoices([voice]).format([voice], 350);
+            // Format and justify the notes to 400 pixels.
+            new Formatter().joinVoices([voice]).format([voice], 350);
 
-          // Render voice
-          voice.draw(context, stave);
+            // Render voice
+            voice.draw(context, stave);
+          }
         }
       }
     };

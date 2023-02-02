@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchSingleLesson = createAsyncThunk("lessons/get", async (id) => {
   try {
-    const { data } = await axios.get(`api/lessons/${id}`);
+    const { data } = await axios.get(`/api/lessons/${id}`);
     return data;
   } catch (err) {
     return err.message;
