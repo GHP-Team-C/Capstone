@@ -6,7 +6,6 @@ const initialState = {};
 export const fetchSingleUser = createAsyncThunk("users/get", async (id) => {
   try {
     const { data } = await axios.get(`/api/users/${id}`);
-    console.log("data from fetchSingleUser: ", data)
     return data;
   } catch (err) {
     return err.message;
@@ -23,10 +22,5 @@ const singleUserSlice = createSlice({
     });
   },
 });
-
-/* export const selectSingleUser = () => {
-  console.log("state from single User Slice: ", state)
-  return state.singleUser;
-} */
 
 export default singleUserSlice.reducer;

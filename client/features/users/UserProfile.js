@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserLessons, selectUserLessons } from "../lessons/lessonsSlice";
-import { fetchSingleUser, selectSingleUser } from "./singleUserSlice";
+import { fetchSingleUser } from "./singleUserSlice";
 import { Link } from "react-router-dom";
 
 const UserProfile = () => {
