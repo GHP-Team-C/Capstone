@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import MusicalStaff from "./MusicalStaff";
 
-export default function StaffForm() {
+export default function StaffForm({slide}) {
   const [note, setNote] = useState("c");
   const [octave, setOctave] = useState("4");
   const [duration, setDuration] = useState("q");
@@ -73,7 +73,7 @@ export default function StaffForm() {
           ))}
         </Select>
       </FormControl> */}
-      <MusicalStaff note={note} octave={octave} duration={duration} />
+      <MusicalStaff slide={slide} note={note} octave={octave} duration={duration} />
     </div>
   );
 }

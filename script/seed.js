@@ -84,9 +84,8 @@ async function seed() {
 
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
-    notes.map((note, idx) =>
-      staffs.forEach((staff, idx) => note.addStaff(idx + 1))
-    )
+    [staffs[0].addNotes([1,2,3,4])],
+    [staffs[1].addNotes([5,6,7,8])],
   );
 
   await Promise.all(

@@ -10,6 +10,16 @@ export const fetchSingleLesson = createAsyncThunk("lessons/get", async (id) => {
   }
 });
 
+
+export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/slides/${id}`);
+    return data;
+  } catch (err) {
+    return err.message;
+  }
+});
+
 export const fetchStaffNotes = createAsyncThunk("staves/get", async (id) => {
   try {
     const { data } = await axios.get(`/api/staves/${id}`);
@@ -54,7 +64,10 @@ const singleLessonSlice = createSlice({
       })
       .addCase(fetchSingleLesson.fulfilled, (state, action) => {
         state.lesson = action.payload;
-      });
+      })
+      .addCase(fetchSingleSlide.fulfilled, (state, action)=>{
+        state.slide = action.payload;
+      })
   },
 });
 
