@@ -36,4 +36,9 @@ const lessonsSlice = createSlice({
   },
 });
 
+export const selectUserLessons = (state)=> {
+  console.log("state from thunk: ", state)
+  return state
+}
+
 export default lessonsSlice.reducer;

@@ -25,13 +25,14 @@ router.get("/:id", async (req, res, next) => {
       include: [
         {
           model: Lesson,
-          required: false,
           where: {
             userId: req.params.id,
           },
+          required: false,
         },
       ],
     });
+    console.log("singleUser from api: ", singleUser)
     res.json(singleUser);
   } catch (err) {
     next(err);

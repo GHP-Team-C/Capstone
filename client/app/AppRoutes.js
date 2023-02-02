@@ -6,6 +6,7 @@ import Home from "../features/home/Home";
 import CreatorDashboard from "../features/users/CreatorDashboard";
 import { me } from "./store";
 import LessonTemplate from "../features/lessons/LessonTemplate";
+import UserProfile from "../features/users/UserProfile";
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ const AppRoutes = () => {
           <Route to="/home" element={<Home />} />
           <Route path="/lesson" element={<LessonTemplate />} />
           <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       ) : (
         <Routes>
@@ -42,6 +44,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+
         </Routes>
       )}
     </div>

@@ -65,7 +65,7 @@ const Navbar = () => {
                   >
                     Log Out
                   </Button>
-                  <IconButton href="/user">
+                  <IconButton href="/user-profile">
                     <Avatar sx={{ bgcolor: blue[300] }}>
                       {/* {user.firstName.charAt(0)} */}
                     </Avatar>
