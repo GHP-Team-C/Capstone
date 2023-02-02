@@ -1,28 +1,40 @@
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserLessons, selectUserLessons } from "../lessons/lessonsSlice";
-import { fetchSingleUser, selectSingleUser } from "./singleUserSlice"
-// import fetchLessonsAsync
+import { fetchSingleUser, selectSingleUser } from "./singleUserSlice";
 
 const CreatorDashboard = () => {
-const dispatch = useDispatch()
-const userId = useSelector((state)=>state.auth.me.id)
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.me.id);
 
-const singleUser = useSelector((state)=>state.singleUser);
+  const singleUser = useSelector((state) => state.singleUser);
 
-const lessons = singleUser.lessons
+  const lessons = singleUser.lessons;
 
-useEffect(()=>{
-  dispatch(fetchSingleUser(userId))
-},[dispatch])
+  useEffect(() => {
+    dispatch(fetchSingleUser(userId));
+  }, [dispatch]);
+
+  const publishedLessons =
+    lessons && lessons.length
+      ? lessons.filter((lesson) => lesson.published)
+      : null;
+  const draftLessons =
+    lessons && lessons.length
+      ? lessons.filter((lesson) => !lesson.published)
+      : null;
 
   return (
     <div>
       <h1>Creator Dashboard</h1>
-      {lessons && lessons.length ? lessons.map((lesson, idx)=> <p>{lesson.name}</p>) : null}
-
-
+      <h3>Published</h3>
+      {publishedLessons && publishedLessons.length
+        ? publishedLessons.map((lesson) => <p key={lesson.id}>{lesson.name}</p>)
+        : "No published lessons"}
+      <h3>Drafts</h3>
+      {draftLessons && draftLessons.length
+        ? draftLessons.map((lesson) => <p key={lesson.id}>{lesson.name}</p>)
+        : "No published lessons"}
     </div>
   );
 };
