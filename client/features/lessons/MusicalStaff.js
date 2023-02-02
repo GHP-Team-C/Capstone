@@ -19,7 +19,7 @@ const MusicalStaff = ({ note, octave }) => {
     dispatch(fetchStaffNotes(1));
   }, []);
 
-  const lesson = useSelector((state) => state.lesson);
+  const lesson = useSelector((state) => state.singleLesson);
 
   // useEffect(() => {
   //   div = document.getElementById("staffDiv");
