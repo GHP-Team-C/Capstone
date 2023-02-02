@@ -4,10 +4,15 @@ import { Box, Stack, Button } from "@mui/material";
 import StaffForm from "./StaffForm";
 import LessonText from "./LessonText";
 import { useDispatch } from "react-redux";
-import { fetchStaffNotes } from "./singleLessonSlice";
+import { fetchSingleLesson, fetchStaffNotes } from "./singleLessonSlice";
 
 const LessonTemplate = () => {
+  const dispatch = useDispatch();
   const [pianoNotes, setPianoNotes] = useState(["c4", "e4", "g4", "b4"]);
+
+  useEffect(() => {
+    dispatch(fetchSingleLesson(1));
+  }, [dispatch]);
 
   const handleClick = () => {
     const pianoSvg = document.getElementById("piano");
