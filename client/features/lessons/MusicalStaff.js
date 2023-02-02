@@ -55,15 +55,17 @@ const MusicalStaff = ({ note, octave }) => {
         setToChange(false);
         dispatch(fetchStaffNotes(1));
       } else {
-        lesson.map((note) => {
-          const newNote = new StaveNote({
-            keys: [`${note.noteName}/${note.octave}`],
-            duration: `${note.duration}`,
+        if (lesson) {
+          lesson.map((note) => {
+            const newNote = new StaveNote({
+              keys: [`${note.noteName}/${note.octave}`],
+              duration: `${note.duration}`,
+            });
+            newNote.attrs.id = `note${note.domId}`;
+            newNote.attrs.pk = note.id;
+            notes.push(newNote);
           });
-          newNote.attrs.id = `note${note.domId}`;
-          newNote.attrs.pk = note.id;
-          notes.push(newNote);
-        });
+        }
         let svg = document.getElementById("staff");
         if (svg) {
           const staffDiv = document.getElementById("staffDiv");

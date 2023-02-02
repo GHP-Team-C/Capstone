@@ -15,15 +15,17 @@ const PianoKeys = ({ pianoNotes }) => {
 
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
-  const pianoKeyboard = {}
-  noteArray.forEach((note)=> {octaveArray.forEach((octave)=>{
-    pianoKeyboard[`${note}${octave}`] = false;
-    pianoKeyboard[`${note}#${octave}`] = false
-  })})
-
+  const pianoKeyboard = {};
+  noteArray.forEach((note) => {
+    octaveArray.forEach((octave) => {
+      pianoKeyboard[`${note}${octave}`] = false;
+      pianoKeyboard[`${note}#${octave}`] = false;
+    });
+  });
 
   useEffect(() => {
-    if (pianoDiv) {
+    const pianoSVG = document.getElementById("piano");
+    if (pianoDiv && !pianoSVG) {
       const piano = new Instrument(document.getElementById("pianoDiv"), {
         startOctave: 3,
         endOctave: 5,
@@ -34,18 +36,26 @@ const PianoKeys = ({ pianoNotes }) => {
       // console.log("piano : ", piano.container.children);
 
       piano.create();
-      piano.addKeyMouseDownListener((note)=>{
-        if(pianoKeyboard[`${note.note}${note.accidental}${note.octave}`]){
-          piano.keyUp(note)
-          pianoKeyboard[`${note.note}${note.accidental}${note.octave}`] = false
-        } else{
-          piano.keyDown(note)
-          pianoKeyboard[`${note.note}${note.accidental}${note.octave}`] = true
+      piano.addKeyMouseDownListener((note) => {
+        let fullNote = "";
+        if (note.accidental)
+          fullNote = `${note.note.toLowerCase()}${note.accidental}${
+            note.octave
+          }`;
+        else fullNote = `${note.note.toLowerCase()}${note.octave}`;
+        if (pianoKeyboard[`${fullNote}`]) {
+          piano.keyUp(note);
+          pianoKeyboard[`${fullNote}`] = false;
+        } else {
+          piano.keyDown(note);
+          pianoKeyboard[`${fullNote}`] = true;
         }
       });
       piano.container.children[0].setAttribute("id", "piano");
-      pianoNotes.forEach((note) => piano.keyDown(`${note}`));
-
+      pianoNotes.forEach((note) => {
+        piano.keyDown(`${note}`);
+        pianoKeyboard[note] = true;
+      });
     }
   }, [pianoDiv, pianoNotes]);
 
@@ -55,8 +65,6 @@ const PianoKeys = ({ pianoNotes }) => {
   const handleChange = (event) => {
     setNote(event.target.value);
   };
-
-
 
   return (
     <div>
