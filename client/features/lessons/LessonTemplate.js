@@ -21,7 +21,7 @@ const LessonTemplate = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch();
+    // dispatch();
   }, [dispatch]);
 
   const handleClick = () => {
