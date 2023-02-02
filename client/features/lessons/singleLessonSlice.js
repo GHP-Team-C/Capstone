@@ -1,6 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const fetchSingleLesson = createAsyncThunk("lessons/get", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/lessons/${id}`);
+    return data;
+  } catch (err) {
+    return err.message;
+  }
+});
+
+
+export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/slides/${id}`);
+    return data;
+  } catch (err) {
+    return err.message;
+  }
+});
+
 export const fetchStaffNotes = createAsyncThunk("staves/get", async (id) => {
   try {
     const { data } = await axios.get(`/api/staves/${id}`);
@@ -36,12 +55,19 @@ export const updateStaffNote = createAsyncThunk(
 
 const singleLessonSlice = createSlice({
   name: "lesson",
-  initialState: [],
+  initialState: {},
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchStaffNotes.fulfilled, (state, action) => {
-      return action.payload;
-    });
+    builder
+      .addCase(fetchStaffNotes.fulfilled, (state, action) => {
+        state.notes = action.payload;
+      })
+      .addCase(fetchSingleLesson.fulfilled, (state, action) => {
+        state.lesson = action.payload;
+      })
+      .addCase(fetchSingleSlide.fulfilled, (state, action)=>{
+        state.slide = action.payload;
+      })
   },
 });
 

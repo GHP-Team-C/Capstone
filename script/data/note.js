@@ -22,5 +22,29 @@ module.exports=[
     octave: "5",
     duration: "q",
     domId: "4"
-  }
+  },
+  {
+    noteName: "b",
+    octave: "4",
+    duration: "q",
+    domId: "3"
+  },
+  {
+    noteName: "b",
+    octave: "4",
+    duration: "q",
+    domId: "3"
+  },
+  {
+    noteName: "b",
+    octave: "4",
+    duration: "q",
+    domId: "3"
+  },
+  {
+    noteName: "b",
+    octave: "4",
+    duration: "q",
+    domId: "3"
+  },
 ]

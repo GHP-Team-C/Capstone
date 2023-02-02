@@ -25,6 +25,7 @@ router.get("/:id", async (req, res, next) => {
           },
         },
       ],
+      order: [[{ model: Slide }, "id"]],
     });
     res.json(singleLesson);
   } catch (err) {
