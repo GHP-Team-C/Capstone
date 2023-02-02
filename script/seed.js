@@ -2,15 +2,14 @@
 
 const {
   db,
-  models: { User, Lesson, Note, Staff, Slide },
+  models: { User, Lesson, Note, Staff, Slide, Piano },
 } = require("../server/db");
 
-const noteData = require('./data/note');
-const staffData = require('./data/staff');
-const lessonData = require('./data/lesson');
-const slideData = require('./data/slide');
+const noteData = require("./data/note");
+const staffData = require("./data/staff");
+const lessonData = require("./data/lesson");
+const slideData = require("./data/slide");
 const note = require("./data/note");
-
 
 /**
  * seed - this function clears the database, updates tables to
@@ -40,8 +39,8 @@ async function seed() {
       return Lesson.create(data);
     })
   );
-   // Creating Slides
-   const slides = await Promise.all(
+  // Creating Slides
+  const slides = await Promise.all(
     slideData.map((data) => {
       return Slide.create(data);
     })
@@ -65,37 +64,45 @@ async function seed() {
     }),
   ]);
 
+  //Creating Pianos
+  const pianos = await Promise.all([
+    Piano.create({
+      keys: "a4, b4, c4, g#4",
+    }),
+  ]);
+
+  //Assign Piano to slide
+  await Promise.all([slides[0].setPiano(1)]);
+
   // Creating Lessons
 
-await Promise.all(
-  [lessons[0].setUser(1)],
-  [lessons[1].setUser(2)],
-  [lessons[2].setUser(1)],
-)
-
+  await Promise.all(
+    [lessons[0].setUser(1)],
+    [lessons[1].setUser(2)],
+    [lessons[2].setUser(1)]
+  );
 
   //NEED TO ADD NOTES TO ALL STAFFS
-await Promise.all(
-  notes.map((note, idx)=>staffs.forEach((staff, idx)=>note.addStaff(idx+1))
-))
+  await Promise.all(
+    notes.map((note, idx) =>
+      staffs.forEach((staff, idx) => note.addStaff(idx + 1))
+    )
+  );
 
   await Promise.all(
-    [lessons[0].addSlides([1,2,3])],
-    [lessons[1].addSlides([4,5,6])],
-    [lessons[2].addSlides([7,8])]
-  )
+    [lessons[0].addSlides([1, 2, 3])],
+    [lessons[1].addSlides([4, 5, 6])],
+    [lessons[2].addSlides([7, 8])]
+  );
 
-  await Promise.all(
-    staffs.map((staff,idx)=>staff.setSlide(idx+1))
-  )
-
-
+  await Promise.all(staffs.map((staff, idx) => staff.setSlide(idx + 1)));
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${lessons.length} lessons`);
   console.log(`seeded ${notes.length} lessons`);
   console.log(`seeded ${staffs.length} lessons`);
   console.log(`seeded ${slides.length} slides`);
+  console.log(`seeded ${pianos.length} pianos`);
   console.log(`seeded successfully`);
   return {
     users: {
