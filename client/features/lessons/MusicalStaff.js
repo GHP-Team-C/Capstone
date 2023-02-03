@@ -25,7 +25,6 @@ const MusicalStaff = ({ slide }) => {
 
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
-  const durationArray = ["w", "h", "q", "8", "16"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
 
   let div = document.getElementById("staffDiv");
@@ -169,9 +168,12 @@ const MusicalStaff = ({ slide }) => {
   }, [activeElement, notes]);
 
   const restHandler = () => {
-    setNote("b");
-    setOctave("4");
-    setDuration(`qr`);
+    if (duration === "qr") setDuration("q");
+    else {
+      setNote("b");
+      setOctave("4");
+      setDuration(`qr`);
+    }
   };
 
   return (
