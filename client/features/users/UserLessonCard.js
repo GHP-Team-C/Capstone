@@ -4,22 +4,22 @@ import { Link, Button } from "@mui/material"
 
 const UserLessonCard = (props) => {
 
-const lesson = props
+const lesson = props.lesson
 
-console.log("lesson: ", lesson)
-
+const publishStatusButton = (lesson) => {
+  return lesson.published ? "Unpublish" : "Publish";
+};
 //const [publishStatus, setPublishStatus] = useState(false)
 
 return(
-  <div>hi
-        {/*<p>
+  <div>
+        <p>
           <Link to={`/lessons/${lesson.id}`}>{lesson.name}</Link>
         </p>
-        <Button variant="text">{publishStatusButton(lesson)}</Button>*/
-      }</div>
+        <Button variant="text">{publishStatusButton(lesson)}</Button>
+      </div>
 )
 }
 
 export default UserLessonCard
 
-/**/
