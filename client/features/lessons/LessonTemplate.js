@@ -17,6 +17,7 @@ const LessonTemplate = () => {
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const slide = useSelector((state) => state.singleLesson.slide);
 
+
   let { lId } = useParams();
   //use sId as an index # in the singleLesson.lesson.slides array
   let { sId } = useParams();
@@ -31,12 +32,14 @@ const LessonTemplate = () => {
     }
   }, [lesson]);
 
+  //removes SVG div
   const handleClick = () => {
     const pianoSvg = document.getElementById("piano");
     const pianoDiv = document.getElementById("pianoDiv");
     if (pianoSvg) pianoDiv.removeChild(pianoSvg);
     setPianoNotes(["d4", "f4", "a4"]);
   };
+
 
   return (
     <>
@@ -57,6 +60,25 @@ const LessonTemplate = () => {
         flexDirection="column"
       >
         <LessonText />
+{ sId != 1 &&
+        <Button variant="contained" onClick={handleClick}>
+          Previous Slide
+        </Button>
+}
+{ lesson ? lesson.slides[Number(sId) + 1] ?
+        <Button variant="contained" onClick={handleClick}>
+          Next Slide
+        </Button>
+        :
+        <Button variant="contained" onClick={handleClick}>
+          Add Another Slide
+        </Button>
+        : null
+}
+        <Button variant="contained" onClick={handleClick}>
+          Publish
+        </Button>
+
         <Button variant="contained" onClick={handleClick}>
           Press me!
         </Button>
