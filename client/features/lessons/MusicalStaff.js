@@ -2,9 +2,38 @@ import React, { useEffect, useState } from "react";
 import * as Vex from "vexflow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStaffNotes, updateStaffNote } from "./singleLessonSlice";
+import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
-const MusicalStaff = ({ note, octave, slide }) => {
-  const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
+const MusicalStaff = ({ slide }) => {
+  const [note, setNote] = useState("");
+  const [octave, setOctave] = useState("");
+  const [duration, setDuration] = useState("q");
+
+  const handleNoteChange = (event) => {
+    setNote(event.target.value);
+  };
+
+  const handleOctaveChange = (event) => {
+    setOctave(event.target.value);
+  };
+
+  const handleDurationChange = (event) => {
+    setDuration(event.target.value);
+  };
+
+  const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
+  const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
+  const durationArray = ["w", "h", "q", "8", "16"];
+  const {
+    Renderer,
+    Stave,
+    Formatter,
+    StaveNote,
+    Voice,
+    Factory,
+    EasyScore,
+    System,
+  } = Vex.Flow;
 
   // Create an SVG renderer and attach it to the DIV element named "boo".
   // const staff = document.createElement("div");
@@ -25,7 +54,13 @@ const MusicalStaff = ({ note, octave, slide }) => {
   //   div = document.getElementById("staffDiv");
   // }, [note, octave, lesson]);
 
-  const [activeElement, setActiveElement] = useState({ idx: -1, id: -1 });
+  const [activeElement, setActiveElement] = useState({
+    idx: -1,
+    id: -1,
+    note: "",
+    octave: "",
+    duration: "",
+  });
   const [toChange, setToChange] = useState(false);
   const notes = [];
 
@@ -57,12 +92,18 @@ const MusicalStaff = ({ note, octave, slide }) => {
       } else {
         if (lesson) {
           lesson.map((note) => {
+            let noteName = [];
+            for (let i = 0; i < note.noteName.length; i++) {
+              noteName.push(`${note.noteName[i]}/${note.octave[i]}`);
+            }
             const newNote = new StaveNote({
-              keys: [`${note.noteName}/${note.octave}`],
+              keys: noteName,
               duration: `${note.duration}`,
             });
             newNote.attrs.id = `note${note.domId}`;
             newNote.attrs.pk = note.id;
+            newNote.attrs.noteName = note.noteName[0];
+            newNote.attrs.octave = note.octave[0];
             notes.push(newNote);
           });
           let svg = document.getElementById("staff");
@@ -110,12 +151,24 @@ const MusicalStaff = ({ note, octave, slide }) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
           noteSVG.addEventListener("click", () => {
-            setActiveElement({ idx: idx, id: note.attrs.pk });
+            setActiveElement({
+              idx: idx,
+              id: note.attrs.pk,
+              noteName: note.attrs.noteName,
+              octave: note.attrs.octave,
+            });
           });
         }
       });
     }
   }, [notes]);
+
+  useEffect(() => {
+    if (activeElement.noteName) {
+      setNote(activeElement.noteName);
+      setOctave(activeElement.octave);
+    }
+  }, [activeElement]);
 
   useEffect(() => {
     notes.forEach((note, idx) => {
@@ -129,6 +182,38 @@ const MusicalStaff = ({ note, octave, slide }) => {
 
   return (
     <div>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="select-note">Note</InputLabel>
+        <Select
+          labelId="select-note"
+          id="select-note"
+          value={note}
+          label="note"
+          onChange={handleNoteChange}
+        >
+          {noteArray.map((note) => (
+            <MenuItem key={note} value={note}>
+              {note}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="select-octave">Octave</InputLabel>
+        <Select
+          labelId="select-octave"
+          id="select-octave"
+          value={octave}
+          label="octave"
+          onChange={handleOctaveChange}
+        >
+          {octaveArray.map((octave) => (
+            <MenuItem key={octave} value={octave}>
+              {octave}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <div id="staffDiv"></div>
     </div>
   );
