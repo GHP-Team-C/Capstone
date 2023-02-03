@@ -20,6 +20,18 @@ export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
   }
 });
 
+export const makeSlide = createAsyncThunk(
+  "slides/put",
+  async (id) => {
+    try {
+      await axios.put(`/api/lessons/${id}`);
+      return;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 export const fetchStaffNotes = createAsyncThunk("staves/get", async (id) => {
   try {
     const { data } = await axios.get(`/api/staves/${id}`);
@@ -68,6 +80,7 @@ const singleLessonSlice = createSlice({
       .addCase(fetchSingleSlide.fulfilled, (state, action)=>{
         state.slide = action.payload;
       })
+    
   },
 });
 

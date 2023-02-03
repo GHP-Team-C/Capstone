@@ -6,17 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchSingleLesson,
   fetchStaffNotes,
+  makeSlide,
   fetchSingleSlide,
 } from "./singleLessonSlice";
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
   const [pianoNotes, setPianoNotes] = useState(["c4", "e4", "g4", "b4"]);
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const slide = useSelector((state) => state.singleLesson.slide);
+  const navigate = useNavigate();
 
 
   let { lId } = useParams();
@@ -25,7 +27,7 @@ const LessonTemplate = () => {
 
   useEffect(() => {
     dispatch(fetchSingleLesson(lId));
-  }, [dispatch]);
+  }, [sId]);
 
   useEffect(() => {
     if (lesson) {
@@ -40,6 +42,12 @@ const LessonTemplate = () => {
     if (pianoSvg) pianoDiv.removeChild(pianoSvg);
     setPianoNotes(["d4", "f4", "a4"]);
   };
+
+  const handleAddSlide = () => {
+     dispatch(makeSlide(lId))
+
+    navigate(`/lessons/${lId}/slides/${Number(sId)+1}`)
+  }
 
 
   return (
@@ -63,19 +71,19 @@ const LessonTemplate = () => {
         <LessonText />
 { sId != 1 &&
       <NavLink to={`/lessons/${lId}/slides/${Number(sId)-1}`}>
-        <Button variant="contained" onClick={handleClick}>
+        <Button variant="contained" >
           Previous Slide
         </Button>
         </NavLink>
 }
 { lesson ? lesson.slides[Number(sId)] ?
       <NavLink to={`/lessons/${lId}/slides/${Number(sId)+1}`}>
-        <Button variant="contained" onClick={handleClick}>
+        <Button variant="contained" >
           Next Slide
         </Button>
       </NavLink>
         :
-        <Button variant="contained" onClick={handleClick}>
+        <Button variant="contained" onClick={handleAddSlide}>
           Add Another Slide
         </Button>
         : null

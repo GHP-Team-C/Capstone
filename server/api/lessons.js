@@ -32,3 +32,18 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+router.put("/:id", async(req, res, next)=>{
+  try{
+    const lesson = await Lesson.findByPk(req.params.id)
+    const slide =await lesson.createSlide()
+    const staff = await slide.createStaff()
+    await slide.createPiano()
+    await staff.createNote({noteName:"b", octave: "4" , duration: "qr", domId: "1"})
+    await staff.createNote({noteName:"b", octave: "4" , duration: "qr", domId: "2"})
+    await staff.createNote({noteName:"b", octave: "4" , duration: "qr", domId: "3"})
+    await staff.createNote({noteName:"b", octave: "4" , duration: "qr", domId: "4"})
+  }catch(error){
+    next(error)
+  }
+})
