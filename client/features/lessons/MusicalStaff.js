@@ -72,80 +72,77 @@ const MusicalStaff = ({ slide }) => {
     setToChange(false);
   }, []);
 
-  useEffect(() => {
-    const staffCreator = async () => {
-      if (activeElement.idx > -1 && toChange && slide) {
-        await dispatch(
-          updateStaffNote({
-            id: slide.staff.id,
-            note: {
-              id: activeElement.id,
-              noteName: note,
-              octave: octave,
-              duration: "q",
-              domId: activeElement.idx + 1,
-            },
-          })
-        );
-        setToChange(false);
-        if (slide) dispatch(fetchStaffNotes(slide.staff.id));
-      } else {
-        if (lesson) {
-          lesson.map((note) => {
-            let noteName = [];
-            for (let i = 0; i < note.noteName.length; i++) {
-              noteName.push(`${note.noteName[i]}/${note.octave[i]}`);
-            }
-            const newNote = new StaveNote({
-              keys: noteName,
-              duration: `${note.duration}`,
-            });
-            newNote.attrs.id = `note${note.domId}`;
-            newNote.attrs.pk = note.id;
-            newNote.attrs.noteName = note.noteName[0];
-            newNote.attrs.octave = note.octave[0];
-            notes.push(newNote);
-          });
-          let svg = document.getElementById("staff");
-          if (svg) {
-            const staffDiv = document.getElementById("staffDiv");
-            if (svg) staffDiv.removeChild(svg);
-          }
-          svg = document.getElementById("staff");
-          if (div && !svg && lesson.length) {
-            const renderer = new Renderer(div, Renderer.Backends.SVG);
-            renderer.ctx.element.children[0].setAttribute("id", "staff");
+  const updateNote = async () => {
+    await dispatch(
+      updateStaffNote({
+        id: slide.staff.id,
+        note: {
+          id: activeElement.id,
+          noteName: note,
+          octave: octave,
+          duration: "q",
+          domId: activeElement.idx + 1,
+        },
+      })
+    );
+    setToChange(false);
+    if (slide) dispatch(fetchStaffNotes(slide.staff.id));
+  };
 
-            // Configure the rendering context.
-            renderer.resize(500, 200);
-            const context = renderer.getContext();
-
-            // Create a stave of width 400 at position 10, 40 on the canvas.
-            const stave = new Stave(10, 40, 400);
-
-            // Add a clef and time signature.
-            stave.addClef("treble").addTimeSignature("4/4");
-
-            // Connect it to the rendering context and draw!
-            stave.setContext(context).draw();
-
-            // Create a voice in 4/4 and add above notes
-            const voice = new Voice({ num_beats: 4, beat_value: 4 });
-            voice.addTickables(notes);
-
-            // Format and justify the notes to 400 pixels.
-            new Formatter().joinVoices([voice]).format([voice], 350);
-
-            // Render voice
-            voice.draw(context, stave);
-          }
+  const drawStaff = () => {
+    if (lesson) {
+      lesson.map((note) => {
+        let noteName = [];
+        for (let i = 0; i < note.noteName.length; i++) {
+          noteName.push(`${note.noteName[i]}/${note.octave[i]}`);
         }
+        const newNote = new StaveNote({
+          keys: noteName,
+          duration: `${note.duration}`,
+        });
+        newNote.attrs.id = `note${note.domId}`;
+        newNote.attrs.pk = note.id;
+        newNote.attrs.noteName = note.noteName[0];
+        newNote.attrs.octave = note.octave[0];
+        notes.push(newNote);
+      });
+      let svg = document.getElementById("staff");
+      if (svg) {
+        const staffDiv = document.getElementById("staffDiv");
+        if (svg) staffDiv.removeChild(svg);
       }
-    };
-    staffCreator();
-  }, [notes]);
+      svg = document.getElementById("staff");
+      if (div && !svg && lesson.length) {
+        const renderer = new Renderer(div, Renderer.Backends.SVG);
+        renderer.ctx.element.children[0].setAttribute("id", "staff");
 
-  useEffect(() => {
+        // Configure the rendering context.
+        renderer.resize(500, 200);
+        const context = renderer.getContext();
+
+        // Create a stave of width 400 at position 10, 40 on the canvas.
+        const stave = new Stave(10, 40, 400);
+
+        // Add a clef and time signature.
+        stave.addClef("treble").addTimeSignature("4/4");
+
+        // Connect it to the rendering context and draw!
+        stave.setContext(context).draw();
+
+        // Create a voice in 4/4 and add above notes
+        const voice = new Voice({ num_beats: 4, beat_value: 4 });
+        voice.addTickables(notes);
+
+        // Format and justify the notes to 400 pixels.
+        new Formatter().joinVoices([voice]).format([voice], 350);
+
+        // Render voice
+        voice.draw(context, stave);
+      }
+    }
+  };
+
+  const addNoteListeners = () => {
     if (notes.length) {
       notes.forEach((note, idx) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
@@ -161,6 +158,12 @@ const MusicalStaff = ({ slide }) => {
         }
       });
     }
+  };
+
+  useEffect(() => {
+    if (activeElement.idx > -1 && toChange && slide) updateNote();
+    else drawStaff();
+    if (notes.length) addNoteListeners();
   }, [notes]);
 
   useEffect(() => {
