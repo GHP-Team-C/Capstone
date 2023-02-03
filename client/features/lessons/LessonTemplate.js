@@ -10,6 +10,7 @@ import {
 } from "./singleLessonSlice";
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
+import { NavLink } from "react-router-dom";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
@@ -61,14 +62,18 @@ const LessonTemplate = () => {
       >
         <LessonText />
 { sId != 1 &&
+      <NavLink to={`/lessons/${lId}/slides/${Number(sId)-1}`}>
         <Button variant="contained" onClick={handleClick}>
           Previous Slide
         </Button>
+        </NavLink>
 }
-{ lesson ? lesson.slides[Number(sId) + 1] ?
+{ lesson ? lesson.slides[Number(sId)] ?
+      <NavLink to={`/lessons/${lId}/slides/${Number(sId)+1}`}>
         <Button variant="contained" onClick={handleClick}>
           Next Slide
         </Button>
+      </NavLink>
         :
         <Button variant="contained" onClick={handleClick}>
           Add Another Slide
