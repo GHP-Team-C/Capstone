@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleUser } from "./singleUserSlice";
 
@@ -28,11 +29,19 @@ const CreatorDashboard = () => {
       <h1>Creator Dashboard</h1>
       <h3>Published</h3>
       {publishedLessons && publishedLessons.length
-        ? publishedLessons.map((lesson) => <p key={lesson.id}>{lesson.name}</p>)
+        ? publishedLessons.map((lesson) => (
+            <p key={lesson.id}>
+              <Link to={`/lessons/${lesson.id}`}>{lesson.name}</Link>
+            </p>
+          ))
         : "No published lessons"}
       <h3>Drafts</h3>
       {draftLessons && draftLessons.length
-        ? draftLessons.map((lesson) => <p key={lesson.id}>{lesson.name}</p>)
+        ? draftLessons.map((lesson) => (
+            <p key={lesson.id}>
+              <Link to={`/lessons/${lesson.id}`}>{lesson.name}</Link>
+            </p>
+          ))
         : "No published lessons"}
     </div>
   );
