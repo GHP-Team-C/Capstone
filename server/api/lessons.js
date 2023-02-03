@@ -36,9 +36,9 @@ router.get("/:id", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const lesson = await Lesson.findByPk(req.params.id);
-    console.log(lesson);
+   // console.log(lesson);
     await Lesson.changePublishStatus(lesson);
-    console.log(lesson);
+   // console.log(lesson);
     res.json(lesson);
   } catch (err) {
     next(err);

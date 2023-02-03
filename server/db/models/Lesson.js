@@ -22,7 +22,7 @@ const Lesson = db.define("lesson", {
   },
 });
 
-const changePublishStatus = async (lesson) => {
+Lesson.changePublishStatus = async (lesson) => {
   await Lesson.create({ id: lesson.id });
   lesson.published = !lesson.published;
   await lesson.save();
