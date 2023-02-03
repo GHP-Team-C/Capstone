@@ -1,5 +1,6 @@
 import React from "react"
-import { Link, Button } from "@mui/material"
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 
 const UserLessonCard = (props) => {
@@ -13,11 +14,9 @@ const publishStatusButton = (lesson) => {
 
 return(
   <div>
-        <p>
-          <Link to={`/lessons/${lesson.id}`}>{lesson.name}</Link>
-        </p>
-        <Button variant="text">{publishStatusButton(lesson)}</Button>
-      </div>
+    <Link to={`/lessons/${lesson.id}/slides/1`}>{lesson.name}</Link>
+    <Button variant="text">{publishStatusButton(lesson)}</Button>
+  </div>
 )
 }
 
