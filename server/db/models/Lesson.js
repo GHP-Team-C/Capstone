@@ -13,15 +13,19 @@ const Lesson = db.define("lesson", {
     },
   },
   visibleTo: {
-    type: Sequelize.ENUM('Public', 'Private', 'Organization'),
-    defaultValue: 'Public'
+    type: Sequelize.ENUM("Public", "Private", "Organization"),
+    defaultValue: "Public",
   },
   published: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
-  }
+  },
 });
 
-
+const changePublishStatus = async (lesson) => {
+  await Lesson.create({ id: lesson.id });
+  lesson.published = !lesson.published;
+  await lesson.save();
+};
 
 module.exports = Lesson;
