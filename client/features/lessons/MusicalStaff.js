@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import * as Vex from "vexflow";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStaffNotes, updateStaffNote } from "./singleLessonSlice";
-import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button,
+} from "@mui/material";
 
 const MusicalStaff = ({ slide }) => {
   const [note, setNote] = useState("");
@@ -17,28 +23,10 @@ const MusicalStaff = ({ slide }) => {
     setOctave(event.target.value);
   };
 
-  const handleDurationChange = (event) => {
-    setDuration(event.target.value);
-  };
-
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const durationArray = ["w", "h", "q", "8", "16"];
-  const {
-    Renderer,
-    Stave,
-    Formatter,
-    StaveNote,
-    Voice,
-    Factory,
-    EasyScore,
-    System,
-  } = Vex.Flow;
-
-  // Create an SVG renderer and attach it to the DIV element named "boo".
-  // const staff = document.createElement("div");
-  // staff.setAttribute("id", "staffDiv");
-  // document.body.appendChild(staff);
+  const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
 
   let div = document.getElementById("staffDiv");
 
@@ -49,10 +37,6 @@ const MusicalStaff = ({ slide }) => {
   }, [slide]);
 
   const lesson = useSelector((state) => state.singleLesson.notes);
-
-  // useEffect(() => {
-  //   div = document.getElementById("staffDiv");
-  // }, [note, octave, lesson]);
 
   const [activeElement, setActiveElement] = useState({
     idx: -1,
@@ -66,7 +50,7 @@ const MusicalStaff = ({ slide }) => {
 
   useEffect(() => {
     setToChange(true);
-  }, [note, octave]);
+  }, [note, octave, duration]);
 
   useEffect(() => {
     setToChange(false);
@@ -80,7 +64,7 @@ const MusicalStaff = ({ slide }) => {
           id: activeElement.id,
           noteName: note,
           octave: octave,
-          duration: "q",
+          duration: duration,
           domId: activeElement.idx + 1,
         },
       })
@@ -148,6 +132,7 @@ const MusicalStaff = ({ slide }) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
           noteSVG.addEventListener("click", () => {
+            setDuration("q");
             setActiveElement({
               idx: idx,
               id: note.attrs.pk,
@@ -183,6 +168,12 @@ const MusicalStaff = ({ slide }) => {
     });
   }, [activeElement, notes]);
 
+  const restHandler = () => {
+    setNote("b");
+    setOctave("4");
+    setDuration(`qr`);
+  };
+
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -217,6 +208,7 @@ const MusicalStaff = ({ slide }) => {
           ))}
         </Select>
       </FormControl>
+      <Button onClick={restHandler}>Rest</Button>
       <div id="staffDiv"></div>
     </div>
   );

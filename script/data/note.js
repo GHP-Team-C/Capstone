@@ -1,7 +1,7 @@
 module.exports = [
   {
-    noteName: "cb",
-    octave: "44",
+    noteName: "c",
+    octave: "4",
     duration: "q",
     domId: "1",
   },
