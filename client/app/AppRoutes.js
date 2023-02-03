@@ -7,6 +7,7 @@ import CreatorDashboard from "../features/users/CreatorDashboard";
 import { me } from "./store";
 import LessonTemplate from "../features/lessons/LessonTemplate";
 import UserProfile from "../features/users/UserProfile";
+import AllPublicLessons from "../features/lessons/AllPublicLessons";
 
 /**
  * COMPONENT
@@ -32,6 +33,7 @@ const AppRoutes = () => {
           />
           <Route path="/creator-dashboard" element={<CreatorDashboard />} />
           <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/all-public-lessons" element={<AllPublicLessons />}/>
         </Routes>
       ) : (
         <Routes>
