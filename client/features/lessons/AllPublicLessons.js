@@ -49,13 +49,13 @@ return (
         >
           {levelsArray.map((level) => (
             <MenuItem key={level} value={level}>
-              {level}
+              {level[0].toUpperCase()+level.slice(1)}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
 
-<h2>{level}</h2>
+<h2>{level[0].toUpperCase()+level.slice(1)}</h2>
 {lessonsLister(lessonsFilter(level))}
 
 </div>
