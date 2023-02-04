@@ -1,18 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchAllLessons } from "./lessonsSlice";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const AllPublicLessons = () => {
 const dispatch = useDispatch();
 const lessons = useSelector((state)=>state.lessons)
 
 const publicLessons = lessons.filter((lesson)=>lesson.visibleTo==="Public")
-const beginnerLessons = publicLessons && publicLessons.length ? publicLessons.filter((lesson)=>lesson.level==='beginner') : null
-const intermediateLessons = publicLessons && publicLessons.length ? publicLessons.filter((lesson)=>lesson.level==='intermediate') : null
-const advancedLessons = publicLessons && publicLessons.length ? publicLessons.filter((lesson)=>lesson.level==='advanced') : null
 
-const lessonLister = (lessonsList) => {
+const [level, setLevel] = useState('all')
+const handleLevelChange = (event) => {
+  setLevel(event.target.value);
+};
+const levelsArray = ['all', 'beginner', 'intermediate', 'advanced']
+
+const lessonsFilter = (level) => {
+  let filteredLessons = publicLessons && publicLessons.length ?publicLessons.filter((lesson)=>lesson.level===level) : null
+  return level === 'all' ? publicLessons : filteredLessons
+}
+
+const lessonsLister = (lessonsList) => {
   return (
     lessonsList && lessonsList.length ? lessonsList.map((lesson)=>
 <div key={lesson.id}>
@@ -28,14 +37,27 @@ dispatch(fetchAllLessons())
 return (
 <div>
 <h1>Lessons by Level:</h1>
-<h2>Beginner</h2>
-{lessonLister(beginnerLessons)}
 
-<h2>Intermediate</h2>
-{lessonLister(intermediateLessons)}
+<FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="select-level">Level</InputLabel>
+        <Select
+          labelId="select-level"
+          id="select-level"
+          value={level}
+          label="level"
+          onChange={handleLevelChange}
+        >
+          {levelsArray.map((level) => (
+            <MenuItem key={level} value={level}>
+              {level}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
 
-<h2>Advanced</h2>
-{lessonLister(advancedLessons)}
+<h2>{level}</h2>
+{lessonsLister(lessonsFilter(level))}
+
 </div>
 )
 
