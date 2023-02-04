@@ -31,5 +31,5 @@ module.exports = [
     level: "intermediate",
     published: true,
   },
-  { name: "Learn A Song III", level: "advanced" },
+  { name: "Learn A Song III", level: "advanced", visibleTo: "Private" },
 ];
