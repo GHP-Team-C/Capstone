@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { ShoppingCart, Home, Mail } from "@mui/icons-material";
 import { grey, blue } from "@mui/material/colors";
+import AllPublicLessons from "../lessons/AllPublicLessons";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -52,6 +53,7 @@ const Navbar = () => {
                     <Button>Beginner Lesson</Button>
                     <Button>Intermediate Lesson</Button>
                   </div>
+
                 </Drawer>
               </div>
             </Box>

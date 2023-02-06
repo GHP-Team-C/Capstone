@@ -29,9 +29,11 @@ const LessonTemplate = () => {
   }, [sId]);
 
   useEffect(() => {
+
     if (lesson) {
       dispatch(fetchSingleSlide(lesson.slides[sId - 1].id));
     }
+
   }, [lesson]);
 
 
