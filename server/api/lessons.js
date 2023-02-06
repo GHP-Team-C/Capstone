@@ -36,11 +36,20 @@ router.get("/:id", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const lesson = await Lesson.findByPk(req.params.id);
-   // console.log(lesson);
-    await Lesson.changePublishStatus(lesson);
-   // console.log(lesson);
-    res.json(lesson);
+   lesson.published = !lesson.published
+
+  res.json(await lesson.update(data));
   } catch (err) {
     next(err);
   }
 });
+
+router.delete("/:id", async (req, res, next)=> {
+  try {
+    const lesson = await Lesson.findByPk(req.params.id)
+    await lesson.destroy();
+    res.send(lesson);
+  }catch (err) {
+    next (err)
+  }
+})

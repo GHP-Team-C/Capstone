@@ -64,6 +64,15 @@ export const updateStaffNote = createAsyncThunk(
   }
 );
 
+export const deleteLessonAsync = createAsyncThunk("deleteLesson", async (id) => {
+  try {
+  const { data } = await axios.delete(`api/lessons/${id}`);
+  return data
+  } catch (err){
+    return err.message
+  }
+})
+
 const singleLessonSlice = createSlice({
   name: "lesson",
   initialState: {},
