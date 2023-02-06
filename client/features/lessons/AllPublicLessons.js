@@ -8,7 +8,7 @@ const AllPublicLessons = () => {
 const dispatch = useDispatch();
 const lessons = useSelector((state)=>state.lessons)
 
-const publicLessons = lessons.filter((lesson)=>lesson.visibleTo==="Public")
+const publicLessons = lessons && lessons.length ? lessons.filter((lesson)=>lesson.visibleTo==="Public") : null;
 
 const [level, setLevel] = useState('all')
 const handleLevelChange = (event) => {
