@@ -24,12 +24,12 @@ export const fetchUserLessons = createAsyncThunk(
 
 export const createLesson = createAsyncThunk(
   "lessons/post",
-  async ({ name, level, visibleTo, published }) => {
+  async ({ name, level, visibleTo, userId }) => {
     const { data } = await axios.post("api/lessons", {
       name,
       level,
       visibleTo,
-      published,
+      userId,
     });
     return data;
   }

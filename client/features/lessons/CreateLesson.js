@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createLesson } from "./lessonsSlice";
 import {
   TextField,
@@ -14,13 +13,13 @@ const CreateLesson = () => {
   const [name, setName] = useState("");
   const [level, setLevel] = useState("beginner");
   const [visibleTo, setVisibleTo] = useState("private");
-  // const [published, setPublished] = useState("");
+  const userId = useSelector((state) => state.auth.me.id);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(createLesson({ name, level }));
+    dispatch(createLesson({ name, level, userId: userId }));
     console.log("clicked!");
   };
 
