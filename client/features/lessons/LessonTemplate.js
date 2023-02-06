@@ -19,7 +19,6 @@ const LessonTemplate = () => {
   const slide = useSelector((state) => state.singleLesson.slide);
   const navigate = useNavigate();
 
-
   let { lId } = useParams();
   //use sId as an index # in the singleLesson.lesson.slides array
   let { sId } = useParams();
@@ -29,22 +28,16 @@ const LessonTemplate = () => {
   }, [sId]);
 
   useEffect(() => {
-
     if (lesson) {
       dispatch(fetchSingleSlide(lesson.slides[sId - 1].id));
     }
-
   }, [lesson]);
 
-
-
   const handleAddSlide = async () => {
-     await dispatch(makeSlide(lId))
+    await dispatch(makeSlide(lId));
 
-    navigate(`/lessons/${lId}/slides/${Number(sId)+1}`)
-  }
-
-
+    navigate(`/lessons/${lId}/slides/${Number(sId) + 1}`);
+  };
 
   return (
     <>
@@ -64,35 +57,26 @@ const LessonTemplate = () => {
         alignItems="center"
         flexDirection="column"
       >
-
-        <LessonText />
-{ sId != 1 &&
-      <NavLink to={`/lessons/${lId}/slides/${Number(sId)-1}`}>
-        <Button variant="contained" >
-          Previous Slide
-        </Button>
-        </NavLink>
-}
-{ lesson ? lesson.slides[Number(sId)] ?
-      <NavLink to={`/lessons/${lId}/slides/${Number(sId)+1}`}>
-        <Button variant="contained" >
-          Next Slide
-        </Button>
-      </NavLink>
-        :
-        <Button variant="contained" onClick={handleAddSlide}>
-          Add Another Slide
-        </Button>
-        : null
-}
-        <Button variant="contained" onClick={handleClick}>
+        <LessonText slide={slide} />
+        {lesson ? (
+          lesson.slides[Number(sId)] ? (
+            <NavLink to={`/lessons/${lId}/slides/${Number(sId) + 1}`}>
+              <Button variant="contained">Next Slide</Button>
+            </NavLink>
+          ) : (
+            <Button variant="contained" onClick={handleAddSlide}>
+              Add Another Slide
+            </Button>
+          )
+        ) : null}
+        {sId != 1 && (
+          <NavLink to={`/lessons/${lId}/slides/${Number(sId) - 1}`}>
+            <Button variant="contained">Previous Slide</Button>
+          </NavLink>
+        )}
+        <Button variant="contained" onClick={() => {}}>
           Publish
         </Button>
-
-        
-
-        <LessonText slide={slide} />
-
       </Box>
     </>
   );
