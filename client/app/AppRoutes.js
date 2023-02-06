@@ -32,9 +32,9 @@ const AppRoutes = () => {
           />
           <Route path="/creator-dashboard" element={<CreatorDashboard />} />
           <Route path="/user-profile" element={<UserProfile />} />
-  
+
           <Route
-            path="*"
+            path="/*"
             element={<NotFoundPage />}
           />
         </Routes>
@@ -42,7 +42,7 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="*"
+            path="/*"
             element={<NotFoundPage />}
           />
           <Route
