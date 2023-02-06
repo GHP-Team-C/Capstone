@@ -9,6 +9,7 @@ import LessonTemplate from "../features/lessons/LessonTemplate";
 import UserProfile from "../features/users/UserProfile";
 import NotFoundPage from "../features/notFoundPage/NotFoundPage";
 import CreateLesson from "../features/lessons/CreateLesson";
+import SignUpAuthForm from "../features/auth/SignUpAuthForm"
 
 /**
  * COMPONENT
@@ -51,7 +52,7 @@ const AppRoutes = () => {
           />
           <Route
             path="/signup"
-            element={<AuthForm name="signup" displayName="Sign Up" />}
+            element={<SignUpAuthForm name="signup" displayName="Sign Up" />}
           />
         </Routes>
       )}
