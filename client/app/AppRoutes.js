@@ -8,6 +8,7 @@ import { me } from "./store";
 import LessonTemplate from "../features/lessons/LessonTemplate";
 import UserProfile from "../features/users/UserProfile";
 import NotFoundPage from "../features/notFoundPage/NotFoundPage";
+import CreateLesson from "../features/lessons/CreateLesson";
 import SignUpAuthForm from "../features/auth/SignUpAuthForm"
 
 /**
@@ -33,19 +34,14 @@ const AppRoutes = () => {
           />
           <Route path="/creator-dashboard" element={<CreatorDashboard />} />
           <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/create-lesson" element={<CreateLesson />} />
 
-          <Route
-            path="/*"
-            element={<NotFoundPage />}
-          />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       ) : (
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/*"
-            element={<NotFoundPage />}
-          />
+          <Route path="/*" element={<NotFoundPage />} />
           <Route
             path="/lessons/:lId/slides/:sId"
             element={<LessonTemplate />}
@@ -58,7 +54,6 @@ const AppRoutes = () => {
             path="/signup"
             element={<SignUpAuthForm name="signup" displayName="Sign Up" />}
           />
-
         </Routes>
       )}
     </div>
