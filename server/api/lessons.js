@@ -33,16 +33,25 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+
 router.put("/:id/publish", async (req, res, next) => {
   try {
     const lesson = await Lesson.findByPk(req.params.id);
 
   await lesson.update({published: !lesson.published})
   res.json(lesson);
+
+router.post("/", async (req, res, next) => {
+  // Add new
+  try {
+    const newLesson = await Lesson.create(req.body);
+    res.json(newLesson);
+
   } catch (err) {
     next(err);
   }
 });
+
 
 router.delete("/:id", async (req, res, next)=> {
   try {
@@ -53,3 +62,4 @@ router.delete("/:id", async (req, res, next)=> {
     next (err)
   }
 })
+

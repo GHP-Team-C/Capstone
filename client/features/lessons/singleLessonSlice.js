@@ -10,6 +10,7 @@ export const fetchSingleLesson = createAsyncThunk("lessons/get", async (id) => {
   }
 });
 
+
 export const publishStatusSingleLesson = createAsyncThunk(
   "lessons/publishing",
   async (id) => {
@@ -21,6 +22,7 @@ export const publishStatusSingleLesson = createAsyncThunk(
     }
   }
 );
+
 
 export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
   try {
@@ -64,6 +66,7 @@ export const updateStaffNote = createAsyncThunk(
   }
 );
 
+
 export const deleteLessonAsync = createAsyncThunk("deleteLesson", async (id) => {
   try {
   const { data } = await axios.delete(`api/lessons/${id}`);
@@ -72,6 +75,19 @@ export const deleteLessonAsync = createAsyncThunk("deleteLesson", async (id) => 
     return err.message
   }
 })
+
+export const updateSlideText = createAsyncThunk(
+  "slides/put",
+  async ({ id, text }) => {
+    try {
+      await axios.put(`/api/slides/${id}`, text);
+      return;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 
 const singleLessonSlice = createSlice({
   name: "lesson",
