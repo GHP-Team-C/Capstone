@@ -65,14 +65,16 @@ async function seed() {
   ]);
 
   //Creating Pianos
-  const pianos = await Promise.all([
-    Piano.create({
-      keys: "a4, b4, c4, g#4",
-    }),
-  ]);
+  // const pianos = await Promise.all([
+  //   Piano.create({
+  //     keys: "a4, b4, c4, g#4",
+  //   }),
+  // ]);
 
   //Assign Piano to slide
-  await Promise.all([slides[0].setPiano(1)]);
+  await Promise.all([
+    slides.map((slide) => slide.createPiano({ keys: "a4, b4, c4, g#4" })),
+  ]);
 
   // Creating Lessons
 
@@ -119,7 +121,6 @@ async function seed() {
   console.log(`seeded ${notes.length} notes`);
   console.log(`seeded ${staffs.length} staffs`);
   console.log(`seeded ${slides.length} slides`);
-  console.log(`seeded ${pianos.length} pianos`);
   console.log(`seeded successfully`);
   return {
     users: {

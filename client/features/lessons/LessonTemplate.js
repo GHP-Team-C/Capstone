@@ -13,7 +13,6 @@ import MusicalStaff from "./MusicalStaff";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
-  const [pianoNotes, setPianoNotes] = useState(["c4", "e4", "g4", "b4"]);
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const slide = useSelector((state) => state.singleLesson.slide);
 
@@ -33,13 +32,6 @@ const LessonTemplate = () => {
 
   }, [lesson]);
 
-  const handleClick = () => {
-    const pianoSvg = document.getElementById("piano");
-    const pianoDiv = document.getElementById("pianoDiv");
-    if (pianoSvg) pianoDiv.removeChild(pianoSvg);
-    setPianoNotes(["d4", "f4", "a4"]);
-  };
-
   return (
     <>
       <Box m={1} display="flex" justifyContent="center" alignItems="center">
@@ -48,7 +40,7 @@ const LessonTemplate = () => {
 
       <Stack direction="row" spacing={2} justifyContent="space-evenly">
         <MusicalStaff slide={slide} />
-        <PianoKeys pianoNotes={pianoNotes} />
+        <PianoKeys slide={slide} />
       </Stack>
 
       <Box
@@ -59,9 +51,6 @@ const LessonTemplate = () => {
         flexDirection="column"
       >
         <LessonText slide={slide} />
-        <Button variant="contained" onClick={handleClick}>
-          Press me!
-        </Button>
       </Box>
     </>
   );

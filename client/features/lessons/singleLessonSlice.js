@@ -42,6 +42,15 @@ export const fetchStaffNotes = createAsyncThunk("staves/get", async (id) => {
   }
 });
 
+export const fetchPiano = createAsyncThunk("pianos/get", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/pianos/${id}`);
+    return data;
+  } catch (err) {
+    return err.message;
+  }
+});
+
 export const postStaffNotes = createAsyncThunk(
   "staves/post",
   async (staff, notes) => {
@@ -66,7 +75,6 @@ export const updateStaffNote = createAsyncThunk(
   }
 );
 
-
 export const deleteLessonAsync = createAsyncThunk("deleteLesson", async (id) => {
   try {
   const { data } = await axios.delete(`api/lessons/${id}`);
@@ -75,6 +83,18 @@ export const deleteLessonAsync = createAsyncThunk("deleteLesson", async (id) => 
     return err.message
   }
 })
+
+export const updatePiano = createAsyncThunk(
+  "pianos/put",
+  async ({ id, notes }) => {
+    try {
+      const { data } = await axios.put(`/api/pianos/${id}`, notes);
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
 
 export const updateSlideText = createAsyncThunk(
   "slides/put",
@@ -103,6 +123,12 @@ const singleLessonSlice = createSlice({
       })
       .addCase(fetchSingleSlide.fulfilled, (state, action) => {
         state.slide = action.payload;
+      })
+      .addCase(fetchPiano.fulfilled, (state, action) => {
+        state.piano = action.payload;
+      })
+      .addCase(updatePiano.fulfilled, (state, action) => {
+        state.piano = action.payload;
       });
   },
 });
