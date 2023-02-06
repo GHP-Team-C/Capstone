@@ -80,8 +80,14 @@ async function seed() {
 
   await Promise.all(
     [lessons[0].setUser(1)],
-    [lessons[1].setUser(2)],
-    [lessons[2].setUser(1)]
+    [lessons[1].setUser(1)],
+    [lessons[2].setUser(1)],
+    [lessons[3].setUser(1)],
+    [lessons[4].setUser(1)],
+    [lessons[5].setUser(1)],
+    [lessons[6].setUser(1)],
+    [lessons[7].setUser(1)],
+    [lessons[8].setUser(1)]
   );
 
   //NEED TO ADD NOTES TO ALL STAFFS
@@ -99,15 +105,21 @@ async function seed() {
   await Promise.all(
     [lessons[0].addSlides([1, 2, 3])],
     [lessons[1].addSlides([4, 5, 6])],
-    [lessons[2].addSlides([7, 8])]
+    [lessons[2].addSlides([7, 8, 9])],
+    [lessons[3].addSlides([10, 11, 12])],
+    [lessons[4].addSlides([13, 14, 15])],
+    [lessons[5].addSlides([16, 17, 18])],
+    [lessons[6].addSlides([19, 20, 21])],
+    [lessons[7].addSlides([22, 23, 24])],
+    [lessons[8].addSlides([25, 26, 27])]
   );
 
   await Promise.all(staffs.map((staff, idx) => staff.setSlide(idx + 1)));
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${lessons.length} lessons`);
-  console.log(`seeded ${notes.length} lessons`);
-  console.log(`seeded ${staffs.length} lessons`);
+  console.log(`seeded ${notes.length} notes`);
+  console.log(`seeded ${staffs.length} staffs`);
   console.log(`seeded ${slides.length} slides`);
   console.log(`seeded successfully`);
   return {

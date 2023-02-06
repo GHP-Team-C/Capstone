@@ -32,7 +32,6 @@ router.get("/:id", async (req, res, next) => {
         },
       ],
     });
-    console.log("singleUser from api: ", singleUser)
     res.json(singleUser);
   } catch (err) {
     next(err);
