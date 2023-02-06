@@ -14,7 +14,7 @@ export const publishStatusSingleLesson = createAsyncThunk(
   "lessons/publishing",
   async (id) => {
     try {
-      const { data } = await axios.put(`/api/lessons/${id}`);
+      const { data } = await axios.put(`/api/lessons/${id}/publish`);
       return data;
     } catch (err) {
       return err.message;

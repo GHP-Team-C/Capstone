@@ -31,8 +31,8 @@ const handleDelete = (event) => {
 
 return(
   <div>
-    <Link to={`/lessons/${lesson.id}/slides/1`}>{lesson.name}</Link>
-    <Button onClick={togglePublishStatus}variant="text">{publishStatusButton(lesson)}</Button>
+    <Link to={`/lessons/${lesson.id}/slides/1`}>{lesson.name} </Link>
+    <Button onClick={togglePublishStatus}variant="text">{publishStatusButton(lesson)} </Button>
     <Button onClick={handleDelete} variant="text">Delete</Button>
   </div>
 )

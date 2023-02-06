@@ -33,12 +33,12 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id/publish", async (req, res, next) => {
   try {
     const lesson = await Lesson.findByPk(req.params.id);
-   lesson.published = !lesson.published
 
-  res.json(await lesson.update(data));
+  await lesson.update({published: !lesson.published})
+  res.json(lesson);
   } catch (err) {
     next(err);
   }

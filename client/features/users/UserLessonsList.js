@@ -1,10 +1,14 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useDispatch } from "react-redux";
+import { fetchSingleUser } from "./singleUserSlice";
 import UserLessonCard from "./UserLessonCard";
 
 
 const UserLessonsList = (props) => {
 
 const lessons = props.lessons
+
+
 
 
 const publishedLessons =
