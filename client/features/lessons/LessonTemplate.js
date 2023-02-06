@@ -43,8 +43,8 @@ const LessonTemplate = () => {
     setPianoNotes(["d4", "f4", "a4"]);
   };
 
-  const handleAddSlide = () => {
-     dispatch(makeSlide(lId))
+  const handleAddSlide = async () => {
+     await dispatch(makeSlide(lId))
 
     navigate(`/lessons/${lId}/slides/${Number(sId)+1}`)
   }

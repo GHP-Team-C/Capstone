@@ -25,7 +25,7 @@ export const makeSlide = createAsyncThunk(
   async (id) => {
     try {
       await axios.put(`/api/lessons/${id}`);
-      return;
+      return true;
     } catch (err) {
       return err.message;
     }
@@ -80,7 +80,7 @@ const singleLessonSlice = createSlice({
       .addCase(fetchSingleSlide.fulfilled, (state, action)=>{
         state.slide = action.payload;
       })
-    
+
   },
 });
 

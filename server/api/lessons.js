@@ -43,6 +43,7 @@ router.put("/:id", async(req, res, next)=>{
     await staff.createNote({noteName:"b", octave: "4" , duration: "qr", domId: "2"})
     await staff.createNote({noteName:"b", octave: "4" , duration: "qr", domId: "3"})
     await staff.createNote({noteName:"b", octave: "4" , duration: "qr", domId: "4"})
+    res.json(lesson)
   }catch(error){
     next(error)
   }
