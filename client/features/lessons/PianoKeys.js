@@ -75,8 +75,10 @@ const PianoKeys = ({ slide }) => {
       piano.applySettings({ vividKeyPressColor: "#ffa500" });
       piano.applySettings({ keyPressStyle: "vivid" });
       pianoNotes.forEach((note) => {
-        piano.keyDown(`${note}`);
-        pianoKeyboard[note] = true;
+        if (note) {
+          piano.keyDown(`${note}`);
+          pianoKeyboard[note] = true;
+        }
       });
     }
   };
