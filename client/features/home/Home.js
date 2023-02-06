@@ -3,6 +3,7 @@ import { Stack } from "@mui/system";
 import { Button } from "@mui/material";
 import { Typography, Link } from "@mui/material";
 import { useSelector } from "react-redux";
+import CreateLesson from "../lessons/CreateLesson";
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ const Home = () => {
           </div>
         )}
       </Stack>
+      <CreateLesson />
     </div>
   );
 };
