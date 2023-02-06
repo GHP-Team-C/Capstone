@@ -1,134 +1,84 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {authenticateSignUp } from '../../app/store';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+/**
+  The AuthForm component can be used for Login or Sign Up.
+  Props for Login: name="login", displayName="Login"
+  Props for Sign up: name="signup", displayName="Sign Up"
+**/
 
-const theme = createTheme();
-
-export default function SignUp({ name }) {
-
+const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const formName = evt.target.name;
-    const username = evt.target.username.value;
-    const password = evt.target.password.value;
-    const firstName = evt.target.firstName.value;
-    const lastName = evt.target.lastName.value;
-    const email= evt.target.email.value;
-    dispatch(authenticate({ username, password, firstName, lastName, email,  method: formName }));
+    dispatch(authenticateSignUp({ firstName, lastName, username, email, password, method: "signup" }));
     navigate('/')
   };
 
 
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" name={name}>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="user-name"
-                  label="User Name"
-                  name="userName"
-                  autoComplete="user-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
+    <div>
+      <form onSubmit={handleSubmit} name={name}>
+      <div>
+          <label htmlFor="firstName">
+            <small>First Name</small>
+          </label>
+          <input name="firstName"
+                type="text"
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}/>
+          <label htmlFor="lastName">
+            <small>Last Name</small>
+          </label>
+          <input name="lastName" type="text"
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}/>
+
+          <label htmlFor="username">
+            <small>Username</small>
+          </label>
+          <input name="username" type="text"
+                 value={username}
+                 onChange={(event) =>
+                   setUserName(event.target.value)
+                 } />
+
+          <label htmlFor="email">
+            <small>Email</small>
+          </label>
+          <input name="email" type="text"
+                 value={email}
+                 onChange={(event) =>
+                   setEmail(event.target.value)
+                 }  />
+
+          <label htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input name="password" type="password"
+                  value={password}
+                  onChange={(event) =>
+                    setPassword(event.target.value)
+                  }/>
+        </div>
+        <div>
+          <button type="submit">{displayName}</button>
+        </div>
         {error && <div> {error} </div>}
-      </Container>
-    </ThemeProvider>
+      </form>
+    </div>
   );
-}
+};
+
+export default AuthForm;

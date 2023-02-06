@@ -48,6 +48,23 @@ export const authenticate = createAsyncThunk(
   }
 );
 
+export const authenticateSignUp = createAsyncThunk(
+  'auth/authenticatesignup',
+  async ({ firstName, lastName, username,email, password, method }, thunkAPI) => {
+    try {
+      const res = await axios.post(`/auth/${method}`, { firstName, lastName, username, email, password });
+      window.localStorage.setItem(TOKEN, res.data.token);
+      thunkAPI.dispatch(me());
+    } catch (err) {
+      if (err.response.data) {
+        return thunkAPI.rejectWithValue(err.response.data);
+      } else {
+        return 'There was an issue with your request.';
+      }
+    }
+  }
+);
+
 /*
   SLICE
 */
@@ -72,6 +89,9 @@ export const authSlice = createSlice({
       state.error = action.error;
     });
     builder.addCase(authenticate.rejected, (state, action) => {
+      state.error = action.payload;
+    });
+    builder.addCase(authenticateSignUp.rejected, (state, action) => {
       state.error = action.payload;
     });
   },
