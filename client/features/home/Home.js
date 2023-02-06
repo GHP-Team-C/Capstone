@@ -1,9 +1,10 @@
 import React from "react";
 import { Stack } from "@mui/system";
 import { Button } from "@mui/material";
-import { Typography, Link } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import CreateLesson from "../lessons/CreateLesson";
+import { Link } from "react-router-dom";
 
 /**
  * COMPONENT
@@ -16,16 +17,20 @@ const Home = () => {
       <Stack justifyContent="center" alignItems="center" spacing={2}>
         <Typography variant="h3">Welcome to AugmentED!</Typography>
         <Typography variant="h4"> Learn to play music!</Typography>
-        <Button href="/all-public-lessons">Browse All Lessons</Button>
+        <Link to="/all-public-lessons">
+          <Button>Browse All Lessons</Button>
+        </Link>
         {isLoggedIn ? (
           <div>
-            <Button href="/create-lesson">Create New Lesson</Button>
+            <Link to="/create-lesson">
+              <Button>Create New Lesson</Button>
+            </Link>
           </div>
         ) : (
           <div>
             <Typography>
-              Want to create a lesson? <Link href="login">Log In</Link> or{" "}
-              <Link href="/signup">Sign Up</Link> to get started.
+              Want to create a lesson? <Link to="login">Log In</Link> or{" "}
+              <Link to="/signup">Sign Up</Link> to get started.
             </Typography>
           </div>
         )}
