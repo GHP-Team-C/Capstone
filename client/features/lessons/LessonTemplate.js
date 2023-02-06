@@ -15,7 +15,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
-  const [pianoNotes, setPianoNotes] = useState(["c4", "e4", "g4", "b4"]);
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const slide = useSelector((state) => state.singleLesson.slide);
   const navigate = useNavigate();
@@ -35,19 +34,14 @@ const LessonTemplate = () => {
     }
   }, [lesson]);
 
-  //removes SVG div
-  const handleClick = () => {
-    const pianoSvg = document.getElementById("piano");
-    const pianoDiv = document.getElementById("pianoDiv");
-    if (pianoSvg) pianoDiv.removeChild(pianoSvg);
-    setPianoNotes(["d4", "f4", "a4"]);
-  };
+
 
   const handleAddSlide = async () => {
      await dispatch(makeSlide(lId))
 
     navigate(`/lessons/${lId}/slides/${Number(sId)+1}`)
   }
+
 
 
   return (
@@ -58,7 +52,7 @@ const LessonTemplate = () => {
 
       <Stack direction="row" spacing={2} justifyContent="space-evenly">
         <MusicalStaff slide={slide} />
-        <PianoKeys pianoNotes={pianoNotes} />
+        <PianoKeys slide={slide} />
       </Stack>
 
       <Box
@@ -68,6 +62,7 @@ const LessonTemplate = () => {
         alignItems="center"
         flexDirection="column"
       >
+
         <LessonText />
 { sId != 1 &&
       <NavLink to={`/lessons/${lId}/slides/${Number(sId)-1}`}>
@@ -92,9 +87,10 @@ const LessonTemplate = () => {
           Publish
         </Button>
 
-        <Button variant="contained" onClick={handleClick}>
-          Press me!
-        </Button>
+        
+
+        <LessonText slide={slide} />
+
       </Box>
     </>
   );

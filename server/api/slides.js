@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Slide },
+  models: { Slide, Piano },
 } = require("../db");
 const Staff = require("../db/models/Staff");
 const Note = require("../db/models/Note");
@@ -16,9 +16,25 @@ router.get("/:id", async (req, res, next) => {
             slideId: req.params.id,
           },
         },
+        {
+          model: Piano,
+          where: {
+            slideId: req.params.id,
+          },
+        },
       ],
     });
     res.json(singleSlide);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const slide = await Slide.findByPk(req.params.id);
+    await slide.update(req.body);
+    res.json(slide);
   } catch (err) {
     next(err);
   }
