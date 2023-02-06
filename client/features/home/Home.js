@@ -19,7 +19,7 @@ const Home = () => {
         <Button href="/all-public-lessons">Browse All Lessons</Button>
         {isLoggedIn ? (
           <div>
-            <Button>Create New Lesson</Button>
+            <Button href="/create-lesson">Create New Lesson</Button>
           </div>
         ) : (
           <div>
@@ -30,7 +30,6 @@ const Home = () => {
           </div>
         )}
       </Stack>
-      <CreateLesson />
     </div>
   );
 };
