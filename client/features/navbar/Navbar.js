@@ -53,7 +53,6 @@ const Navbar = () => {
                     <Button>Beginner Lesson</Button>
                     <Button>Intermediate Lesson</Button>
                   </div>
-
                 </Drawer>
               </div>
             </Box>
@@ -79,20 +78,16 @@ const Navbar = () => {
                 </div>
               ) : (
                 <div>
-                  <Button
-                    href="/login"
-                    variant="text"
-                    sx={{ m: 1, color: "black" }}
-                  >
-                    Log In
-                  </Button>
-                  <Button
-                    href="/signup"
-                    variant="text"
-                    sx={{ m: 1, color: "black" }}
-                  >
-                    Sign Up
-                  </Button>
+                  <Link to="/login">
+                    <Button variant="text" sx={{ m: 1, color: "black" }}>
+                      Log In
+                    </Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button variant="text" sx={{ m: 1, color: "black" }}>
+                      Sign Up
+                    </Button>
+                  </Link>
                 </div>
               )}
             </div>
