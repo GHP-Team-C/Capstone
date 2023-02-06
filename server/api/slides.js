@@ -23,3 +23,13 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const slide = await Slide.findByPk(req.params.id);
+    await slide.update(req.body);
+    res.json(slide);
+  } catch (err) {
+    next(err);
+  }
+});

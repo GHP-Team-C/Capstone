@@ -56,7 +56,7 @@ const LessonTemplate = () => {
         alignItems="center"
         flexDirection="column"
       >
-        <LessonText />
+        <LessonText slide={slide} />
         <Button variant="contained" onClick={handleClick}>
           Press me!
         </Button>
