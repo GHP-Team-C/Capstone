@@ -65,14 +65,16 @@ async function seed() {
   ]);
 
   //Creating Pianos
-  const pianos = await Promise.all([
-    Piano.create({
-      keys: "a4, b4, c4, g#4",
-    }),
-  ]);
+  // const pianos = await Promise.all([
+  //   Piano.create({
+  //     keys: "a4, b4, c4, g#4",
+  //   }),
+  // ]);
 
   //Assign Piano to slide
-  await Promise.all([slides[0].setPiano(1)]);
+  await Promise.all([
+    slides.map((slide) => slide.createPiano({ keys: "a4, b4, c4, g#4" })),
+  ]);
 
   // Creating Lessons
 
@@ -84,14 +86,14 @@ async function seed() {
 
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
-    [staffs[0].addNotes([1,2,3,4])],
-    [staffs[1].addNotes([5,6,7,8])],
-    [staffs[2].addNotes([2,1,3,4])],
-    [staffs[3].addNotes([5,6,7,8])],
-    [staffs[4].addNotes([1,2,4,3])],
-    [staffs[5].addNotes([5,6,7,8])],
-    [staffs[6].addNotes([3,4,1,2])],
-    [staffs[7].addNotes([5,6,7,8])],
+    [staffs[0].addNotes([1, 2, 3, 4])],
+    [staffs[1].addNotes([5, 6, 7, 8])],
+    [staffs[2].addNotes([2, 1, 3, 4])],
+    [staffs[3].addNotes([5, 6, 7, 8])],
+    [staffs[4].addNotes([1, 2, 4, 3])],
+    [staffs[5].addNotes([5, 6, 7, 8])],
+    [staffs[6].addNotes([3, 4, 1, 2])],
+    [staffs[7].addNotes([5, 6, 7, 8])]
   );
 
   await Promise.all(
@@ -107,7 +109,6 @@ async function seed() {
   console.log(`seeded ${notes.length} lessons`);
   console.log(`seeded ${staffs.length} lessons`);
   console.log(`seeded ${slides.length} slides`);
-  console.log(`seeded ${pianos.length} pianos`);
   console.log(`seeded successfully`);
   return {
     users: {
