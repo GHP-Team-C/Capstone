@@ -48,7 +48,7 @@ const LessonTemplate = () => {
         alignItems="center"
         flexDirection="column"
       >
-        <LessonText />
+        <LessonText slide={slide} />
       </Box>
     </>
   );

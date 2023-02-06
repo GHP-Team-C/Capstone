@@ -73,6 +73,18 @@ export const updatePiano = createAsyncThunk(
   }
 );
 
+export const updateSlideText = createAsyncThunk(
+  "slides/put",
+  async ({ id, text }) => {
+    try {
+      await axios.put(`/api/slides/${id}`, text);
+      return;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 const singleLessonSlice = createSlice({
   name: "lesson",
   initialState: {},

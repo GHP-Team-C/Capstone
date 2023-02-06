@@ -36,9 +36,11 @@ const Navbar = () => {
         <AppBar position="fixed" sx={{ bgcolor: grey[300] }}>
           <Toolbar sx={{ p: -1 }}>
             <Box sx={{ display: "flex", flexGrow: 1 }}>
-              <IconButton href="/">
-                <Home></Home>
-              </IconButton>
+              <Link to="/">
+                <IconButton>
+                  <Home></Home>
+                </IconButton>
+              </Link>
               <div>
                 <Button onClick={() => setOpen(true)}>Lessons</Button>
                 <Drawer
@@ -65,11 +67,13 @@ const Navbar = () => {
                   >
                     Log Out
                   </Button>
-                  <IconButton href="/user-profile">
-                    <Avatar sx={{ bgcolor: blue[300] }}>
-                      {/* {user.firstName.charAt(0)} */}
-                    </Avatar>
-                  </IconButton>
+                  <Link to="/user-profile">
+                    <IconButton>
+                      <Avatar sx={{ bgcolor: blue[300] }}>
+                        {/* {user.firstName.charAt(0)} */}
+                      </Avatar>
+                    </IconButton>
+                  </Link>
                 </div>
               ) : (
                 <div>
