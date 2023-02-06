@@ -10,7 +10,6 @@ export const fetchSingleLesson = createAsyncThunk("lessons/get", async (id) => {
   }
 });
 
-
 export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
   try {
     const { data } = await axios.get(`/api/slides/${id}`);
@@ -23,6 +22,15 @@ export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
 export const fetchStaffNotes = createAsyncThunk("staves/get", async (id) => {
   try {
     const { data } = await axios.get(`/api/staves/${id}`);
+    return data;
+  } catch (err) {
+    return err.message;
+  }
+});
+
+export const fetchPiano = createAsyncThunk("pianos/get", async (id) => {
+  try {
+    const { data } = await axios.get(`/api/pianos/${id}`);
     return data;
   } catch (err) {
     return err.message;
@@ -53,6 +61,18 @@ export const updateStaffNote = createAsyncThunk(
   }
 );
 
+export const updatePiano = createAsyncThunk(
+  "pianos/put",
+  async ({ id, notes }) => {
+    try {
+      const { data } = await axios.put(`/api/pianos/${id}`, notes);
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 const singleLessonSlice = createSlice({
   name: "lesson",
   initialState: {},
@@ -65,9 +85,15 @@ const singleLessonSlice = createSlice({
       .addCase(fetchSingleLesson.fulfilled, (state, action) => {
         state.lesson = action.payload;
       })
-      .addCase(fetchSingleSlide.fulfilled, (state, action)=>{
+      .addCase(fetchSingleSlide.fulfilled, (state, action) => {
         state.slide = action.payload;
       })
+      .addCase(fetchPiano.fulfilled, (state, action) => {
+        state.piano = action.payload;
+      })
+      .addCase(updatePiano.fulfilled, (state, action) => {
+        state.piano = action.payload;
+      });
   },
 });
 

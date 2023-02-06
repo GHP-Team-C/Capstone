@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Slide },
+  models: { Slide, Piano },
 } = require("../db");
 const Staff = require("../db/models/Staff");
 const Note = require("../db/models/Note");
@@ -12,6 +12,12 @@ router.get("/:id", async (req, res, next) => {
       include: [
         {
           model: Staff,
+          where: {
+            slideId: req.params.id,
+          },
+        },
+        {
+          model: Piano,
           where: {
             slideId: req.params.id,
           },
