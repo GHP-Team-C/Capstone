@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createLesson } from "./lessonsSlice";
+import { useNavigate } from "react-router-dom";
+import { createLesson } from "./singleLessonSlice";
 import {
   Typography,
   TextField,
@@ -18,14 +19,20 @@ const CreateLesson = () => {
   const [level, setLevel] = useState("beginner");
   const [visibleTo, setVisibleTo] = useState("private");
   const userId = useSelector((state) => state.auth.me.id);
-
+  const lesson = useSelector((state) => state.singleLesson.lesson);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    dispatch(createLesson({ name, level, userId: userId }));
-    console.log("clicked!");
+    await dispatch(createLesson({ name, level, visibleTo, userId: userId }));
   };
+
+  useEffect(() => {
+    if (lesson) {
+      navigate(`/edit/lessons/${lesson.id}/slides/1`);
+    }
+  }, [lesson]);
 
   return (
     <div>

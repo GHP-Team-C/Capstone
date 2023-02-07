@@ -22,18 +22,18 @@ export const fetchUserLessons = createAsyncThunk(
   }
 );
 
-export const createLesson = createAsyncThunk(
-  "lessons/post",
-  async ({ name, level, visibleTo, userId }) => {
-    const { data } = await axios.post("api/lessons", {
-      name,
-      level,
-      visibleTo,
-      userId,
-    });
-    return data;
-  }
-);
+// export const createLesson = createAsyncThunk(
+//   "lessons/post",
+//   async ({ name, level, visibleTo, userId }) => {
+//     const { data } = await axios.post("/api/lessons", {
+//       name,
+//       level,
+//       visibleTo,
+//       userId,
+//     });
+//     return data;
+//   }
+// );
 
 const lessonsSlice = createSlice({
   name: "lessons",
@@ -46,9 +46,9 @@ const lessonsSlice = createSlice({
     builder.addCase(fetchUserLessons.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder.addCase(createLesson.fulfilled, (state, action) => {
-      state.push(action.payload);
-    });
+    // builder.addCase(createLesson.fulfilled, (state, action) => {
+    //   state.push(action.payload);
+    // });
   },
 });
 

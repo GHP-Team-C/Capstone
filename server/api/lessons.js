@@ -14,6 +14,43 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// Add staff & slide to new lesson
+router.post("/", async (req, res, next) => {
+  try {
+    const lesson = await Lesson.create(req.body);
+    const slide = await lesson.createSlide();
+    const staff = await slide.createStaff();
+    await slide.createPiano();
+    await staff.createNote({
+      noteName: "b",
+      octave: "4",
+      duration: "qr",
+      domId: "1",
+    });
+    await staff.createNote({
+      noteName: "b",
+      octave: "4",
+      duration: "qr",
+      domId: "2",
+    });
+    await staff.createNote({
+      noteName: "b",
+      octave: "4",
+      duration: "qr",
+      domId: "3",
+    });
+    await staff.createNote({
+      noteName: "b",
+      octave: "4",
+      duration: "qr",
+      domId: "4",
+    });
+    res.json(lesson);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/:id", async (req, res, next) => {
   try {
     const singleLesson = await Lesson.findByPk(req.params.id, {

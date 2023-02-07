@@ -121,6 +121,23 @@ export const updateSlideText = createAsyncThunk(
   }
 );
 
+export const createLesson = createAsyncThunk(
+  "lessons/post",
+  async ({ name, level, visibleTo, userId }) => {
+    try {
+      const { data } = await axios.post("/api/lessons", {
+        name,
+        level,
+        visibleTo,
+        userId,
+      });
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 const singleLessonSlice = createSlice({
   name: "lesson",
   initialState: {},
@@ -141,6 +158,9 @@ const singleLessonSlice = createSlice({
       })
       .addCase(updatePiano.fulfilled, (state, action) => {
         state.piano = action.payload;
+      })
+      .addCase(createLesson.fulfilled, (state, action) => {
+        state.lesson = action.payload
       })
       .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
         state.lesson = action.payload;
