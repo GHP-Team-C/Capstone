@@ -17,12 +17,13 @@ import {
   fetchStaffNotes,
   makeSlide,
   fetchSingleSlide,
+  publishStatusSingleLesson,
+  deleteLessonAsync,
+  deleteSlideAsnyc,
 } from "./singleLessonSlice";
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
-import { publishStatusSingleLesson } from "./singleLessonSlice";
-import { deleteLessonAsync } from "./singleLessonSlice";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
@@ -57,15 +58,23 @@ const LessonTemplate = () => {
 
   const handleDelete = async (event) => {
     event.preventDefault();
-    await dispatch(deleteLessonAsync(lesson.id));
-    setOpen(false);
-    navigate("/creator-dashboard");
+    if (toDelete === "lesson") {
+      await dispatch(deleteLessonAsync(lesson.id));
+      setOpen(false);
+      navigate("/creator-dashboard");
+    } else {
+      await dispatch(deleteSlideAsnyc(slide.id));
+      setOpen(false);
+      dispatch(fetchSingleLesson(lId));
+    }
   };
 
   const [open, setOpen] = useState(false);
+  const [toDelete, setToDelete] = useState("");
 
-  const handleOpen = () => {
+  const handleOpen = (toBeDeleted) => {
     setOpen(true);
+    setToDelete(toBeDeleted);
   };
 
   const handleClose = () => {
@@ -115,15 +124,22 @@ const LessonTemplate = () => {
           <Button variant="contained" onClick={togglePublishStatus}>
             {lesson.published ? "Unpublish" : "Publish"}
           </Button>
-          <Button variant="contained" onClick={handleOpen}>
-            Delete
+          {lesson.slides.length > 1 && (
+            <Button variant="contained" onClick={() => handleOpen("slide")}>
+              Delete Slide
+            </Button>
+          )}
+          <Button variant="contained" onClick={() => handleOpen("lesson")}>
+            Delete Lesson
           </Button>
           {open && (
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle>Are you sure?</DialogTitle>
               <DialogContent>
                 <DialogContentText>
-                  Your lesson "{lesson.name}" cannot be recovered once deleted.
+                  Your{" "}
+                  {toDelete === "lesson" ? `lesson ${lesson.name}` : `slide`}{" "}
+                  cannot be recovered once deleted.
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
