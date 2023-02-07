@@ -32,6 +32,7 @@ const User = db.define("user", {
   },
   avatarUrl: {
     type: Sequelize.TEXT,
+    defaultValue: '/Toph_Beifong.png'
   },
 });
 
