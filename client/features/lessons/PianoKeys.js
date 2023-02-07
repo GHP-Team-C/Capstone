@@ -84,7 +84,7 @@ const PianoKeys = ({ slide }) => {
   };
 
   const pianoStyle = {
-    marginTop: "75px",
+    marginTop: "95px",
     width: "500px",
   };
 
