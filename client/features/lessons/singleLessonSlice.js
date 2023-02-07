@@ -10,7 +10,6 @@ export const fetchSingleLesson = createAsyncThunk("lessons/get", async (id) => {
   }
 });
 
-
 export const publishStatusSingleLesson = createAsyncThunk(
   "lessons/publishing",
   async (id) => {
@@ -23,7 +22,6 @@ export const publishStatusSingleLesson = createAsyncThunk(
   }
 );
 
-
 export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
   try {
     const { data } = await axios.get(`/api/slides/${id}`);
@@ -33,17 +31,14 @@ export const fetchSingleSlide = createAsyncThunk("slide/get", async (id) => {
   }
 });
 
-export const makeSlide = createAsyncThunk(
-  "slides/put",
-  async (id) => {
-    try {
-      await axios.put(`/api/lessons/${id}`);
-      return true;
-    } catch (err) {
-      return err.message;
-    }
+export const makeSlide = createAsyncThunk("slides/put", async (id) => {
+  try {
+    await axios.put(`/api/lessons/${id}`);
+    return true;
+  } catch (err) {
+    return err.message;
   }
-);
+});
 
 export const fetchStaffNotes = createAsyncThunk("staves/get", async (id) => {
   try {
@@ -87,14 +82,17 @@ export const updateStaffNote = createAsyncThunk(
   }
 );
 
-export const deleteLessonAsync = createAsyncThunk("deleteLesson", async (id) => {
-  try {
-  const { data } = await axios.delete(`api/lessons/${id}`);
-  return data
-  } catch (err){
-    return err.message
+export const deleteLessonAsync = createAsyncThunk(
+  "deleteLesson",
+  async (id) => {
+    try {
+      const { data } = await axios.delete(`api/lessons/${id}`);
+      return data;
+    } catch (err) {
+      return err.message;
+    }
   }
-})
+);
 
 export const updatePiano = createAsyncThunk(
   "pianos/put",
@@ -120,7 +118,6 @@ export const updateSlideText = createAsyncThunk(
   }
 );
 
-
 const singleLessonSlice = createSlice({
   name: "lesson",
   initialState: {},
@@ -141,8 +138,10 @@ const singleLessonSlice = createSlice({
       })
       .addCase(updatePiano.fulfilled, (state, action) => {
         state.piano = action.payload;
+      })
+      .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
+        state.lesson = action.payload;
       });
-
   },
 });
 

@@ -31,6 +31,7 @@ router.get("/:id", async (req, res, next) => {
           required: false,
         },
       ],
+      order: [[{ model: Lesson }, "id"]],
     });
     res.json(singleUser);
   } catch (err) {

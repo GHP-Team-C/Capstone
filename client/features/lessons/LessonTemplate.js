@@ -12,6 +12,7 @@ import {
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
+import { publishStatusSingleLesson } from "./singleLessonSlice";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
@@ -36,50 +37,55 @@ const LessonTemplate = () => {
   const handleAddSlide = async () => {
     await dispatch(makeSlide(lId));
 
-    navigate(`/lessons/${lId}/slides/${Number(sId) + 1}`);
+    navigate(`/edit/lessons/${lId}/slides/${Number(sId) + 1}`);
   };
 
-  return (
-    <>
-      <Box m={1} display="flex" justifyContent="center" alignItems="center">
-        <h1> Lessons Template </h1>
-      </Box>
+  const togglePublishStatus = () => {
+    dispatch(publishStatusSingleLesson(lesson.id));
+  };
 
-      <Stack direction="row" spacing={2} justifyContent="space-evenly">
-        <MusicalStaff slide={slide} />
-        <PianoKeys slide={slide} />
-      </Stack>
+  if (lesson)
+    return (
+      <>
+        <Box m={1} display="flex" justifyContent="center" alignItems="center">
+          <h1> Lessons Template </h1>
+        </Box>
 
-      <Box
-        m={1}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <LessonText slide={slide} />
-        {lesson ? (
-          lesson.slides[Number(sId)] ? (
-            <NavLink to={`/lessons/${lId}/slides/${Number(sId) + 1}`}>
-              <Button variant="contained">Next Slide</Button>
+        <Stack direction="row" spacing={2} justifyContent="space-evenly">
+          <MusicalStaff slide={slide} />
+          <PianoKeys slide={slide} />
+        </Stack>
+
+        <Box
+          m={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <LessonText slide={slide} />
+          {lesson ? (
+            lesson.slides[Number(sId)] ? (
+              <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) + 1}`}>
+                <Button variant="contained">Next Slide</Button>
+              </NavLink>
+            ) : (
+              <Button variant="contained" onClick={handleAddSlide}>
+                Add Another Slide
+              </Button>
+            )
+          ) : null}
+          {sId != 1 && (
+            <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) - 1}`}>
+              <Button variant="contained">Previous Slide</Button>
             </NavLink>
-          ) : (
-            <Button variant="contained" onClick={handleAddSlide}>
-              Add Another Slide
-            </Button>
-          )
-        ) : null}
-        {sId != 1 && (
-          <NavLink to={`/lessons/${lId}/slides/${Number(sId) - 1}`}>
-            <Button variant="contained">Previous Slide</Button>
-          </NavLink>
-        )}
-        <Button variant="contained" onClick={() => {}}>
-          Publish
-        </Button>
-      </Box>
-    </>
-  );
+          )}
+          <Button variant="contained" onClick={togglePublishStatus}>
+            {lesson.published ? "Unpublish" : "Publish"}
+          </Button>
+        </Box>
+      </>
+    );
 };
 
 export default LessonTemplate;
