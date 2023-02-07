@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createLesson } from "./singleLessonSlice";
@@ -19,19 +19,20 @@ const CreateLesson = () => {
   const [level, setLevel] = useState("beginner");
   const [visibleTo, setVisibleTo] = useState("private");
   const userId = useSelector((state) => state.auth.me.id);
-  // const lesson = useSelector((state) => state.singleLesson.lesson);
-
+  const lesson = useSelector((state) => state.singleLesson.lesson);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     await dispatch(createLesson({ name, level, visibleTo, userId: userId }));
-    const lesson = this.state.singleLesson.lesson;
-    console.log("lesson", lesson);
-    navigate(`/lesson/${lesson.id}/slide/1`);
-    // navigate("/creator-dashboard");
   };
+
+  useEffect(() => {
+    if (lesson) {
+      navigate(`/edit/lessons/${lesson.id}/slides/1`);
+    }
+  }, [lesson]);
 
   return (
     <div>
