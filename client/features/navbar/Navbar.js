@@ -43,17 +43,9 @@ const Navbar = () => {
                 </IconButton>
               </Link>
               <div>
-                <Button onClick={() => setOpen(true)}>Lessons</Button>
-                <Drawer
-                  open={open}
-                  anchor={"left"}
-                  onClose={() => setOpen(false)}
-                >
-                  <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-                    <Button>Beginner Lesson</Button>
-                    <Button>Intermediate Lesson</Button>
-                  </div>
-                </Drawer>
+                <Link to="/all-public-lessons">
+                <Button >Public Lessons</Button>
+                </Link>
               </div>
             </Box>
             <div>
