@@ -25,7 +25,8 @@ const publishedLessons =
 
 return (
 <div>
-  <h3>Published</h3>
+  <h2>Published Lessons:
+  </h2>
     <div>
       {publishedLessons.map((lesson)=>
       <div key={lesson.id}>
@@ -33,7 +34,7 @@ return (
         </div>
       )}
     </div>
-  <h3>Drafts</h3>
+  <h2>Draft Lessons:</h2>
   <div>
       {draftLessons.map((lesson)=>
       <div key={lesson.id}>
