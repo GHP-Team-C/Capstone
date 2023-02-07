@@ -4,7 +4,7 @@ import { Instrument } from "piano-chart";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePiano, fetchPiano } from "./singleLessonSlice";
 
-const PianoKeys = ({ slide }) => {
+const ViewPianoKeys = ({ slide }) => {
   let pianoDiv = document.getElementById("pianoDiv");
   const thisPiano = useSelector((state) => state.singleLesson.piano);
   let pianoNotes = [];
@@ -48,29 +48,6 @@ const PianoKeys = ({ slide }) => {
       });
 
       piano.create();
-      piano.addKeyMouseDownListener((note) => {
-        let fullNote = "";
-        if (note.accidental)
-          fullNote = `${note.note.toLowerCase()}${note.accidental}${
-            note.octave
-          }`;
-        else fullNote = `${note.note.toLowerCase()}${note.octave}`;
-        if (pianoKeyboard[`${fullNote}`]) {
-          piano.keyUp(note);
-          pianoKeyboard[`${fullNote}`] = false;
-          pianoNotes.splice(pianoNotes.indexOf(fullNote), 1);
-        } else {
-          piano.keyDown(note);
-          pianoKeyboard[`${fullNote}`] = true;
-          pianoNotes.push(fullNote);
-        }
-        dispatch(
-          updatePiano({
-            id: thisPiano.id,
-            notes: { keys: pianoNotes.join(", ") },
-          })
-        );
-      });
       piano.container.children[0].setAttribute("id", "piano");
       piano.applySettings({ vividKeyPressColor: "#ffa500" });
       piano.applySettings({ keyPressStyle: "vivid" });
@@ -84,16 +61,15 @@ const PianoKeys = ({ slide }) => {
   };
 
   const pianoStyle = {
-    marginTop: "95px",
+    marginTop: "55px",
     width: "500px",
   };
 
   return (
     <div>
-      {/* this below is a place holder for the controls */}
       <div id="pianoDiv" style={pianoStyle}></div>
     </div>
   );
 };
 
-export default PianoKeys;
+export default ViewPianoKeys;

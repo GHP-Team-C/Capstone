@@ -1,14 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchSingleLesson = createAsyncThunk("lessons/get", async (id) => {
-  try {
-    const { data } = await axios.get(`/api/lessons/${id}`);
-    return data;
-  } catch (err) {
-    return err.message;
+export const fetchSingleLesson = createAsyncThunk(
+  "singleLesson/get",
+  async (id) => {
+    try {
+      const { data } = await axios.get(`/api/lessons/${id}`);
+      return data;
+    } catch (err) {
+      return err.message;
+    }
   }
-});
+);
 
 export const publishStatusSingleLesson = createAsyncThunk(
   "lessons/publishing",
@@ -157,6 +160,9 @@ const singleLessonSlice = createSlice({
         state.piano = action.payload;
       })
       .addCase(createLesson.fulfilled, (state, action) => {
+        state.lesson = action.payload
+      })
+      .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
         state.lesson = action.payload;
       });
   },
