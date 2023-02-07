@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import { fetchSingleUser } from "./singleUserSlice";
 import { useDispatch } from "react-redux";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import {
   deleteLessonAsync,
   publishStatusSingleLesson,
 } from "../lessons/singleLessonSlice";
+import { fetchSingleUser } from "./singleUserSlice";
 
 const UserLessonCard = (props) => {
   const dispatch = useDispatch();
@@ -26,22 +33,45 @@ const UserLessonCard = (props) => {
   const handleDelete = async (event) => {
     event.preventDefault();
     await dispatch(deleteLessonAsync(lesson.id));
+    setOpen(false);
     dispatch(fetchSingleUser(props.userId));
   };
 
-  console.log("bottom level", props.userId);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   //const [publishStatus, setPublishStatus] = useState(false)
 
   return (
     <div>
-      <Link to={`/lessons/${lesson.id}/slides/1`}>{lesson.name} </Link>
+      <h3>{lesson.name}</h3> <Link to={`/edit/lessons/${lesson.id}/slides/1`}><Button>Edit</Button></Link><Link to={`/lessons/${lesson.id}/slides/1`}><Button>View</Button></Link>
       <Button onClick={togglePublishStatus} variant="text">
         {publishStatusButton(lesson)}{" "}
       </Button>
-      <Button onClick={handleDelete} variant="text">
+      <Button onClick={handleOpen} variant="text">
         Delete
       </Button>
+      {open && (
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Are you sure?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Your lesson "{lesson.name}" cannot be recovered once deleted.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>No</Button>
+            <Button onClick={handleDelete}>Yes, Delete</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </div>
   );
 };

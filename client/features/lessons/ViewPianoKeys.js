@@ -61,7 +61,7 @@ const ViewPianoKeys = ({ slide }) => {
   };
 
   const pianoStyle = {
-    marginTop: "75px",
+    marginTop: "55px",
     width: "500px",
   };
 
