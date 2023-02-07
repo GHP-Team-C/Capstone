@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import PianoKeys from "./PianoKeys";
-import { Box, Stack, Button } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,6 +22,7 @@ import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
 import { publishStatusSingleLesson } from "./singleLessonSlice";
+import { deleteLessonAsync } from "./singleLessonSlice";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
@@ -45,6 +55,23 @@ const LessonTemplate = () => {
     dispatch(publishStatusSingleLesson(lesson.id));
   };
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    await dispatch(deleteLessonAsync(lesson.id));
+    setOpen(false);
+    navigate("/creator-dashboard");
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
@@ -52,7 +79,9 @@ const LessonTemplate = () => {
           <h1> Lessons Template </h1>
         </Box>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <h4>Slide {Number(sId)} of {lesson.slides.length}</h4>
+          <h4>
+            Slide {Number(sId)} of {lesson.slides.length}
+          </h4>
         </Box>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
           <MusicalStaff slide={slide} />
@@ -86,6 +115,23 @@ const LessonTemplate = () => {
           <Button variant="contained" onClick={togglePublishStatus}>
             {lesson.published ? "Unpublish" : "Publish"}
           </Button>
+          <Button variant="contained" onClick={handleOpen}>
+            Delete
+          </Button>
+          {open && (
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Your lesson "{lesson.name}" cannot be recovered once deleted.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>No</Button>
+                <Button onClick={handleDelete}>Yes, Delete</Button>
+              </DialogActions>
+            </Dialog>
+          )}
         </Box>
       </>
     );

@@ -89,7 +89,7 @@ export const deleteLessonAsync = createAsyncThunk(
   "deleteLesson",
   async (id) => {
     try {
-      const { data } = await axios.delete(`api/lessons/${id}`);
+      const { data } = await axios.delete(`/api/lessons/${id}`);
       return data;
     } catch (err) {
       return err.message;
@@ -160,7 +160,7 @@ const singleLessonSlice = createSlice({
         state.piano = action.payload;
       })
       .addCase(createLesson.fulfilled, (state, action) => {
-        state.lesson = action.payload
+        state.lesson = action.payload;
       })
       .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
         state.lesson = action.payload;
