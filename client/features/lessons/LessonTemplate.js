@@ -50,7 +50,9 @@ const LessonTemplate = () => {
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
           <h1> Lessons Template </h1>
         </Box>
-
+        <Box m={1} display="flex" justifyContent="center" alignItems="center">
+          <h4>Slide {Number(sId)} of {lesson.slides.length}</h4>
+        </Box>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
           <MusicalStaff slide={slide} />
           <PianoKeys slide={slide} />
