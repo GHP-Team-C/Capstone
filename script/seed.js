@@ -46,6 +46,9 @@ async function seed() {
   );
 
   // Creating Users
+
+  const avatars = ['aang.jpg', 'toph.jpg', 'katara.jpg', 'zuko.jpg']
+
   const users = await Promise.all([
     User.create({
       username: "cody",
@@ -53,6 +56,7 @@ async function seed() {
       firstName: "Cody",
       lastName: "Pug",
       password: "123",
+      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 4)]}`
     }),
     User.create({
       username: "murphy",
@@ -60,6 +64,7 @@ async function seed() {
       firstName: "Murphy",
       lastName: "Octopus",
       password: "123",
+      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 4)]}`
     }),
   ]);
 

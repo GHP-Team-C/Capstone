@@ -22,7 +22,7 @@ const UserProfile = () => {
       <p>
         Name: {firstName} {lastName}
       </p>
-      <img src={avatarUrl}/>
+      <img src={avatarUrl} height='200px'/>
       <p>Username: {username}</p>
       <p>Email: {email}</p>
       <Link to="/creator-dashboard">Creator Dashboard</Link>
