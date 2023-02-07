@@ -12,8 +12,8 @@ import AllPublicLessons from "../features/lessons/AllPublicLessons";
 
 import NotFoundPage from "../features/notFoundPage/NotFoundPage";
 import CreateLesson from "../features/lessons/CreateLesson";
-import SignUpAuthForm from "../features/auth/SignUpAuthForm"
-
+import SignUpAuthForm from "../features/auth/SignUpAuthForm";
+import ViewLesson from "../features/lessons/ViewLesson";
 
 /**
  * COMPONENT
@@ -32,28 +32,25 @@ const AppRoutes = () => {
       {isLoggedIn ? (
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/lessons/:lId/slides/:sId" element={<ViewLesson />} />
           <Route
-            path="/lessons/:lId/slides/:sId"
+            path="/edit/lessons/:lId/slides/:sId"
             element={<LessonTemplate />}
           />
           <Route path="/creator-dashboard" element={<CreatorDashboard />} />
           <Route path="/user-profile" element={<UserProfile />} />
 
-          <Route path="/all-public-lessons" element={<AllPublicLessons />}/>
+          <Route path="/all-public-lessons" element={<AllPublicLessons />} />
 
           <Route path="/create-lesson" element={<CreateLesson />} />
 
           <Route path="/*" element={<NotFoundPage />} />
-
         </Routes>
       ) : (
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/*" element={<NotFoundPage />} />
-          <Route
-            path="/lessons/:lId/slides/:sId"
-            element={<LessonTemplate />}
-          />
+          <Route path="/lessons/:lId/slides/:sId" element={<ViewLesson />} />
+          <Route path="/all-public-lessons" element={<AllPublicLessons />} />
           <Route
             path="/login"
             element={<AuthForm name="login" displayName="Login" />}
@@ -62,6 +59,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<SignUpAuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       )}
     </div>
