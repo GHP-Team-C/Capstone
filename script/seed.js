@@ -9,7 +9,6 @@ const noteData = require("./data/note");
 const staffData = require("./data/staff");
 const lessonData = require("./data/lesson");
 const slideData = require("./data/slide");
-const note = require("./data/note");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -92,14 +91,11 @@ async function seed() {
 
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
-    [staffs[0].addNotes([1, 2, 3, 4])],
-    [staffs[1].addNotes([5, 6, 7, 8])],
-    [staffs[2].addNotes([2, 1, 3, 4])],
-    [staffs[3].addNotes([5, 6, 7, 8])],
-    [staffs[4].addNotes([1, 2, 4, 3])],
-    [staffs[5].addNotes([5, 6, 7, 8])],
-    [staffs[6].addNotes([3, 4, 1, 2])],
-    [staffs[7].addNotes([5, 6, 7, 8])]
+    staffs.map((staff, idx)=>{
+      idx%2 ?
+      staff.addNotes([5,6,7,8]) :
+      staff.addNotes([1,2,3,4])
+    })
   );
 
   await Promise.all(
