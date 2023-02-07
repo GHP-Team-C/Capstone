@@ -45,7 +45,7 @@ const LessonTemplate = () => {
     dispatch(publishStatusSingleLesson(lesson.id));
   };
 
-  if (lesson)
+  if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
@@ -67,7 +67,7 @@ const LessonTemplate = () => {
           flexDirection="column"
         >
           <LessonText slide={slide} />
-          {lesson && Object.keys(lesson).length > 8 ? (
+          {lesson ? (
             lesson.slides[Number(sId)] ? (
               <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) + 1}`}>
                 <Button variant="contained">Next Slide</Button>
