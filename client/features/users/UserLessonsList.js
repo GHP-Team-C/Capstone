@@ -17,24 +17,24 @@ const UserLessonsList = (props) => {
       ? lessons.filter((lesson) => !lesson.published)
       : null;
 
-return (
-<div>
-  <h2>Published Lessons:
-  </h2>
+  return (
     <div>
-      {publishedLessons.map((lesson)=>
-      <div key={lesson.id}>
-        <UserLessonCard lesson={lesson} userId={userId}/>
-        </div>
-      )}
-    </div>
-  <h2>Draft Lessons:</h2>
-  <div>
-      {draftLessons.map((lesson)=>
-      <div key={lesson.id}>
-        <UserLessonCard lesson={lesson} userId={userId}/>
-        </div>
-      )}
+      <h2>Published Lessons:</h2>
+      <div>
+        {publishedLessons.map((lesson) => (
+          <div key={lesson.id}>
+            <UserLessonCard lesson={lesson} userId={userId} />
+          </div>
+        ))}
+      </div>
+      <h2>Draft Lessons:</h2>
+      <div>
+        {draftLessons.map((lesson) => (
+          <div key={lesson.id}>
+            <UserLessonCard lesson={lesson} userId={userId} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
