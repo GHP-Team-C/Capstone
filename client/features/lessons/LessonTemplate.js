@@ -30,7 +30,8 @@ const LessonTemplate = () => {
 
   useEffect(() => {
     if (lesson) {
-      dispatch(fetchSingleSlide(lesson.slides[sId - 1].id));
+      if (Object.keys(lesson).length > 8)
+        dispatch(fetchSingleSlide(lesson.slides[sId - 1].id));
     }
   }, [lesson]);
 
@@ -64,7 +65,7 @@ const LessonTemplate = () => {
           flexDirection="column"
         >
           <LessonText slide={slide} />
-          {lesson ? (
+          {lesson && Object.keys(lesson).length > 8 ? (
             lesson.slides[Number(sId)] ? (
               <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) + 1}`}>
                 <Button variant="contained">Next Slide</Button>
