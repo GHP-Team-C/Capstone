@@ -71,7 +71,17 @@ router.put("/:id", async (req, res, next) => {
 
 router.put("/:id/publish", async (req, res, next) => {
   try {
-    const lesson = await Lesson.findByPk(req.params.id);
+    const lesson = await Lesson.findByPk(req.params.id, {
+      include: [
+        {
+          model: Slide,
+          where: {
+            lessonId: req.params.id,
+          },
+        },
+      ],
+      order: [[{ model: Slide }, "id"]],
+    });
 
     await lesson.update({ published: !lesson.published });
     res.json(lesson);

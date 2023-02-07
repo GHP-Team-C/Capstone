@@ -1,17 +1,13 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchSingleUser } from "./singleUserSlice";
 import UserLessonCard from "./UserLessonCard";
 
-
 const UserLessonsList = (props) => {
+  const lessons = props.lessons;
+  const userId = props.userId;
 
-const lessons = props.lessons
-
-
-
-
-const publishedLessons =
+  const publishedLessons =
     lessons && lessons.length
       ? lessons.filter((lesson) => lesson.published)
       : null;
@@ -21,8 +17,6 @@ const publishedLessons =
       ? lessons.filter((lesson) => !lesson.published)
       : null;
 
-
-
 return (
 <div>
   <h2>Published Lessons:
@@ -30,7 +24,7 @@ return (
     <div>
       {publishedLessons.map((lesson)=>
       <div key={lesson.id}>
-        <UserLessonCard lesson={lesson}/>
+        <UserLessonCard lesson={lesson} userId={userId}/>
         </div>
       )}
     </div>
@@ -38,11 +32,11 @@ return (
   <div>
       {draftLessons.map((lesson)=>
       <div key={lesson.id}>
-        <UserLessonCard lesson={lesson}/>
+        <UserLessonCard lesson={lesson} userId={userId}/>
         </div>
       )}
     </div>
-</div>
-)}
+  );
+};
 
-export default UserLessonsList
+export default UserLessonsList;

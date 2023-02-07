@@ -13,26 +13,28 @@ import {
   deleteLessonAsync,
   publishStatusSingleLesson,
 } from "../lessons/singleLessonSlice";
+import { fetchSingleUser } from "./singleUserSlice";
 
 const UserLessonCard = (props) => {
   const dispatch = useDispatch();
   const lesson = props.lesson;
   const navigate = useNavigate();
 
-  const togglePublishStatus = (event) => {
+  const togglePublishStatus = async (event) => {
     event.preventDefault();
-    dispatch(publishStatusSingleLesson(lesson.id));
+    await dispatch(publishStatusSingleLesson(lesson.id));
+    dispatch(fetchSingleUser(props.userId));
   };
 
   const publishStatusButton = (lesson) => {
     return lesson.published ? "Unpublish" : "Publish";
   };
 
-  const handleDelete = (event) => {
+  const handleDelete = async (event) => {
     event.preventDefault();
-    dispatch(deleteLessonAsync(lesson.id));
+    await dispatch(deleteLessonAsync(lesson.id));
     setOpen(false);
-    navigate("/creator-dashboard");
+    dispatch(fetchSingleUser(props.userId));
   };
 
   const [open, setOpen] = useState(false);

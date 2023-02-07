@@ -141,6 +141,9 @@ const singleLessonSlice = createSlice({
       })
       .addCase(updatePiano.fulfilled, (state, action) => {
         state.piano = action.payload;
+      })
+      .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
+        state.lesson = action.payload;
       });
   },
 });
