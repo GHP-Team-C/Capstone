@@ -14,28 +14,10 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+// Add staff & slide to new lesson
+router.post("/", async (req, res, next) => {
   try {
-    const singleLesson = await Lesson.findByPk(req.params.id, {
-      include: [
-        {
-          model: Slide,
-          where: {
-            lessonId: req.params.id,
-          },
-        },
-      ],
-      order: [[{ model: Slide }, "id"]],
-    });
-    res.json(singleLesson);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.put("/:id", async (req, res, next) => {
-  try {
-    const lesson = await Lesson.findByPk(req.params.id);
+    const lesson = await Lesson.create(req.body);
     const slide = await lesson.createSlide();
     const staff = await slide.createStaff();
     await slide.createPiano();
@@ -69,12 +51,28 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// Add staff & slide to new lesson
+router.get("/:id", async (req, res, next) => {
+  try {
+    const singleLesson = await Lesson.findByPk(req.params.id, {
+      include: [
+        {
+          model: Slide,
+          where: {
+            lessonId: req.params.id,
+          },
+        },
+      ],
+      order: [[{ model: Slide }, "id"]],
+    });
+    res.json(singleLesson);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/:id", async (req, res, next) => {
   try {
-    const lesson = await Lesson.create(req.body, {
-      attributes: ["name", "level", "visibleTo", "published", "userId"],
-    });
+    const lesson = await Lesson.findByPk(req.params.id);
     const slide = await lesson.createSlide();
     const staff = await slide.createStaff();
     await slide.createPiano();
