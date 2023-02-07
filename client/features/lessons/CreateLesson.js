@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createLesson } from "./lessonsSlice";
 import {
   Typography,
@@ -20,11 +21,14 @@ const CreateLesson = () => {
   const userId = useSelector((state) => state.auth.me.id);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(createLesson({ name, level, userId: userId }));
-    console.log("clicked!");
+    // navigate(`/lesson/${lesson.id}/slide/1`);
+    // console.log(`lesson: ${lesson.id}`);
+    navigate("/creator-dashboard");
   };
 
   return (
