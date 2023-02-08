@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ViewPianoKeys from "./ViewPianoKeys";
-import { Box, Stack, Button } from "@mui/material";
+import { Box, Stack, Typography, Pagination } from "@mui/material";
 import ViewLessonText from "./ViewLessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -49,6 +49,11 @@ const ViewLesson = () => {
     }
   }, [lesson]);
 
+  const handlePageChange = (event, value) => {
+    console.log("clicked, value:", value);
+    navigate(`/lessons/${lId}/slides/${value}`);
+  };
+
   if (lesson)
     return (
       <>
@@ -77,18 +82,26 @@ const ViewLesson = () => {
           flexDirection="column"
         >
           <ViewLessonText slide={slide} />
-          {lesson ? (
-            lesson.slides[Number(sId)] ? (
-              <NavLink to={`/lessons/${lId}/slides/${Number(sId) + 1}`}>
-                <Button variant="contained">Next Slide</Button>
-              </NavLink>
-            ) : null
-          ) : null}
-          {sId != 1 && (
-            <NavLink to={`/lessons/${lId}/slides/${Number(sId) - 1}`}>
-              <Button variant="contained">Previous Slide</Button>
-            </NavLink>
-          )}
+        </Box>
+        <Box
+          m={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          bgcolor="white"
+          sx={{ position: "fixed", bottom: 25, left: 0, right: 0 }}
+        >
+          <Stack spacing={2} justifyContent="center" alignItems="center">
+            <Typography>
+              Slide {Number(sId)} of {lesson.slides.length}
+            </Typography>
+            <Pagination
+              count={lesson.slides.length}
+              page={Number(sId)}
+              value={Number(sId)}
+              onChange={handlePageChange}
+            />
+          </Stack>
         </Box>
       </>
     );
