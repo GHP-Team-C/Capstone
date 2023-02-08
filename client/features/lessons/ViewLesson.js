@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ViewPianoKeys from "./ViewPianoKeys";
-import { Box, Stack, Button } from "@mui/material";
+import { Box, Stack, Button, Typography, Pagination } from "@mui/material";
 import ViewLessonText from "./ViewLessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,14 +32,30 @@ const ViewLesson = () => {
     }
   }, [lesson]);
 
+  const handlePageChange = (event, value) => {
+    console.log("clicked, value:", value);
+    navigate(`/lessons/${lId}/slides/${value}`);
+  };
+
   if (lesson)
     return (
       <>
+        <Stack spacing={2}>
+          <Typography>Page: {Number(sId)}</Typography>
+          <Pagination
+            count={lesson.slides.length}
+            page={Number(sId)}
+            value={Number(sId)}
+            onChange={handlePageChange}
+          />
+        </Stack>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
           <h1>{lesson.name}</h1>
         </Box>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <h4>Slide {sId} of {lesson.slides.length}</h4>
+          <h4>
+            Slide {sId} of {lesson.slides.length}
+          </h4>
         </Box>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
           <ViewMusicalStaff slide={slide} />
