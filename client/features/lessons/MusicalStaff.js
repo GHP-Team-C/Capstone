@@ -14,10 +14,12 @@ const MusicalStaff = ({ slide }) => {
   const [note, setNote] = useState("");
   const [triad, setTriad] = useState("")
   const [octave, setOctave] = useState("");
+  const [entryType, setEntryType] = useState('')
   const [duration, setDuration] = useState("q");
 
   const handleNoteChange = (event) => {
     setNote(event.target.value);
+    setEntryType('note')
   };
 
   const handleOctaveChange = (event) => {
@@ -26,6 +28,7 @@ const MusicalStaff = ({ slide }) => {
 
   const handleTriadChange = (event) => {
     setTriad(event.target.value)
+    setEntryType('triad')
   }
 
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
@@ -179,7 +182,7 @@ const MusicalStaff = ({ slide }) => {
 
   useEffect(() => {
     if (activeElement.idx > -1 && toChange && slide) {
-      if (activeElement.triad !== ""){
+      if (entryType === 'triad'){
         updateTriad()
       } else
         {
