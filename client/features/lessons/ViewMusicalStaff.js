@@ -9,11 +9,14 @@ import {
   Select,
   Button,
 } from "@mui/material";
+import * as Tone from "tone";
 
 const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
+  //can make this a sample later if we want piano notes
+  const synth = new Tone.PolySynth(Tone.Synth).toDestination();
 
   let div = document.getElementById("staffDiv");
 
@@ -42,6 +45,7 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
         newNote.attrs.pk = note.id;
         newNote.attrs.noteName = note.noteName;
         newNote.attrs.octave = note.octave;
+        newNote.attrs.duration = note.duration;
         newNote.attrs.triad = note.triad;
         notes.push(newNote);
       });
@@ -86,7 +90,24 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
       notes.forEach((note, idx) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
-          noteSVG.addEventListener("click", () => {
+          noteSVG.addEventListener("click", async () => {
+            if (note.attrs.duration !== "qr") {
+              await Tone.start();
+              if (note.attrs.triad !== "") {
+                const notes = note.attrs.noteName.split("");
+                const octaves = note.attrs.octave.split("");
+                let finalNotes = [];
+                for (let i = 0; i < notes.length; i++) {
+                  finalNotes.push(`${notes[i]}${octaves[i]}`);
+                }
+                synth.triggerAttackRelease(finalNotes, "4n");
+              } else {
+                synth.triggerAttackRelease(
+                  `${note.attrs.noteName}${note.attrs.octave}`,
+                  "4n"
+                );
+              }
+            }
             setActiveElement({
               idx: idx,
               id: note.attrs.pk,
