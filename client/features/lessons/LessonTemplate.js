@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import PianoKeys from "./PianoKeys";
-import { Box, Stack, Button } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,10 +17,14 @@ import {
   fetchStaffNotes,
   makeSlide,
   fetchSingleSlide,
+  publishStatusSingleLesson,
+  deleteLessonAsync,
+  deleteSlideAsnyc,
 } from "./singleLessonSlice";
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
+
 import { publishStatusSingleLesson } from "./singleLessonSlice";
 import { updateLessonTitle } from "./singleLessonSlice";
 
@@ -57,6 +70,31 @@ const LessonTemplate = () => {
 
   const togglePublishStatus = () => {
     dispatch(publishStatusSingleLesson(lesson.id));
+  };
+
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    if (toDelete === "lesson") {
+      await dispatch(deleteLessonAsync(lesson.id));
+      setOpen(false);
+      navigate("/creator-dashboard");
+    } else {
+      await dispatch(deleteSlideAsnyc(slide.id));
+      setOpen(false);
+      dispatch(fetchSingleLesson(lId));
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+  const [toDelete, setToDelete] = useState("");
+
+  const handleOpen = (toBeDeleted) => {
+    setOpen(true);
+    setToDelete(toBeDeleted);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   if (lesson && Object.keys(lesson).length > 8)
@@ -109,6 +147,30 @@ const LessonTemplate = () => {
           <Button variant="contained" onClick={togglePublishStatus}>
             {lesson.published ? "Unpublish" : "Publish"}
           </Button>
+          {lesson.slides.length > 1 && (
+            <Button variant="contained" onClick={() => handleOpen("slide")}>
+              Delete Slide
+            </Button>
+          )}
+          <Button variant="contained" onClick={() => handleOpen("lesson")}>
+            Delete Lesson
+          </Button>
+          {open && (
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Your{" "}
+                  {toDelete === "lesson" ? `lesson ${lesson.name}` : `slide`}{" "}
+                  cannot be recovered once deleted.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>No</Button>
+                <Button onClick={handleDelete}>Yes, Delete</Button>
+              </DialogActions>
+            </Dialog>
+          )}
         </Box>
       </>
     );

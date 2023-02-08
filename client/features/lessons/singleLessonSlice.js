@@ -89,13 +89,22 @@ export const deleteLessonAsync = createAsyncThunk(
   "deleteLesson",
   async (id) => {
     try {
-      const { data } = await axios.delete(`api/lessons/${id}`);
+      const { data } = await axios.delete(`/api/lessons/${id}`);
       return data;
     } catch (err) {
       return err.message;
     }
   }
 );
+
+export const deleteSlideAsnyc = createAsyncThunk("slide/delete", async (id) => {
+  try {
+    await axios.delete(`/api/slides/${id}`);
+    return;
+  } catch (err) {
+    return err.message;
+  }
+});
 
 export const updatePiano = createAsyncThunk(
   "pianos/put",
