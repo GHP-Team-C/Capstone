@@ -76,8 +76,10 @@ async function seed() {
   // ]);
 
   //Assign Piano to slide
+  const piano = {keys: "c4, e4, g4, b4"}
+
   await Promise.all([
-    slides.map((slide) => slide.createPiano({ keys: "a4, b4, c4, g#4" })),
+    slides.map((slide, idx) => idx%2 ? slide.createPiano({ keys: "a4, b4, c4, g#4" }) : slide.createPiano(piano)),
   ]);
 
   // Creating Lessons
