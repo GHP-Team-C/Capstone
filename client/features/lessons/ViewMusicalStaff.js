@@ -15,8 +15,12 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
-  //can make this a sample later if we want piano notes
-  const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+  const sampler = new Tone.Sampler({
+    urls: {
+      B4: "b4.mp3",
+    },
+    baseUrl: "/pianoSamples/",
+  }).toDestination();
 
   let div = document.getElementById("staffDiv");
 
@@ -100,9 +104,9 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
                 for (let i = 0; i < notes.length; i++) {
                   finalNotes.push(`${notes[i]}${octaves[i]}`);
                 }
-                synth.triggerAttackRelease(finalNotes, "4n");
+                sampler.triggerAttackRelease(finalNotes, "4n");
               } else {
-                synth.triggerAttackRelease(
+                sampler.triggerAttackRelease(
                   `${note.attrs.noteName}${note.attrs.octave}`,
                   "4n"
                 );
