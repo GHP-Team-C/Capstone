@@ -98,10 +98,8 @@ async function seed() {
 
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
-    staffs.map((staff, idx)=>{
-      idx%2 ?
-      staff.addNotes([5,6,7,8]) :
-      staff.addNotes([1,2,3,4])
+    staffs.map((staff, idx) => {
+      idx % 2 ? staff.addNotes([5, 6, 7, 8]) : staff.addNotes([1, 2, 3, 4]);
     })
   );
 

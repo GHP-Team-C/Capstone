@@ -30,7 +30,7 @@ const LessonText = ({ slide }) => {
         onChange={handleChange}
         value={text}
       ></textarea>
-      <Button onClick={saveText}>Save</Button>
+      <Button onClick={saveText}>Save Text</Button>
     </div>
   );
 };

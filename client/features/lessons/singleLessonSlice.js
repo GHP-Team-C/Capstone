@@ -89,7 +89,7 @@ export const deleteLessonAsync = createAsyncThunk(
   "deleteLesson",
   async (id) => {
     try {
-      const { data } = await axios.delete(`api/lessons/${id}`);
+      const { data } = await axios.delete(`/api/lessons/${id}`);
       return data;
     } catch (err) {
       return err.message;
@@ -97,11 +97,32 @@ export const deleteLessonAsync = createAsyncThunk(
   }
 );
 
+export const deleteSlideAsnyc = createAsyncThunk("slide/delete", async (id) => {
+  try {
+    await axios.delete(`/api/slides/${id}`);
+    return;
+  } catch (err) {
+    return err.message;
+  }
+});
+
 export const updatePiano = createAsyncThunk(
   "pianos/put",
   async ({ id, notes }) => {
     try {
       const { data } = await axios.put(`/api/pianos/${id}`, notes);
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
+export const updateLessonTitle = createAsyncThunk(
+  "singleLesson/title/put",
+  async ({ id, title }) => {
+    try {
+      const { data } = await axios.put(`/api/lessons/${id}/name`, title);
       return data;
     } catch (err) {
       return err.message;
@@ -160,9 +181,12 @@ const singleLessonSlice = createSlice({
         state.piano = action.payload;
       })
       .addCase(createLesson.fulfilled, (state, action) => {
-        state.lesson = action.payload
+        state.lesson = action.payload;
       })
       .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
+        state.lesson = action.payload;
+      })
+      .addCase(updateLessonTitle.fulfilled, (state, action) => {
         state.lesson = action.payload;
       });
   },
