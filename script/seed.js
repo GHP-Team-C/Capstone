@@ -77,7 +77,6 @@ async function seed() {
     })
   );
 
-  console.log(Object.keys(Lesson.prototype))
 
   //Assigning UserComment to Lessons
   await Promise.all(
