@@ -97,17 +97,21 @@ const MusicalStaff = ({ slide }) => {
       })
     );
     setToChange(false);
+    setTriad("");
     if (slide) dispatch(fetchStaffNotes(slide.staff.id));
   };
 
   const updateTriad = async () => {
+    const diff = octave - Number(triadNotes[triad].octaves[0]);
+    const numOctaves = triadNotes[triad].octaves.split("");
+    const octaves = numOctaves.map((octave) => Number(octave) + diff).join("");
     await dispatch(
       updateStaffNote({
         id: slide.staff.id,
         note: {
           id: activeElement.id,
           noteName: triadNotes[triad].notes,
-          octave: triadNotes[triad].octaves,
+          octave: octaves,
           duration: duration,
           triad: triad,
           domId: activeElement.idx + 1,
