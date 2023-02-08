@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ViewPianoKeys from "./ViewPianoKeys";
-import { Box, Stack, Button, Typography, Pagination } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Button,
+  Typography,
+  Pagination,
+  BottomNavigation,
+} from "@mui/material";
 import ViewLessonText from "./ViewLessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -40,22 +47,8 @@ const ViewLesson = () => {
   if (lesson)
     return (
       <>
-        <Stack spacing={2}>
-          <Typography>Page: {Number(sId)}</Typography>
-          <Pagination
-            count={lesson.slides.length}
-            page={Number(sId)}
-            value={Number(sId)}
-            onChange={handlePageChange}
-          />
-        </Stack>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
           <h1>{lesson.name}</h1>
-        </Box>
-        <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <h4>
-            Slide {sId} of {lesson.slides.length}
-          </h4>
         </Box>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
           <ViewMusicalStaff slide={slide} />
@@ -70,18 +63,26 @@ const ViewLesson = () => {
           flexDirection="column"
         >
           <ViewLessonText slide={slide} />
-          {lesson ? (
-            lesson.slides[Number(sId)] ? (
-              <NavLink to={`/lessons/${lId}/slides/${Number(sId) + 1}`}>
-                <Button variant="contained">Next Slide</Button>
-              </NavLink>
-            ) : null
-          ) : null}
-          {sId != 1 && (
-            <NavLink to={`/lessons/${lId}/slides/${Number(sId) - 1}`}>
-              <Button variant="contained">Previous Slide</Button>
-            </NavLink>
-          )}
+        </Box>
+        <Box
+          m={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          bgcolor="white"
+          sx={{ position: "fixed", bottom: 50, left: 0, right: 0 }}
+        >
+          <Stack spacing={2} justifyContent="center" alignItems="center">
+            <Typography>
+              Slide {Number(sId)} of {lesson.slides.length}
+            </Typography>
+            <Pagination
+              count={lesson.slides.length}
+              page={Number(sId)}
+              value={Number(sId)}
+              onChange={handlePageChange}
+            />
+          </Stack>
         </Box>
       </>
     );
