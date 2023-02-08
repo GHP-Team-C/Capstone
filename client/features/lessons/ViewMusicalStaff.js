@@ -30,12 +30,12 @@ const ViewMusicalStaff = ({ slide }) => {
   const drawStaff = () => {
     if (lesson) {
       lesson.map((note) => {
-        let noteName = [];
+        let formattedNoteName = [];
         for (let i = 0; i < note.noteName.length; i++) {
-          noteName.push(`${note.noteName[i]}/${note.octave[i]}`);
+          formattedNoteName.push(`${note.noteName[i]}/${note.octave[i]}`);
         }
         const newNote = new StaveNote({
-          keys: noteName,
+          keys: formattedNoteName,
           duration: `${note.duration}`,
         });
         newNote.attrs.id = `note${note.domId}`;
