@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 
 const SALT_ROUNDS = 5;
 
+const avatars = ['aang.jpg', 'toph.jpg', 'katara.jpg', 'zuko.jpg']
+
 const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
@@ -32,6 +34,7 @@ const User = db.define("user", {
   },
   avatarUrl: {
     type: Sequelize.TEXT,
+    defaultValue: `/avatars/${avatars[Math.floor(Math.random() * 4)]}`
   },
 });
 

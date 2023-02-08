@@ -18,7 +18,7 @@ const Home = () => {
         <Typography variant="h3">Welcome to AugmentED!</Typography>
         <Typography variant="h4"> Learn to play music!</Typography>
         <Link to="/all-public-lessons">
-          <Button>Browse All Lessons</Button>
+          <Button>Browse All Public Lessons</Button>
         </Link>
         {isLoggedIn ? (
           <div>
