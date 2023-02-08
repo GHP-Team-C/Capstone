@@ -72,7 +72,7 @@ async function seed() {
 
   //Assign Piano to slide
   await Promise.all([
-    slides.map((slide) => slide.createPiano({ keys: "a4, b4, c4, g#4" })),
+    slides.map((slide) => slide.createPiano({ keys: "c4, e4, g4" })),
   ]);
 
   // Creating Lessons
@@ -91,10 +91,8 @@ async function seed() {
 
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
-    staffs.map((staff, idx)=>{
-      idx%2 ?
-      staff.addNotes([5,6,7,8]) :
-      staff.addNotes([1,2,3,4])
+    staffs.map((staff, idx) => {
+      idx % 2 ? staff.addNotes([5, 6, 7, 8]) : staff.addNotes([1, 2, 3, 4]);
     })
   );
 
