@@ -27,8 +27,8 @@ Slide.hasOne(Staff);
 Piano.belongsTo(Slide);
 Slide.hasOne(Piano);
 
-User.belongsToMany(Lesson, {Through: UserComment})
-Lesson.belongsToMany(User, {Through: UserComment})
+User.belongsToMany(Lesson, {through: UserComment})
+Lesson.belongsToMany(User, {through: UserComment})
 
 module.exports = {
   db,

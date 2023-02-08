@@ -2,13 +2,15 @@
 
 const {
   db,
-  models: { User, Lesson, Note, Staff, Slide, Piano },
+  models: { User, Lesson, Note, Staff, Slide, Piano, UserComment },
 } = require("../server/db");
 
 const noteData = require("./data/note");
 const staffData = require("./data/staff");
 const lessonData = require("./data/lesson");
 const slideData = require("./data/slide");
+const userCommentData = require("./data/userComment");
+
 
 /**
  * seed - this function clears the database, updates tables to
@@ -63,6 +65,18 @@ async function seed() {
     }),
   ]);
 
+  //Creating UserComments
+  const userComment = await Promise.all(
+    userCommentData.map((data) => {
+      return UserComment.create(data);
+    })
+  );
+
+  //Assigning UserComment to Lessons
+  // await Promise.all(
+  //   [lessons[0].addUser(1)]
+  // );
+
   //Creating Pianos
   // const pianos = await Promise.all([
   //   Piano.create({
@@ -88,6 +102,7 @@ async function seed() {
     [lessons[7].setUser(1)],
     [lessons[8].setUser(1)]
   );
+
 
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
@@ -117,6 +132,7 @@ async function seed() {
   console.log(`seeded ${notes.length} notes`);
   console.log(`seeded ${staffs.length} staffs`);
   console.log(`seeded ${slides.length} slides`);
+  console.log(`seeded ${userComment.length} slides`);
   console.log(`seeded successfully`);
   return {
     users: {
