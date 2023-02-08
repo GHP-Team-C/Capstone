@@ -6,7 +6,7 @@
 - createdb capstone
 - npm run start:dev:seed
 
-The database has two pre-made users (cody (pw: 123) and murphy (pw: 123))! One of them will have created lessons assigned to him.
+The server will run on localhost:8080. The database has two pre-made users (cody (pw: 123) and murphy (pw: 123))! One of them will have created lessons assigned to him.
 
 Have fun, click things, try to break it!
 
