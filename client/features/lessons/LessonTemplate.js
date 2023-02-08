@@ -68,8 +68,9 @@ const LessonTemplate = () => {
     dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
   };
 
-  const togglePublishStatus = () => {
-    dispatch(publishStatusSingleLesson(lesson.id));
+  const togglePublishStatus = async () => {
+    await dispatch(publishStatusSingleLesson(lesson.id));
+    if (!lesson.published) navigate("/creator-dashboard");
   };
 
 
@@ -87,6 +88,8 @@ const LessonTemplate = () => {
       await dispatch(deleteSlideAsnyc(slide.id));
       setOpen(false);
       dispatch(fetchSingleLesson(lId));
+      if (sId == lesson.slides.length)
+        navigate(`/edit/lessons/${lId}/slides/${Number(sId) - 1}`);
     }
   };
 

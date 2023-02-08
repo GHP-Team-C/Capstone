@@ -13,6 +13,10 @@ const Note = db.define(
     duration: {
       type: Sequelize.STRING,
     },
+    triad: {
+      type: Sequelize.STRING,
+      defaultValue: "",
+    },
     domId: {
       type: Sequelize.STRING,
     },

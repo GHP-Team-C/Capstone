@@ -33,6 +33,7 @@
     "pg": "^8.8.0",
     "piano-chart": "^1.5.0",
     "sequelize": "^6.25.3",
+    "tone": "^14.7.77",
     "vexflow": "^4.1.0"
   },
   "devDependencies": {

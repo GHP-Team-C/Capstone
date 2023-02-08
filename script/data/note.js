@@ -3,6 +3,7 @@ module.exports = [
     noteName: "egb",
     octave: "444",
     duration: "q",
+    triad: "E Min",
     domId: "1",
   },
   {

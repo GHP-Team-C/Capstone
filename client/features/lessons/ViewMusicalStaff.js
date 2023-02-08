@@ -9,8 +9,14 @@ import {
   Select,
   Button,
 } from "@mui/material";
+import * as Tone from "tone";
 
-const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
+const ViewMusicalStaff = ({
+  slide,
+  activeElement,
+  setActiveElement,
+  sampler,
+}) => {
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
@@ -40,8 +46,10 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
         });
         newNote.attrs.id = `note${note.domId}`;
         newNote.attrs.pk = note.id;
-        newNote.attrs.noteName = note.noteName[0];
-        newNote.attrs.octave = note.octave[0];
+        newNote.attrs.noteName = note.noteName;
+        newNote.attrs.octave = note.octave;
+        newNote.attrs.duration = note.duration;
+        newNote.attrs.triad = note.triad;
         notes.push(newNote);
       });
       let svg = document.getElementById("staff");
@@ -85,12 +93,30 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
       notes.forEach((note, idx) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
-          noteSVG.addEventListener("click", () => {
+          noteSVG.addEventListener("click", async () => {
+            if (note.attrs.duration !== "qr") {
+              await Tone.start();
+              if (note.attrs.triad !== "") {
+                const notes = note.attrs.noteName.split("");
+                const octaves = note.attrs.octave.split("");
+                let finalNotes = [];
+                for (let i = 0; i < notes.length; i++) {
+                  finalNotes.push(`${notes[i]}${octaves[i]}`);
+                }
+                sampler.triggerAttackRelease(finalNotes, "4n");
+              } else {
+                sampler.triggerAttackRelease(
+                  `${note.attrs.noteName}${note.attrs.octave}`,
+                  "4n"
+                );
+              }
+            }
             setActiveElement({
               idx: idx,
               id: note.attrs.pk,
               noteName: note.attrs.noteName,
               octave: note.attrs.octave,
+              triad: note.attrs.triad,
             });
           });
         }
