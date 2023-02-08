@@ -20,16 +20,20 @@ const PlayerPiano = ({ sampler }) => {
       if (note.accidental)
         fullNote = `${note.note}${note.accidental}${note.octave}`;
       else fullNote = `${note.note}${note.octave}`;
-      sampler.triggerAttack(fullNote);
-      piano.keyDown(note);
+      if (sampler.loaded) {
+        sampler.triggerAttack(fullNote);
+        piano.keyDown(note);
+      }
     });
     piano.addKeyMouseUpListener(async (note) => {
       let fullNote = "";
       if (note.accidental)
         fullNote = `${note.note}${note.accidental}${note.octave}`;
       else fullNote = `${note.note}${note.octave}`;
-      sampler.triggerRelease(fullNote);
-      piano.keyUp(note);
+      if (sampler.loaded) {
+        sampler.triggerRelease(fullNote);
+        piano.keyUp(note);
+      }
     });
   };
 

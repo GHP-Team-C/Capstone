@@ -103,12 +103,14 @@ const ViewMusicalStaff = ({
                 for (let i = 0; i < notes.length; i++) {
                   finalNotes.push(`${notes[i]}${octaves[i]}`);
                 }
-                sampler.triggerAttackRelease(finalNotes, "4n");
+                if (sampler.loaded)
+                  sampler.triggerAttackRelease(finalNotes, "4n");
               } else {
-                sampler.triggerAttackRelease(
-                  `${note.attrs.noteName}${note.attrs.octave}`,
-                  "4n"
-                );
+                if (sampler.loaded)
+                  sampler.triggerAttackRelease(
+                    `${note.attrs.noteName}${note.attrs.octave}`,
+                    "4n"
+                  );
               }
             }
             setActiveElement({
