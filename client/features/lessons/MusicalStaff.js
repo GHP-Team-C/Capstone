@@ -12,14 +12,14 @@ import {
 
 const MusicalStaff = ({ slide }) => {
   const [note, setNote] = useState("");
-  const [triad, setTriad] = useState("")
+  const [triad, setTriad] = useState("");
   const [octave, setOctave] = useState("");
-  const [entryType, setEntryType] = useState('')
+  const [entryType, setEntryType] = useState("");
   const [duration, setDuration] = useState("q");
 
   const handleNoteChange = (event) => {
     setNote(event.target.value);
-    setEntryType('note')
+    setEntryType("note");
   };
 
   const handleOctaveChange = (event) => {
@@ -27,21 +27,29 @@ const MusicalStaff = ({ slide }) => {
   };
 
   const handleTriadChange = (event) => {
-    setTriad(event.target.value)
-    setEntryType('triad')
-  }
+    setTriad(event.target.value);
+    setEntryType("triad");
+  };
 
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
-  const triadArray = ["C Maj", "D Min", "E Min", "F Maj", "G Maj", "A Min", "B Dim"]
+  const triadArray = [
+    "C Maj",
+    "D Min",
+    "E Min",
+    "F Maj",
+    "G Maj",
+    "A Min",
+    "B Dim",
+  ];
   const triadNotes = {
-    "C Maj": {notes: "ceg", octaves: "444"},
-    "D Min": {notes: "dfa", octaves: "444"},
-    "E Min": {notes: "egb", octaves: "444"},
-    "F Maj": {notes: "fac", octaves: "445"},
-    "G Maj": {notes: "gbd", octaves: "445"},
-    "A Min": {notes: "ace", octaves: "455"},
-    "B Dim": {notes: "bdf", octaves: "455"},
-  }
+    "C Maj": { notes: "ceg", octaves: "444" },
+    "D Min": { notes: "dfa", octaves: "444" },
+    "E Min": { notes: "egb", octaves: "444" },
+    "F Maj": { notes: "fac", octaves: "445" },
+    "G Maj": { notes: "gbd", octaves: "445" },
+    "A Min": { notes: "ace", octaves: "455" },
+    "B Dim": { notes: "bdf", octaves: "455" },
+  };
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
 
@@ -83,6 +91,7 @@ const MusicalStaff = ({ slide }) => {
           noteName: note,
           octave: octave,
           duration: duration,
+          triad: "",
           domId: activeElement.idx + 1,
         },
       })
@@ -100,6 +109,7 @@ const MusicalStaff = ({ slide }) => {
           noteName: triadNotes[triad].notes,
           octave: triadNotes[triad].octaves,
           duration: duration,
+          triad: triad,
           domId: activeElement.idx + 1,
         },
       })
@@ -123,6 +133,7 @@ const MusicalStaff = ({ slide }) => {
         newNote.attrs.pk = note.id;
         newNote.attrs.noteName = note.noteName[0];
         newNote.attrs.octave = note.octave[0];
+        newNote.attrs.triad = note.triad;
         notes.push(newNote);
       });
       let svg = document.getElementById("staff");
@@ -168,11 +179,14 @@ const MusicalStaff = ({ slide }) => {
         if (noteSVG) {
           noteSVG.addEventListener("click", () => {
             setDuration("q");
+            if (note.attrs.triad === "") setEntryType("note");
+            else setEntryType("triad");
             setActiveElement({
               idx: idx,
               id: note.attrs.pk,
               noteName: note.attrs.noteName,
               octave: note.attrs.octave,
+              triad: note.attrs.triad,
             });
           });
         }
@@ -182,14 +196,12 @@ const MusicalStaff = ({ slide }) => {
 
   useEffect(() => {
     if (activeElement.idx > -1 && toChange && slide) {
-      if (entryType === 'triad'){
-        updateTriad()
-      } else
-        {
-         updateNote();
-        }
-    }
-    else drawStaff();
+      if (entryType === "triad") {
+        updateTriad();
+      } else {
+        updateNote();
+      }
+    } else drawStaff();
     if (notes.length) addNoteListeners();
   }, [notes]);
 
@@ -197,6 +209,7 @@ const MusicalStaff = ({ slide }) => {
     if (activeElement.noteName) {
       setNote(activeElement.noteName);
       setOctave(activeElement.octave);
+      setTriad(activeElement.triad);
     }
   }, [activeElement]);
 
@@ -216,6 +229,8 @@ const MusicalStaff = ({ slide }) => {
       setNote("b");
       setOctave("4");
       setDuration(`qr`);
+      setTriad("");
+      setEntryType("note");
     }
   };
 
@@ -236,7 +251,6 @@ const MusicalStaff = ({ slide }) => {
             </MenuItem>
           ))}
         </Select>
-
       </FormControl>
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <InputLabel id="select-triad">Triad</InputLabel>
