@@ -127,6 +127,26 @@ router.put("/:id/publish", async (req, res, next) => {
   }
 });
 
+router.put("/:id/name", async (req, res, next) => {
+  try {
+    const lesson = await Lesson.findByPk(req.params.id, {
+      include: [
+        {
+          model: Slide,
+          where: {
+            lessonId: req.params.id,
+          },
+        },
+      ],
+      order: [[{ model: Slide }, "id"]],
+    });
+    await lesson.update(req.body);
+    res.json(lesson);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/", async (req, res, next) => {
   // Add new
   try {

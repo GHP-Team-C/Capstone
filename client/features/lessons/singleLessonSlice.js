@@ -118,6 +118,18 @@ export const updatePiano = createAsyncThunk(
   }
 );
 
+export const updateLessonTitle = createAsyncThunk(
+  "singleLesson/title/put",
+  async ({ id, title }) => {
+    try {
+      const { data } = await axios.put(`/api/lessons/${id}/name`, title);
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 export const updateSlideText = createAsyncThunk(
   "slides/put",
   async ({ id, text }) => {
@@ -172,6 +184,9 @@ const singleLessonSlice = createSlice({
         state.lesson = action.payload;
       })
       .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
+        state.lesson = action.payload;
+      })
+      .addCase(updateLessonTitle.fulfilled, (state, action) => {
         state.lesson = action.payload;
       });
   },

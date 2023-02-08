@@ -25,10 +25,14 @@ import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { publishStatusSingleLesson } from "./singleLessonSlice";
+import { updateLessonTitle } from "./singleLessonSlice";
+
 const LessonTemplate = () => {
   const dispatch = useDispatch();
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const slide = useSelector((state) => state.singleLesson.slide);
+  const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
   let { lId } = useParams();
@@ -38,6 +42,10 @@ const LessonTemplate = () => {
   useEffect(() => {
     dispatch(fetchSingleLesson(lId));
   }, [sId]);
+
+  useEffect(() => {
+    if (lesson) setTitle(lesson.name);
+  }, [lesson]);
 
   useEffect(() => {
     if (lesson) {
@@ -50,6 +58,14 @@ const LessonTemplate = () => {
     await dispatch(makeSlide(lId));
 
     navigate(`/edit/lessons/${lId}/slides/${Number(sId) + 1}`);
+  };
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const saveTitle = () => {
+    dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
   };
 
   const togglePublishStatus = () => {
@@ -85,7 +101,14 @@ const LessonTemplate = () => {
     return (
       <>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <h1> Lessons Template </h1>
+          <textarea
+            id="name"
+            name="name"
+            style={{ fontSize: "24px" }}
+            onChange={handleChange}
+            value={title}
+          ></textarea>
+          <Button onClick={saveTitle}>Save Title</Button>
         </Box>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
           <h4>
