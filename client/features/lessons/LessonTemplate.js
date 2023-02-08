@@ -72,10 +72,9 @@ const LessonTemplate = () => {
     dispatch(publishStatusSingleLesson(lesson.id));
   };
 
-
   const handlePageChange = (event, value) => {
     navigate(`/edit/lessons/${lId}/slides/${value}`);
-}
+  };
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -105,19 +104,26 @@ const LessonTemplate = () => {
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
-          <textarea
-            id="name"
-            name="name"
-            style={{ fontSize: "24px" }}
-            onChange={handleChange}
-            value={title}
-          ></textarea>
-          <Button onClick={saveTitle}>Save Title</Button>
-          
-          <Button variant="text" onClick={togglePublishStatus}>
-              {lesson.published ? "Unpublish" : "Publish"}
-            </Button>
-        
+        <textarea
+          id="name"
+          name="name"
+          style={{ fontSize: "24px" }}
+          onChange={handleChange}
+          value={title}
+        ></textarea>
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+        ></Stack>
+        <Button onClick={saveTitle}>Save Title</Button>
+        <Button variant="text" onClick={togglePublishStatus}>
+          {lesson.published ? "Unpublish Lesson" : "Publish Lesson"}
+        </Button>
+        <Button variant="text" onClick={() => handleOpen("lesson")}>
+          Delete Lesson
+        </Button>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
           <MusicalStaff slide={slide} />
           <PianoKeys slide={slide} />
@@ -134,6 +140,11 @@ const LessonTemplate = () => {
             <Button variant="contained" onClick={handleAddSlide}>
               Add Another Slide
             </Button>
+            {lesson.slides.length > 1 && (
+              <Button variant="contained" onClick={() => handleOpen("slide")}>
+                Delete Slide
+              </Button>
+            )}
           </Stack>
         </Box>
         <Box
@@ -157,23 +168,7 @@ const LessonTemplate = () => {
               />
             </Stack>
           </BottomNavigation>
-          
-          {sId != 1 && (
-            <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) - 1}`}>
-              <Button variant="contained">Previous Slide</Button>
-            </NavLink>
-          )}
-          <Button variant="contained" onClick={togglePublishStatus}>
-            {lesson.published ? "Unpublish" : "Publish"}
-          </Button>
-          {lesson.slides.length > 1 && (
-            <Button variant="contained" onClick={() => handleOpen("slide")}>
-              Delete Slide
-            </Button>
-          )}
-          <Button variant="contained" onClick={() => handleOpen("lesson")}>
-            Delete Lesson
-          </Button>
+
           {open && (
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle>Are you sure?</DialogTitle>
@@ -191,10 +186,10 @@ const LessonTemplate = () => {
             </Dialog>
           )}
         </Box>
-        <Stack direction='row' justifyContent='end'>
-        <NavLink to={'/creator-dashboard'}>
-              <Button variant="contained">Done Editing</Button>
-        </NavLink>
+        <Stack direction="row" justifyContent="end">
+          <NavLink to={"/creator-dashboard"}>
+            <Button variant="contained">Done Editing</Button>
+          </NavLink>
         </Stack>
       </>
     );
