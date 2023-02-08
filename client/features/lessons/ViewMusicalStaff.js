@@ -11,16 +11,15 @@ import {
 } from "@mui/material";
 import * as Tone from "tone";
 
-const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
+const ViewMusicalStaff = ({
+  slide,
+  activeElement,
+  setActiveElement,
+  sampler,
+}) => {
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
-  const sampler = new Tone.Sampler({
-    urls: {
-      B4: "b4.mp3",
-    },
-    baseUrl: "/pianoSamples/",
-  }).toDestination();
 
   let div = document.getElementById("staffDiv");
 

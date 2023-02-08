@@ -66,8 +66,9 @@ const LessonTemplate = () => {
     dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
   };
 
-  const togglePublishStatus = () => {
-    dispatch(publishStatusSingleLesson(lesson.id));
+  const togglePublishStatus = async () => {
+    await dispatch(publishStatusSingleLesson(lesson.id));
+    if (!lesson.published) navigate("/creator-dashboard");
   };
 
   const handleDelete = async (event) => {
