@@ -2,13 +2,15 @@
 
 const {
   db,
-  models: { User, Lesson, Note, Staff, Slide, Piano },
+  models: { User, Lesson, Note, Staff, Slide, Piano, UserComment, Comment },
 } = require("../server/db");
 
 const noteData = require("./data/note");
 const staffData = require("./data/staff");
 const lessonData = require("./data/lesson");
 const slideData = require("./data/slide");
+const commentData = require("./data/comment");
+
 
 /**
  * seed - this function clears the database, updates tables to
@@ -68,6 +70,26 @@ async function seed() {
     }),
   ]);
 
+  //Creating UserComments
+  const comments = await Promise.all(
+    commentData.map((data) => {
+      return Comment.create(data);
+    })
+  );
+
+  console.log(Object.keys(Lesson.prototype))
+
+  //Assigning UserComment to Lessons
+  await Promise.all(
+    [lessons[0].addComments([1,2,3])],
+    [lessons[1].addComments([4,5])]
+  );
+
+  await Promise.all(
+    [users[0].addComments([3,5,2])],
+    [users[1].addComments([1,4])]
+  );
+
   //Creating Pianos
   // const pianos = await Promise.all([
   //   Piano.create({
@@ -96,6 +118,7 @@ async function seed() {
     [lessons[8].setUser(1)]
   );
 
+
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
     staffs.map((staff, idx) => {
@@ -122,6 +145,7 @@ async function seed() {
   console.log(`seeded ${notes.length} notes`);
   console.log(`seeded ${staffs.length} staffs`);
   console.log(`seeded ${slides.length} slides`);
+  console.log(`seeded ${comments.length} slides`);
   console.log(`seeded successfully`);
   return {
     users: {
