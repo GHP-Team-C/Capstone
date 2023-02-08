@@ -20,13 +20,11 @@ import {
   publishStatusSingleLesson,
   deleteLessonAsync,
   deleteSlideAsnyc,
+  updateLessonTitle,
 } from "./singleLessonSlice";
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
-
-import { publishStatusSingleLesson } from "./singleLessonSlice";
-import { updateLessonTitle } from "./singleLessonSlice";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
