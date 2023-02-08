@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ViewPianoKeys from "./ViewPianoKeys";
-import {
-  Box,
-  Stack,
-  Button,
-  Typography,
-  Pagination,
-  BottomNavigation,
-} from "@mui/material";
+import { Box, Stack, Typography, Pagination } from "@mui/material";
 import ViewLessonText from "./ViewLessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -70,7 +63,7 @@ const ViewLesson = () => {
           justifyContent="center"
           alignItems="center"
           bgcolor="white"
-          sx={{ position: "fixed", bottom: 50, left: 0, right: 0 }}
+          sx={{ position: "fixed", bottom: 25, left: 0, right: 0 }}
         >
           <Stack spacing={2} justifyContent="center" alignItems="center">
             <Typography>

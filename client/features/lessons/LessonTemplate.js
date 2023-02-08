@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PianoKeys from "./PianoKeys";
-import { Box, Stack, Button } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Button,
+  Typography,
+  Pagination,
+  BottomNavigation,
+} from "@mui/material";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -37,28 +44,40 @@ const LessonTemplate = () => {
 
   const handleAddSlide = async () => {
     await dispatch(makeSlide(lId));
-
-    navigate(`/edit/lessons/${lId}/slides/${Number(sId) + 1}`);
+    navigate(`/edit/lessons/${lId}/slides/${lesson.slides.length + 1}`);
   };
 
   const togglePublishStatus = () => {
     dispatch(publishStatusSingleLesson(lesson.id));
   };
 
+  const handlePageChange = (event, value) => {
+    console.log("clicked, value:", value);
+    navigate(`/edit/lessons/${lId}/slides/${value}`);
+  };
+
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <h1> Lessons Template </h1>
-        </Box>
-        <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <h4>Slide {Number(sId)} of {lesson.slides.length}</h4>
+          <Stack
+            direction="column"
+            spacing={-1}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <h1>
+              {lesson.name} ({lesson.published ? "Published" : "Private"})
+            </h1>
+            <Button variant="text" onClick={togglePublishStatus}>
+              {lesson.published ? "Unpublish" : "Publish"}
+            </Button>
+          </Stack>
         </Box>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
           <MusicalStaff slide={slide} />
           <PianoKeys slide={slide} />
         </Stack>
-
         <Box
           m={1}
           display="flex"
@@ -67,25 +86,33 @@ const LessonTemplate = () => {
           flexDirection="column"
         >
           <LessonText slide={slide} />
-          {lesson ? (
-            lesson.slides[Number(sId)] ? (
-              <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) + 1}`}>
-                <Button variant="contained">Next Slide</Button>
-              </NavLink>
-            ) : (
-              <Button variant="contained" onClick={handleAddSlide}>
-                Add Another Slide
-              </Button>
-            )
-          ) : null}
-          {sId != 1 && (
-            <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) - 1}`}>
-              <Button variant="contained">Previous Slide</Button>
-            </NavLink>
-          )}
-          <Button variant="contained" onClick={togglePublishStatus}>
-            {lesson.published ? "Unpublish" : "Publish"}
-          </Button>
+          <Stack direction="row" spacing={3} justifyContent="center">
+            <Button variant="contained" onClick={handleAddSlide}>
+              Add Another Slide
+            </Button>
+          </Stack>
+        </Box>
+        <Box
+          m={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          bgcolor="white"
+          sx={{ position: "fixed", bottom: 25, left: 0, right: 0 }}
+        >
+          <BottomNavigation>
+            <Stack spacing={2} justifyContent="center" alignItems="center">
+              <Typography>
+                Slide {Number(sId)} of {lesson.slides.length}
+              </Typography>
+              <Pagination
+                count={lesson.slides.length}
+                page={Number(sId)}
+                value={Number(sId)}
+                onChange={handlePageChange}
+              />
+            </Stack>
+          </BottomNavigation>
         </Box>
       </>
     );
