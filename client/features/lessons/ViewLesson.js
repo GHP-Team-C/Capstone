@@ -16,6 +16,13 @@ const ViewLesson = () => {
   const dispatch = useDispatch();
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const slide = useSelector((state) => state.singleLesson.slide);
+  const [activeElement, setActiveElement] = useState({
+    idx: -1,
+    id: -1,
+    note: "",
+    octave: "",
+    duration: "",
+  });
   const navigate = useNavigate();
 
   let { lId } = useParams();
@@ -25,6 +32,16 @@ const ViewLesson = () => {
   useEffect(() => {
     dispatch(fetchSingleLesson(lId));
   }, [sId]);
+
+  useEffect(() => {
+    setActiveElement({
+      idx: -1,
+      id: -1,
+      note: "",
+      octave: "",
+      duration: "",
+    });
+  }, [slide]);
 
   useEffect(() => {
     if (lesson) {
@@ -39,11 +56,17 @@ const ViewLesson = () => {
           <h1>{lesson.name}</h1>
         </Box>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <h4>Slide {sId} of {lesson.slides.length}</h4>
+          <h4>
+            Slide {sId} of {lesson.slides.length}
+          </h4>
         </Box>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
-          <ViewMusicalStaff slide={slide} />
-          <ViewPianoKeys slide={slide} />
+          <ViewMusicalStaff
+            slide={slide}
+            activeElement={activeElement}
+            setActiveElement={setActiveElement}
+          />
+          <ViewPianoKeys slide={slide} activeElement={activeElement} />
         </Stack>
 
         <Box

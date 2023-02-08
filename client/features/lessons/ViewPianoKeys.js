@@ -4,7 +4,7 @@ import { Instrument } from "piano-chart";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePiano, fetchPiano } from "./singleLessonSlice";
 
-const ViewPianoKeys = ({ slide }) => {
+const ViewPianoKeys = ({ slide, activeElement }) => {
   let pianoDiv = document.getElementById("pianoDiv");
   const thisPiano = useSelector((state) => state.singleLesson.piano);
   let pianoNotes = [];
@@ -31,7 +31,7 @@ const ViewPianoKeys = ({ slide }) => {
 
   useEffect(() => {
     pianoCreator();
-  }, [pianoDiv, pianoNotes]);
+  }, [pianoDiv, pianoNotes, activeElement, slide]);
 
   const pianoCreator = () => {
     let pianoSVG = document.getElementById("piano");
@@ -57,6 +57,12 @@ const ViewPianoKeys = ({ slide }) => {
           pianoKeyboard[note] = true;
         }
       });
+      if (activeElement.idx > -1) {
+        const note = `${activeElement.noteName}${activeElement.octave}`;
+        piano.applySettings({ keyPressStyle: "subtle" });
+        if (pianoKeyboard[note]) piano.keyUp(note);
+        piano.keyDown(note);
+      }
     }
   };
 
