@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Lesson },
+  models: { Lesson, LessonComment, Comment},
 } = require("../db");
 const Slide = require("../db/models/Slide");
 module.exports = router;
@@ -61,6 +61,14 @@ router.get("/:id", async (req, res, next) => {
             lessonId: req.params.id,
           },
         },
+        {
+          model: Comment,
+          through: {
+            model: LessonComment, where: {
+              lessonId: req.params.id
+            }
+          },
+        }
       ],
       order: [[{ model: Slide }, "id"]],
     });
