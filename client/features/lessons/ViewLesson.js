@@ -39,6 +39,7 @@ const ViewLesson = () => {
       id: -1,
       note: "",
       octave: "",
+      triad: "",
       duration: "",
     });
   }, [slide]);

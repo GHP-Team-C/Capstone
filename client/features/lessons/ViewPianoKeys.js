@@ -58,10 +58,23 @@ const ViewPianoKeys = ({ slide, activeElement }) => {
         }
       });
       if (activeElement.idx > -1) {
-        const note = `${activeElement.noteName}${activeElement.octave}`;
         piano.applySettings({ keyPressStyle: "subtle" });
-        if (pianoKeyboard[note]) piano.keyUp(note);
-        piano.keyDown(note);
+        if (activeElement.triad !== "") {
+          const notes = activeElement.noteName.split("");
+          const octaves = activeElement.octave.split("");
+          let finalNotes = [];
+          for (let i = 0; i < notes.length; i++) {
+            finalNotes.push(`${notes[i]}${octaves[i]}`);
+          }
+          finalNotes.forEach((note) => {
+            if (pianoKeyboard[note]) piano.keyUp(note);
+            piano.keyDown(note);
+          });
+        } else {
+          const note = `${activeElement.noteName}${activeElement.octave}`;
+          if (pianoKeyboard[note]) piano.keyUp(note);
+          piano.keyDown(note);
+        }
       }
     }
   };

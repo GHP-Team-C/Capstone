@@ -40,8 +40,9 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
         });
         newNote.attrs.id = `note${note.domId}`;
         newNote.attrs.pk = note.id;
-        newNote.attrs.noteName = note.noteName[0];
-        newNote.attrs.octave = note.octave[0];
+        newNote.attrs.noteName = note.noteName;
+        newNote.attrs.octave = note.octave;
+        newNote.attrs.triad = note.triad;
         notes.push(newNote);
       });
       let svg = document.getElementById("staff");
@@ -91,6 +92,7 @@ const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
               id: note.attrs.pk,
               noteName: note.attrs.noteName,
               octave: note.attrs.octave,
+              triad: note.attrs.triad,
             });
           });
         }
