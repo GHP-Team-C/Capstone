@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-const ViewMusicalStaff = ({ slide }) => {
+const ViewMusicalStaff = ({ slide, activeElement, setActiveElement }) => {
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
@@ -30,12 +30,12 @@ const ViewMusicalStaff = ({ slide }) => {
   const drawStaff = () => {
     if (lesson) {
       lesson.map((note) => {
-        let noteName = [];
+        let formattedNoteName = [];
         for (let i = 0; i < note.noteName.length; i++) {
-          noteName.push(`${note.noteName[i]}/${note.octave[i]}`);
+          formattedNoteName.push(`${note.noteName[i]}/${note.octave[i]}`);
         }
         const newNote = new StaveNote({
-          keys: noteName,
+          keys: formattedNoteName,
           duration: `${note.duration}`,
         });
         newNote.attrs.id = `note${note.domId}`;
@@ -86,13 +86,12 @@ const ViewMusicalStaff = ({ slide }) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
           noteSVG.addEventListener("click", () => {
-            // setDuration("q");
-            // setActiveElement({
-            //   idx: idx,
-            //   id: note.attrs.pk,
-            //   noteName: note.attrs.noteName,
-            //   octave: note.attrs.octave,
-            // });
+            setActiveElement({
+              idx: idx,
+              id: note.attrs.pk,
+              noteName: note.attrs.noteName,
+              octave: note.attrs.octave,
+            });
           });
         }
       });
@@ -112,15 +111,15 @@ const ViewMusicalStaff = ({ slide }) => {
   //   }
   // }, [activeElement]);
 
-  // useEffect(() => {
-  //   notes.forEach((note, idx) => {
-  //     const noteSVG = document.getElementById(`vf-note${idx + 1}`);
-  //     if (note.attrs.pk === activeElement.id) {
-  //       noteSVG.setAttribute("fill", "orange");
-  //       noteSVG.setAttribute("stroke", "orange");
-  //     }
-  //   });
-  // }, [activeElement, notes]);
+  useEffect(() => {
+    notes.forEach((note, idx) => {
+      const noteSVG = document.getElementById(`vf-note${idx + 1}`);
+      if (note.attrs.pk === activeElement.id) {
+        noteSVG.setAttribute("fill", "orange");
+        noteSVG.setAttribute("stroke", "orange");
+      }
+    });
+  }, [activeElement, notes]);
 
   // const restHandler = () => {
   //   if (duration === "qr") setDuration("q");

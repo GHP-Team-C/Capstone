@@ -12,18 +12,36 @@ import {
 
 const MusicalStaff = ({ slide }) => {
   const [note, setNote] = useState("");
+  const [triad, setTriad] = useState("")
   const [octave, setOctave] = useState("");
+  const [entryType, setEntryType] = useState('')
   const [duration, setDuration] = useState("q");
 
   const handleNoteChange = (event) => {
     setNote(event.target.value);
+    setEntryType('note')
   };
 
   const handleOctaveChange = (event) => {
     setOctave(event.target.value);
   };
 
+  const handleTriadChange = (event) => {
+    setTriad(event.target.value)
+    setEntryType('triad')
+  }
+
   const noteArray = ["c", "d", "e", "f", "g", "a", "b"];
+  const triadArray = ["C Maj", "D Min", "E Min", "F Maj", "G Maj", "A Min", "B Dim"]
+  const triadNotes = {
+    "C Maj": {notes: "ceg", octaves: "444"},
+    "D Min": {notes: "dfa", octaves: "444"},
+    "E Min": {notes: "egb", octaves: "444"},
+    "F Maj": {notes: "fac", octaves: "445"},
+    "G Maj": {notes: "gbd", octaves: "445"},
+    "A Min": {notes: "ace", octaves: "455"},
+    "B Dim": {notes: "bdf", octaves: "455"},
+  }
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
 
@@ -41,6 +59,7 @@ const MusicalStaff = ({ slide }) => {
     idx: -1,
     id: -1,
     note: "",
+    triad: "",
     octave: "",
     duration: "",
   });
@@ -49,7 +68,7 @@ const MusicalStaff = ({ slide }) => {
 
   useEffect(() => {
     setToChange(true);
-  }, [note, octave, duration]);
+  }, [note, triad, octave, duration]);
 
   useEffect(() => {
     setToChange(false);
@@ -72,15 +91,32 @@ const MusicalStaff = ({ slide }) => {
     if (slide) dispatch(fetchStaffNotes(slide.staff.id));
   };
 
+  const updateTriad = async () => {
+    await dispatch(
+      updateStaffNote({
+        id: slide.staff.id,
+        note: {
+          id: activeElement.id,
+          noteName: triadNotes[triad].notes,
+          octave: triadNotes[triad].octaves,
+          duration: duration,
+          domId: activeElement.idx + 1,
+        },
+      })
+    );
+    setToChange(false);
+    if (slide) dispatch(fetchStaffNotes(slide.staff.id));
+  };
+
   const drawStaff = () => {
     if (lesson) {
       lesson.map((note) => {
-        let noteName = [];
+        let formattedNoteName = [];
         for (let i = 0; i < note.noteName.length; i++) {
-          noteName.push(`${note.noteName[i]}/${note.octave[i]}`);
+          formattedNoteName.push(`${note.noteName[i]}/${note.octave[i]}`);
         }
         const newNote = new StaveNote({
-          keys: noteName,
+          keys: formattedNoteName,
           duration: `${note.duration}`,
         });
         newNote.attrs.id = `note${note.domId}`;
@@ -145,7 +181,14 @@ const MusicalStaff = ({ slide }) => {
   };
 
   useEffect(() => {
-    if (activeElement.idx > -1 && toChange && slide) updateNote();
+    if (activeElement.idx > -1 && toChange && slide) {
+      if (entryType === 'triad'){
+        updateTriad()
+      } else
+        {
+         updateNote();
+        }
+    }
     else drawStaff();
     if (notes.length) addNoteListeners();
   }, [notes]);
@@ -190,6 +233,23 @@ const MusicalStaff = ({ slide }) => {
           {noteArray.map((note) => (
             <MenuItem key={note} value={note}>
               {note}
+            </MenuItem>
+          ))}
+        </Select>
+
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="select-triad">Triad</InputLabel>
+        <Select
+          labelId="select-triad"
+          id="select-triad"
+          value={triad}
+          label="triad"
+          onChange={handleTriadChange}
+        >
+          {triadArray.map((triad) => (
+            <MenuItem key={triad} value={triad}>
+              {triad}
             </MenuItem>
           ))}
         </Select>

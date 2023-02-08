@@ -46,6 +46,9 @@ async function seed() {
   );
 
   // Creating Users
+
+  const avatars = ['Wholey.jpg', 'Eighthy.jpg', 'TwoEighthy.jpg']
+
   const users = await Promise.all([
     User.create({
       username: "cody",
@@ -53,6 +56,7 @@ async function seed() {
       firstName: "Cody",
       lastName: "Pug",
       password: "123",
+      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 3)]}`
     }),
     User.create({
       username: "murphy",
@@ -60,6 +64,7 @@ async function seed() {
       firstName: "Murphy",
       lastName: "Octopus",
       password: "123",
+      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 3)]}`
     }),
   ]);
 
@@ -71,8 +76,10 @@ async function seed() {
   // ]);
 
   //Assign Piano to slide
+  const piano = {keys: "c4, e4, g4, b4"}
+
   await Promise.all([
-    slides.map((slide) => slide.createPiano({ keys: "a4, b4, c4, g#4" })),
+    slides.map((slide, idx) => idx%2 ? slide.createPiano({ keys: "a4, b4, c4, g#4" }) : slide.createPiano(piano)),
   ]);
 
   // Creating Lessons
@@ -91,10 +98,8 @@ async function seed() {
 
   //NEED TO ADD NOTES TO ALL STAFFS
   await Promise.all(
-    staffs.map((staff, idx)=>{
-      idx%2 ?
-      staff.addNotes([5,6,7,8]) :
-      staff.addNotes([1,2,3,4])
+    staffs.map((staff, idx) => {
+      idx % 2 ? staff.addNotes([5, 6, 7, 8]) : staff.addNotes([1, 2, 3, 4]);
     })
   );
 

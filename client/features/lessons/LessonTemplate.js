@@ -7,6 +7,11 @@ import {
   Typography,
   Pagination,
   BottomNavigation,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,16 +20,20 @@ import {
   fetchStaffNotes,
   makeSlide,
   fetchSingleSlide,
+  publishStatusSingleLesson,
+  deleteLessonAsync,
+  deleteSlideAsnyc,
+  updateLessonTitle,
 } from "./singleLessonSlice";
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
-import { publishStatusSingleLesson } from "./singleLessonSlice";
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const slide = useSelector((state) => state.singleLesson.slide);
+  const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
   let { lId } = useParams();
@@ -34,6 +43,10 @@ const LessonTemplate = () => {
   useEffect(() => {
     dispatch(fetchSingleLesson(lId));
   }, [sId]);
+
+  useEffect(() => {
+    if (lesson) setTitle(lesson.name);
+  }, [lesson]);
 
   useEffect(() => {
     if (lesson) {
@@ -47,33 +60,64 @@ const LessonTemplate = () => {
     navigate(`/edit/lessons/${lId}/slides/${lesson.slides.length + 1}`);
   };
 
+  const handleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const saveTitle = () => {
+    dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
+  };
+
   const togglePublishStatus = () => {
     dispatch(publishStatusSingleLesson(lesson.id));
   };
 
+
   const handlePageChange = (event, value) => {
-    console.log("clicked, value:", value);
     navigate(`/edit/lessons/${lId}/slides/${value}`);
+}
+
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    if (toDelete === "lesson") {
+      await dispatch(deleteLessonAsync(lesson.id));
+      setOpen(false);
+      navigate("/creator-dashboard");
+    } else {
+      await dispatch(deleteSlideAsnyc(slide.id));
+      setOpen(false);
+      dispatch(fetchSingleLesson(lId));
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+  const [toDelete, setToDelete] = useState("");
+
+  const handleOpen = (toBeDeleted) => {
+    setOpen(true);
+    setToDelete(toBeDeleted);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
-        <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <Stack
-            direction="column"
-            spacing={-1}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <h1>
-              {lesson.name} ({lesson.published ? "Published" : "Private"})
-            </h1>
-            <Button variant="text" onClick={togglePublishStatus}>
+          <textarea
+            id="name"
+            name="name"
+            style={{ fontSize: "24px" }}
+            onChange={handleChange}
+            value={title}
+          ></textarea>
+          <Button onClick={saveTitle}>Save Title</Button>
+          
+          <Button variant="text" onClick={togglePublishStatus}>
               {lesson.published ? "Unpublish" : "Publish"}
             </Button>
-          </Stack>
-        </Box>
+        
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
           <MusicalStaff slide={slide} />
           <PianoKeys slide={slide} />
@@ -113,6 +157,39 @@ const LessonTemplate = () => {
               />
             </Stack>
           </BottomNavigation>
+          
+          {sId != 1 && (
+            <NavLink to={`/edit/lessons/${lId}/slides/${Number(sId) - 1}`}>
+              <Button variant="contained">Previous Slide</Button>
+            </NavLink>
+          )}
+          <Button variant="contained" onClick={togglePublishStatus}>
+            {lesson.published ? "Unpublish" : "Publish"}
+          </Button>
+          {lesson.slides.length > 1 && (
+            <Button variant="contained" onClick={() => handleOpen("slide")}>
+              Delete Slide
+            </Button>
+          )}
+          <Button variant="contained" onClick={() => handleOpen("lesson")}>
+            Delete Lesson
+          </Button>
+          {open && (
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Your{" "}
+                  {toDelete === "lesson" ? `lesson ${lesson.name}` : `slide`}{" "}
+                  cannot be recovered once deleted.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>No</Button>
+                <Button onClick={handleDelete}>Yes, Delete</Button>
+              </DialogActions>
+            </Dialog>
+          )}
         </Box>
       </>
     );
