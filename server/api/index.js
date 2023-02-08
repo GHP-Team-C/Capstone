@@ -6,6 +6,7 @@ router.use("/staves", require("./staves"));
 router.use("/lessons", require("./lessons"));
 router.use("/slides", require("./slides"));
 router.use("/pianos", require("./pianos"));
+router.use("/userComment", require("./comments"))
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

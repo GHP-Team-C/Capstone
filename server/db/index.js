@@ -11,6 +11,8 @@ const StaffNote = require("./models/StaffNote");
 const Slide = require("./models/Slide");
 const Piano = require("./models/Piano");
 const UserComment = require("./models/UserComment")
+const Comment = require("./models/Comment")
+const LessonComment =require("./models/LessonComment")
 
 //associations could go here!
 User.hasMany(Lesson);
@@ -27,8 +29,9 @@ Slide.hasOne(Staff);
 Piano.belongsTo(Slide);
 Slide.hasOne(Piano);
 
-User.belongsToMany(Lesson, {through: UserComment})
-Lesson.belongsToMany(User, {through: UserComment})
+Lesson.belongsToMany(Comment, {through: LessonComment})
+User.belongsToMany(Comment, {through: UserComment} )
+
 
 module.exports = {
   db,
@@ -41,6 +44,8 @@ module.exports = {
     StaffNote,
     Slide,
     Piano,
-    UserComment
+    Comment,
+    UserComment,
+    LessonComment
   },
 };

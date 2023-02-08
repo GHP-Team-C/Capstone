@@ -1,9 +1,10 @@
 
 const router = require("express").Router();
 const {
-  models: { UserComment },
+  models: { Comment, Lesson, User },
 } = require("../db");
 module.exports = router;
+
 
 
 //userId would be sent and lessonId would be put into the body, send as an object
@@ -19,8 +20,18 @@ router.post("/:id", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const comments = await UserComment.findAll({ where: {  lessonId: req.params.id}});
-    res.json(comments);
+    const singleLesson = await Lesson.findByPk(req.params.id, {
+      include: [
+        {
+          model: Slide,
+          where: {
+            lessonId: req.params.id,
+          },
+        },
+      ],
+      order: [[{ model: Slide }, "id"]],
+    });
+    res.json(singleLesson);
   } catch (err) {
     next(err);
   }
