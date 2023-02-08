@@ -170,6 +170,11 @@ const LessonTemplate = () => {
             </Dialog>
           )}
         </Box>
+        <Stack direction='row' justifyContent='end'>
+        <NavLink to={'/creator-dashboard'}>
+              <Button variant="contained">Done Editing</Button>
+        </NavLink>
+        </Stack>
       </>
     );
 };
