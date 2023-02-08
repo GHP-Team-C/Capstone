@@ -36,8 +36,8 @@ const MusicalStaff = ({ slide }) => {
     "E Min": {notes: "egb", octaves: "444"},
     "F Maj": {notes: "fac", octaves: "445"},
     "G Maj": {notes: "gbd", octaves: "445"},
-    "A Min": {notes: "ace", octaves: "445"},
-    "B Dim": {notes: "bdf", octaves: "445"},
+    "A Min": {notes: "ace", octaves: "455"},
+    "B Dim": {notes: "bdf", octaves: "455"},
   }
   const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
@@ -179,7 +179,12 @@ const MusicalStaff = ({ slide }) => {
 
   useEffect(() => {
     if (activeElement.idx > -1 && toChange && slide) {
-      if (activeElement.triad !== ""){updateTriad()}else{updateNote();}
+      if (activeElement.triad !== ""){
+        updateTriad()
+      } else
+        {
+         updateNote();
+        }
     }
     else drawStaff();
     if (notes.length) addNoteListeners();
