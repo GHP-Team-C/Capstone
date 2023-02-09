@@ -50,7 +50,7 @@ const MusicalStaff = ({ slide }) => {
     "A Min": { notes: "ace", octaves: "455" },
     "B Dim": { notes: "bdf", octaves: "455" },
   };
-  const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
+  const octaveArray = ["2", "3", "4", "5", "6"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
 
   let div = document.getElementById("staffDiv");

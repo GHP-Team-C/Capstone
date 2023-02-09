@@ -96,7 +96,8 @@ const ViewLesson = () => {
 
   const handleClick = async (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
-    await Tone.start();
+    if (!open) await Tone.start();
+    else navigate(0);
   };
 
   const open = Boolean(anchorEl);
@@ -116,7 +117,7 @@ const ViewLesson = () => {
           </button>
           <Popper id={id} open={open} anchorEl={anchorEl}>
             <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
-              {<PlayerPiano sampler={sampler} />}
+              {<PlayerPiano sampler={sampler} open={open} />}
             </Box>
           </Popper>
         </Box>
