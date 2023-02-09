@@ -26,7 +26,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate("/login");
+    navigate("/");
   };
 
   const [open, setOpen] = useState(false);
@@ -44,7 +44,7 @@ const Navbar = () => {
               </Link>
               <div>
                 <Link to="/all-public-lessons">
-                <Button >Public Lessons</Button>
+                  <Button>Public Lessons</Button>
                 </Link>
               </div>
             </Box>
