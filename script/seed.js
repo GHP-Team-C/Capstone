@@ -49,7 +49,7 @@ async function seed() {
 
   // Creating Users
 
-  const avatars = ['Wholey.jpg', 'Eighthy.jpg', 'TwoEighthy.jpg']
+  const avatars = ['wholey.png', 'eighthy.png', 'twoEighthy.png']
 
   const users = await Promise.all([
     User.create({
