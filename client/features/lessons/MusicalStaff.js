@@ -9,8 +9,9 @@ import {
   Select,
   Button,
 } from "@mui/material";
+import * as Tone from "tone";
 
-const MusicalStaff = ({ slide, activeElement, setActiveElement }) => {
+const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
   const [note, setNote] = useState("");
   const [triad, setTriad] = useState("");
   const [octave, setOctave] = useState("");
@@ -190,8 +191,27 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement }) => {
       notes.forEach((note, idx) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
-          noteSVG.addEventListener("click", () => {
+          noteSVG.addEventListener("click", async () => {
             setDuration("q");
+            if (note.attrs.duration !== "qr") {
+              await Tone.start();
+              if (note.attrs.triad !== "") {
+                const notes = note.attrs.noteName.split("");
+                const octaves = note.attrs.octave.split("");
+                let finalNotes = [];
+                for (let i = 0; i < notes.length; i++) {
+                  finalNotes.push(`${notes[i]}${octaves[i]}`);
+                }
+                if (sampler.loaded)
+                  sampler.triggerAttackRelease(finalNotes, "4n");
+              } else {
+                if (sampler.loaded)
+                  sampler.triggerAttackRelease(
+                    `${note.attrs.noteName}${note.attrs.octave}`,
+                    "4n"
+                  );
+              }
+            }
             if (note.attrs.triad === "") setEntryType("note");
             else setEntryType("triad");
             setActiveElement({

@@ -65,7 +65,6 @@ const PianoKeys = ({ slide, activeElement }) => {
           });
         } else {
           if (activeElement.duration !== "qr") {
-            console.log(activeElement);
             const note = `${activeElement.noteName}${activeElement.octave}`;
             if (pianoKeyboard[note]) piano.keyUp(note);
             piano.keyDown(note);
