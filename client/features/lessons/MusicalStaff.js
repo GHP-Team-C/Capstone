@@ -320,7 +320,9 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
           ))}
         </Select>
       </FormControl>
-      <Button onClick={restHandler}>Rest</Button>
+      <Button onClick={restHandler} variant="outlined">
+        Rest
+      </Button>
       <div id="staffDiv"></div>
     </div>
   );

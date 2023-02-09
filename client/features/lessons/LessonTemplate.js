@@ -4,15 +4,27 @@ import {
   Box,
   Stack,
   Button,
+  ButtonGroup,
   Typography,
   Pagination,
-  BottomNavigation,
+  Paper,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions,
+  TextareaAutosize,
+  TextField,
 } from "@mui/material";
+import {
+  Visibility,
+  VisibilityOff,
+  Delete,
+  RemoveCircleOutline,
+  ControlPoint,
+  CheckCircleOutline,
+} from "@mui/icons-material";
+import { ClickAwayListener } from "@mui/base";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -150,52 +162,103 @@ const LessonTemplate = () => {
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
-        <textarea
-          id="name"
-          name="name"
-          style={{ fontSize: "24px" }}
-          onChange={handleChange}
-          value={title}
-        ></textarea>
-        <Stack
-          direction="row"
-          spacing={2}
-          justifyContent="center"
-          alignItems="center"
-        ></Stack>
-        <Button onClick={saveTitle}>Save Title</Button>
-        <Button variant="text" onClick={togglePublishStatus}>
-          {lesson.published ? "Unpublish Lesson" : "Publish Lesson"}
-        </Button>
-        <Button variant="text" onClick={() => handleOpen("lesson")}>
-          Delete Lesson
-        </Button>
-        <Stack direction="row" spacing={2} justifyContent="space-evenly">
-          <MusicalStaff
-            slide={slide}
-            activeElement={activeElement}
+        <Paper elevation={3} m={3} p={2}>
+          <Box p={2} align="center">
+            <ClickAwayListener onClickAway={saveTitle}>
+              <TextField
+                required
+                id="name"
+                name="name"
+                label="Lesson Name"
+                onChange={handleChange}
+                value={title}
+                variant="outlined"
+                sx={{ width: 500 }}
+              />
+            </ClickAwayListener>
+          </Box>
+          <Stack direction="row" spacing={2} justifyContent="space-evenly">
+            <MusicalStaff slide={slide} activeElement={activeElement}
             setActiveElement={setActiveElement}
-            sampler={sampler}
-          />
-          <PianoKeys slide={slide} activeElement={activeElement} />
-        </Stack>
+            sampler={sampler}/>
+            <PianoKeys slide={slide} activeElement={activeElement}/>
+          </Stack>
+          <Box
+            m={1}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+          >
+            <LessonText slide={slide} />
+          </Box>
+          <Stack
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+            sx={{ p: 2 }}
+          >
+            <Typography>
+              Slide {Number(sId)} of {lesson.slides.length}
+            </Typography>
+            <Pagination
+              count={lesson.slides.length}
+              page={Number(sId)}
+              value={Number(sId)}
+              onChange={handlePageChange}
+            />
+          </Stack>
+        </Paper>
         <Box
-          m={1}
+          m={2}
+          p={3}
           display="flex"
           justifyContent="center"
           alignItems="center"
           flexDirection="column"
         >
-          <LessonText slide={slide} />
           <Stack direction="row" spacing={3} justifyContent="center">
-            <Button variant="contained" onClick={handleAddSlide}>
-              Add Another Slide
+            <Button
+              startIcon={<ControlPoint />}
+              variant="contained"
+              onClick={handleAddSlide}
+            >
+              Add Slide
             </Button>
             {lesson.slides.length > 1 && (
-              <Button variant="contained" onClick={() => handleOpen("slide")}>
-                Delete Slide
+              <Button
+                startIcon={<RemoveCircleOutline />}
+                variant="contained"
+                onClick={() => handleOpen("slide")}
+              >
+                Remove Slide
               </Button>
             )}
+            {lesson.published ? (
+              <Button
+                startIcon={<VisibilityOff />}
+                variant="contained"
+                onClick={togglePublishStatus}
+              >
+                Unpublish Lesson
+              </Button>
+            ) : (
+              <Button startIcon={<Visibility />} onClick={togglePublishStatus}>
+                Publish Lesson
+              </Button>
+            )}
+            <Button
+              startIcon={<Delete />}
+              variant="contained"
+              onClick={() => handleOpen("lesson")}
+            >
+              Delete Lesson
+            </Button>
+            <NavLink to={"/creator-dashboard"}>
+              <Button startIcon={<CheckCircleOutline />} variant="contained">
+                Done Editing Lesson
+              </Button>
+            </NavLink>
           </Stack>
         </Box>
         <Box
@@ -206,20 +269,6 @@ const LessonTemplate = () => {
           bgcolor="white"
           sx={{ position: "fixed", bottom: 25, left: 0, right: 0 }}
         >
-          <BottomNavigation>
-            <Stack spacing={2} justifyContent="center" alignItems="center">
-              <Typography>
-                Slide {Number(sId)} of {lesson.slides.length}
-              </Typography>
-              <Pagination
-                count={lesson.slides.length}
-                page={Number(sId)}
-                value={Number(sId)}
-                onChange={handlePageChange}
-              />
-            </Stack>
-          </BottomNavigation>
-
           {open && (
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle>Are you sure?</DialogTitle>
@@ -237,11 +286,6 @@ const LessonTemplate = () => {
             </Dialog>
           )}
         </Box>
-        <Stack direction="row" justifyContent="end">
-          <NavLink to={"/creator-dashboard"}>
-            <Button variant="contained">Done Editing</Button>
-          </NavLink>
-        </Stack>
       </>
     );
 };
