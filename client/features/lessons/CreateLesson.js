@@ -17,7 +17,6 @@ import {
 const CreateLesson = () => {
   const [name, setName] = useState("");
   const [level, setLevel] = useState("beginner");
-  const [visibleTo, setVisibleTo] = useState("private");
   const userId = useSelector((state) => state.auth.me.id);
   const lesson = useSelector((state) => state.singleLesson.lesson);
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const CreateLesson = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    await dispatch(createLesson({ name, level, visibleTo, userId: userId }));
+    await dispatch(createLesson({ name, level, userId: userId }));
   };
 
   //if the lesson model is changed to include more than 8 keys, this will need to be updated
@@ -71,26 +70,7 @@ const CreateLesson = () => {
               />
             </RadioGroup>
           </FormControl>
-          <FormControl>
-            <FormLabel>Visibility</FormLabel>
-            <RadioGroup row onChange={(e) => setVisibleTo(e.target.value)}>
-              <FormControlLabel
-                value="Private"
-                control={<Radio required={true} />}
-                label="Private"
-              />
-              <FormControlLabel
-                value="Public"
-                control={<Radio required={true} />}
-                label="Public"
-              />
-              <FormControlLabel
-                value="Organization"
-                control={<Radio required={true} />}
-                label="Organization"
-              />
-            </RadioGroup>
-          </FormControl>
+
           <Button
             type="submit"
             color="primary"
