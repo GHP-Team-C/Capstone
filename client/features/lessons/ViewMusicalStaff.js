@@ -118,6 +118,7 @@ const ViewMusicalStaff = ({
               id: note.attrs.pk,
               noteName: note.attrs.noteName,
               octave: note.attrs.octave,
+              duration: note.attrs.duration,
               triad: note.attrs.triad,
             });
           });

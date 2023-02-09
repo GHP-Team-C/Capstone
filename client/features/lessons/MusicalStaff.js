@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-const MusicalStaff = ({ slide }) => {
+const MusicalStaff = ({ slide, activeElement, setActiveElement }) => {
   const [note, setNote] = useState("");
   const [triad, setTriad] = useState("");
   const [octave, setOctave] = useState("");
@@ -63,14 +63,6 @@ const MusicalStaff = ({ slide }) => {
 
   const lesson = useSelector((state) => state.singleLesson.notes);
 
-  const [activeElement, setActiveElement] = useState({
-    idx: -1,
-    id: -1,
-    note: "",
-    triad: "",
-    octave: "",
-    duration: "",
-  });
   const [toChange, setToChange] = useState(false);
   const notes = [];
 
@@ -96,6 +88,14 @@ const MusicalStaff = ({ slide }) => {
         },
       })
     );
+    setActiveElement({
+      id: activeElement.id,
+      idx: activeElement.idx,
+      noteName: note,
+      octave: octave,
+      duration: duration,
+      triad: "",
+    });
     setToChange(false);
     setTriad("");
     if (slide) dispatch(fetchStaffNotes(slide.staff.id));
@@ -118,6 +118,14 @@ const MusicalStaff = ({ slide }) => {
         },
       })
     );
+    setActiveElement({
+      id: activeElement.id,
+      idx: activeElement.idx,
+      noteName: triadNotes[triad].notes,
+      octave: octaves,
+      duration: duration,
+      triad: triad,
+    });
     setToChange(false);
     if (slide) dispatch(fetchStaffNotes(slide.staff.id));
   };
@@ -135,8 +143,9 @@ const MusicalStaff = ({ slide }) => {
         });
         newNote.attrs.id = `note${note.domId}`;
         newNote.attrs.pk = note.id;
-        newNote.attrs.noteName = note.noteName[0];
-        newNote.attrs.octave = note.octave[0];
+        newNote.attrs.noteName = note.noteName;
+        newNote.attrs.octave = note.octave;
+        newNote.attrs.duration = note.duration;
         newNote.attrs.triad = note.triad;
         notes.push(newNote);
       });
@@ -190,6 +199,7 @@ const MusicalStaff = ({ slide }) => {
               id: note.attrs.pk,
               noteName: note.attrs.noteName,
               octave: note.attrs.octave,
+              duration: note.attrs.duration,
               triad: note.attrs.triad,
             });
           });
@@ -211,8 +221,8 @@ const MusicalStaff = ({ slide }) => {
 
   useEffect(() => {
     if (activeElement.noteName) {
-      setNote(activeElement.noteName);
-      setOctave(activeElement.octave);
+      setNote(activeElement.noteName[0]);
+      setOctave(activeElement.octave[0]);
       setTriad(activeElement.triad);
     }
   }, [activeElement]);

@@ -36,6 +36,15 @@ const LessonTemplate = () => {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
+  const [activeElement, setActiveElement] = useState({
+    idx: -1,
+    id: -1,
+    note: "",
+    triad: "",
+    octave: "",
+    duration: "",
+  });
+
   let { lId } = useParams();
   //use sId as an index # in the singleLesson.lesson.slides array
   let { sId } = useParams();
@@ -128,8 +137,12 @@ const LessonTemplate = () => {
           Delete Lesson
         </Button>
         <Stack direction="row" spacing={2} justifyContent="space-evenly">
-          <MusicalStaff slide={slide} />
-          <PianoKeys slide={slide} />
+          <MusicalStaff
+            slide={slide}
+            activeElement={activeElement}
+            setActiveElement={setActiveElement}
+          />
+          <PianoKeys slide={slide} activeElement={activeElement} />
         </Stack>
         <Box
           m={1}
