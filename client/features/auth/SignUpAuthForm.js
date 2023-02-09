@@ -23,6 +23,7 @@ const AuthForm = ({ name, displayName }) => {
     evt.preventDefault();
     dispatch(authenticateSignUp({ firstName, lastName, username, email, password, method: "signup" }));
     navigate('/')
+    alert(`You've successfully signed-up ${firstName}`)
   };
 
 
