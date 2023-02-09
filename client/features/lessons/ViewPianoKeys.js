@@ -44,21 +44,15 @@ const ViewPianoKeys = ({ slide, activeElement }) => {
     if (pianoDiv && !pianoSVG && thisPiano) {
       const piano = new Instrument(document.getElementById("pianoDiv"), {
         startOctave: 2,
-        endOctave: 6,
+        endOctave: 7.5,
       });
 
       piano.create();
       piano.container.children[0].setAttribute("id", "piano");
-      piano.applySettings({ vividKeyPressColor: "#ffa500" });
-      piano.applySettings({ keyPressStyle: "vivid" });
-      pianoNotes.forEach((note) => {
-        if (note) {
-          piano.keyDown(`${note}`);
-          pianoKeyboard[note] = true;
-        }
-      });
+
       if (activeElement.idx > -1) {
-        piano.applySettings({ keyPressStyle: "subtle" });
+        piano.applySettings({ vividKeyPressColor: "#ffa500" });
+        piano.applySettings({ keyPressStyle: "vivid" });
         if (activeElement.triad !== "") {
           const notes = activeElement.noteName.split("");
           const octaves = activeElement.octave.split("");
@@ -71,9 +65,11 @@ const ViewPianoKeys = ({ slide, activeElement }) => {
             piano.keyDown(note);
           });
         } else {
-          const note = `${activeElement.noteName}${activeElement.octave}`;
-          if (pianoKeyboard[note]) piano.keyUp(note);
-          piano.keyDown(note);
+          if (activeElement.duration !== "qr") {
+            const note = `${activeElement.noteName}${activeElement.octave}`;
+            if (pianoKeyboard[note]) piano.keyUp(note);
+            piano.keyDown(note);
+          }
         }
       }
     }
@@ -81,7 +77,7 @@ const ViewPianoKeys = ({ slide, activeElement }) => {
 
   const pianoStyle = {
     marginTop: "55px",
-    width: "500px",
+    width: "600px",
   };
 
   return (

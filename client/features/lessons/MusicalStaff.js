@@ -9,8 +9,9 @@ import {
   Select,
   Button,
 } from "@mui/material";
+import * as Tone from "tone";
 
-const MusicalStaff = ({ slide }) => {
+const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
   const [note, setNote] = useState("");
   const [triad, setTriad] = useState("");
   const [octave, setOctave] = useState("");
@@ -50,7 +51,7 @@ const MusicalStaff = ({ slide }) => {
     "A Min": { notes: "ace", octaves: "455" },
     "B Dim": { notes: "bdf", octaves: "455" },
   };
-  const octaveArray = ["1", "2", "3", "4", "5", "6", "7"];
+  const octaveArray = ["2", "3", "4", "5", "6"];
   const { Renderer, Stave, Formatter, StaveNote, Voice } = Vex.Flow;
 
   let div = document.getElementById("staffDiv");
@@ -63,14 +64,6 @@ const MusicalStaff = ({ slide }) => {
 
   const lesson = useSelector((state) => state.singleLesson.notes);
 
-  const [activeElement, setActiveElement] = useState({
-    idx: -1,
-    id: -1,
-    note: "",
-    triad: "",
-    octave: "",
-    duration: "",
-  });
   const [toChange, setToChange] = useState(false);
   const notes = [];
 
@@ -96,6 +89,14 @@ const MusicalStaff = ({ slide }) => {
         },
       })
     );
+    setActiveElement({
+      id: activeElement.id,
+      idx: activeElement.idx,
+      noteName: note,
+      octave: octave,
+      duration: duration,
+      triad: "",
+    });
     setToChange(false);
     setTriad("");
     if (slide) dispatch(fetchStaffNotes(slide.staff.id));
@@ -118,6 +119,14 @@ const MusicalStaff = ({ slide }) => {
         },
       })
     );
+    setActiveElement({
+      id: activeElement.id,
+      idx: activeElement.idx,
+      noteName: triadNotes[triad].notes,
+      octave: octaves,
+      duration: duration,
+      triad: triad,
+    });
     setToChange(false);
     if (slide) dispatch(fetchStaffNotes(slide.staff.id));
   };
@@ -135,8 +144,9 @@ const MusicalStaff = ({ slide }) => {
         });
         newNote.attrs.id = `note${note.domId}`;
         newNote.attrs.pk = note.id;
-        newNote.attrs.noteName = note.noteName[0];
-        newNote.attrs.octave = note.octave[0];
+        newNote.attrs.noteName = note.noteName;
+        newNote.attrs.octave = note.octave;
+        newNote.attrs.duration = note.duration;
         newNote.attrs.triad = note.triad;
         notes.push(newNote);
       });
@@ -181,7 +191,7 @@ const MusicalStaff = ({ slide }) => {
       notes.forEach((note, idx) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
-          noteSVG.addEventListener("click", () => {
+          noteSVG.addEventListener("click", async () => {
             setDuration("q");
             if (note.attrs.triad === "") setEntryType("note");
             else setEntryType("triad");
@@ -190,6 +200,7 @@ const MusicalStaff = ({ slide }) => {
               id: note.attrs.pk,
               noteName: note.attrs.noteName,
               octave: note.attrs.octave,
+              duration: note.attrs.duration,
               triad: note.attrs.triad,
             });
           });
@@ -210,11 +221,32 @@ const MusicalStaff = ({ slide }) => {
   }, [notes]);
 
   useEffect(() => {
-    if (activeElement.noteName) {
-      setNote(activeElement.noteName);
-      setOctave(activeElement.octave);
-      setTriad(activeElement.triad);
-    }
+    const infoSetter = async () => {
+      if (activeElement.duration !== "qr" && sampler.loaded) {
+        await Tone.start();
+        if (activeElement.triad !== "") {
+          const notes = activeElement.noteName.split("");
+          const octaves = activeElement.octave.split("");
+          let finalNotes = [];
+          for (let i = 0; i < notes.length; i++) {
+            finalNotes.push(`${notes[i]}${octaves[i]}`);
+          }
+          if (sampler.loaded) sampler.triggerAttackRelease(finalNotes, "4n");
+        } else {
+          if (sampler.loaded)
+            sampler.triggerAttackRelease(
+              `${activeElement.noteName}${activeElement.octave}`,
+              "4n"
+            );
+        }
+      }
+      if (activeElement.noteName) {
+        setNote(activeElement.noteName[0]);
+        setOctave(activeElement.octave[0]);
+        setTriad(activeElement.triad);
+      }
+    };
+    infoSetter();
   }, [activeElement]);
 
   useEffect(() => {

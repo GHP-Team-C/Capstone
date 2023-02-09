@@ -40,6 +40,40 @@ import {
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
+import * as Tone from "tone";
+
+const sampler = new Tone.Sampler({
+  urls: {
+    A3: "a3.mp3",
+    A4: "a4.mp3",
+    "A#3": "aShrp3.mp3",
+    "A#4": "aShrp4.mp3",
+    B3: "b3.mp3",
+    B4: "b4.mp3",
+    C3: "c3.mp3",
+    C4: "c4.mp3",
+    "C#3": "cShrp3.mp3",
+    "C#4": "cShrp4.mp3",
+    D3: "d3.mp3",
+    D4: "d4.mp3",
+    "D#3": "dShrp3.mp3",
+    "D#4": "dShrp4.mp3",
+    E3: "e3.mp3",
+    E4: "e4.mp3",
+    F3: "f3.mp3",
+    F4: "f4.mp3",
+    "F#3": "fShrp3.mp3",
+    "F#4": "fShrp4.mp3",
+    g3: "g3.mp3",
+    g4: "g4.mp3",
+    "G#3": "gShrp3.mp3",
+    "G#4": "gShrp4.mp3",
+  },
+  baseUrl: "/pianoSamples/",
+  onload: () => {
+    sampler.loaded = true;
+  },
+}).toDestination();
 
 const LessonTemplate = () => {
   const dispatch = useDispatch();
@@ -47,6 +81,15 @@ const LessonTemplate = () => {
   const slide = useSelector((state) => state.singleLesson.slide);
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
+
+  const [activeElement, setActiveElement] = useState({
+    idx: -1,
+    id: -1,
+    note: "",
+    triad: "",
+    octave: "",
+    duration: "",
+  });
 
   let { lId } = useParams();
   //use sId as an index # in the singleLesson.lesson.slides array
@@ -135,8 +178,10 @@ const LessonTemplate = () => {
             </ClickAwayListener>
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
-            <MusicalStaff slide={slide} />
-            <PianoKeys slide={slide} />
+            <MusicalStaff slide={slide} activeElement={activeElement}
+            setActiveElement={setActiveElement}
+            sampler={sampler}/>
+            <PianoKeys slide={slide} activeElement={activeElement}/>
           </Stack>
           <Box
             m={1}

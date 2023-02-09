@@ -4,7 +4,7 @@ import { Instrument } from "piano-chart";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePiano, fetchPiano } from "./singleLessonSlice";
 
-const PianoKeys = ({ slide }) => {
+const PianoKeys = ({ slide, activeElement }) => {
   let pianoDiv = document.getElementById("pianoDiv");
   const thisPiano = useSelector((state) => state.singleLesson.piano);
   let pianoNotes = [];
@@ -31,7 +31,7 @@ const PianoKeys = ({ slide }) => {
 
   useEffect(() => {
     pianoCreator();
-  }, [pianoDiv, pianoNotes]);
+  }, [pianoDiv, pianoNotes, activeElement, slide]);
 
   const pianoCreator = () => {
     let pianoSVG = document.getElementById("piano");
@@ -44,48 +44,39 @@ const PianoKeys = ({ slide }) => {
     if (pianoDiv && !pianoSVG && thisPiano) {
       const piano = new Instrument(document.getElementById("pianoDiv"), {
         startOctave: 2,
-        endOctave: 6,
+        endOctave: 7.5,
       });
 
       piano.create();
-      piano.addKeyMouseDownListener((note) => {
-        let fullNote = "";
-        if (note.accidental)
-          fullNote = `${note.note.toLowerCase()}${note.accidental}${
-            note.octave
-          }`;
-        else fullNote = `${note.note.toLowerCase()}${note.octave}`;
-        if (pianoKeyboard[`${fullNote}`]) {
-          piano.keyUp(note);
-          pianoKeyboard[`${fullNote}`] = false;
-          pianoNotes.splice(pianoNotes.indexOf(fullNote), 1);
-        } else {
-          piano.keyDown(note);
-          pianoKeyboard[`${fullNote}`] = true;
-          pianoNotes.push(fullNote);
-        }
-        dispatch(
-          updatePiano({
-            id: thisPiano.id,
-            notes: { keys: pianoNotes.join(", ") },
-          })
-        );
-      });
       piano.container.children[0].setAttribute("id", "piano");
-      piano.applySettings({ vividKeyPressColor: "#ffa500" });
-      piano.applySettings({ keyPressStyle: "vivid" });
-      pianoNotes.forEach((note) => {
-        if (note) {
-          piano.keyDown(`${note}`);
-          pianoKeyboard[note] = true;
+      if (activeElement.idx > -1) {
+        piano.applySettings({ vividKeyPressColor: "#ffa500" });
+        piano.applySettings({ keyPressStyle: "vivid" });
+        if (activeElement.triad !== "") {
+          const notes = activeElement.noteName.split("");
+          const octaves = activeElement.octave.split("");
+          let finalNotes = [];
+          for (let i = 0; i < notes.length; i++) {
+            finalNotes.push(`${notes[i]}${octaves[i]}`);
+          }
+          finalNotes.forEach((note) => {
+            if (pianoKeyboard[note]) piano.keyUp(note);
+            piano.keyDown(note);
+          });
+        } else {
+          if (activeElement.duration !== "qr") {
+            const note = `${activeElement.noteName}${activeElement.octave}`;
+            if (pianoKeyboard[note]) piano.keyUp(note);
+            piano.keyDown(note);
+          }
         }
-      });
+      }
     }
   };
 
   const pianoStyle = {
     marginTop: "95px",
-    width: "500px",
+    width: "600px",
   };
 
   return (
