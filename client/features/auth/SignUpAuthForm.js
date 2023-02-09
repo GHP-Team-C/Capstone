@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {authenticateSignUp } from '../../app/store';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 **/
 
 const AuthForm = ({ name, displayName }) => {
-  const { error } = useSelector((state) => state.auth);
+  const { error, success } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
@@ -22,9 +22,14 @@ const AuthForm = ({ name, displayName }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(authenticateSignUp({ firstName, lastName, username, email, password, method: "signup" }));
-    navigate('/')
   };
 
+  useEffect(()=>{
+    if(success) {
+      alert(`You've successfully signed-up ${firstName}`)
+      navigate("/")
+    }
+    }, [success])
 
 
   return (
@@ -73,7 +78,7 @@ const AuthForm = ({ name, displayName }) => {
                   }/>
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit" disabled={!firstName || !lastName || !username || !email || !password}>{displayName}</button>
         </div>
         {error && <div> {error} </div>}
       </form>
