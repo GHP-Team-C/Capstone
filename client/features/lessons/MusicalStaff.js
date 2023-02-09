@@ -193,25 +193,6 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
         if (noteSVG) {
           noteSVG.addEventListener("click", async () => {
             setDuration("q");
-            if (note.attrs.duration !== "qr") {
-              await Tone.start();
-              if (note.attrs.triad !== "") {
-                const notes = note.attrs.noteName.split("");
-                const octaves = note.attrs.octave.split("");
-                let finalNotes = [];
-                for (let i = 0; i < notes.length; i++) {
-                  finalNotes.push(`${notes[i]}${octaves[i]}`);
-                }
-                if (sampler.loaded)
-                  sampler.triggerAttackRelease(finalNotes, "4n");
-              } else {
-                if (sampler.loaded)
-                  sampler.triggerAttackRelease(
-                    `${note.attrs.noteName}${note.attrs.octave}`,
-                    "4n"
-                  );
-              }
-            }
             if (note.attrs.triad === "") setEntryType("note");
             else setEntryType("triad");
             setActiveElement({
@@ -240,11 +221,32 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
   }, [notes]);
 
   useEffect(() => {
-    if (activeElement.noteName) {
-      setNote(activeElement.noteName[0]);
-      setOctave(activeElement.octave[0]);
-      setTriad(activeElement.triad);
-    }
+    const infoSetter = async () => {
+      if (activeElement.duration !== "qr" && sampler.loaded) {
+        await Tone.start();
+        if (activeElement.triad !== "") {
+          const notes = activeElement.noteName.split("");
+          const octaves = activeElement.octave.split("");
+          let finalNotes = [];
+          for (let i = 0; i < notes.length; i++) {
+            finalNotes.push(`${notes[i]}${octaves[i]}`);
+          }
+          if (sampler.loaded) sampler.triggerAttackRelease(finalNotes, "4n");
+        } else {
+          if (sampler.loaded)
+            sampler.triggerAttackRelease(
+              `${activeElement.noteName}${activeElement.octave}`,
+              "4n"
+            );
+        }
+      }
+      if (activeElement.noteName) {
+        setNote(activeElement.noteName[0]);
+        setOctave(activeElement.octave[0]);
+        setTriad(activeElement.triad);
+      }
+    };
+    infoSetter();
   }, [activeElement]);
 
   useEffect(() => {
