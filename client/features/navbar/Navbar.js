@@ -7,29 +7,45 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Badge,
   Avatar,
-  Typography,
   Box,
-  Drawer,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  MenuItem
+, Menu
 } from "@mui/material";
-import { ShoppingCart, Home, Mail } from "@mui/icons-material";
+import {  Home } from "@mui/icons-material";
 import { grey, blue } from "@mui/material/colors";
-import AllPublicLessons from "../lessons/AllPublicLessons";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl)
+
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    console.log(event.currentTarget)
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
+  const navigateToUserProfile = () => {
+    navigate("/user-profile");
+  };
+
+  const navigateToCreatorDashboard = () => {
+    navigate("/creator-dashboard");
+  };
+
   const logoutAndRedirectHome = () => {
     dispatch(logout());
     navigate("/login");
   };
-
-  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -52,21 +68,44 @@ const Navbar = () => {
               {isLoggedIn ? (
                 <div>
                   {/* The navbar will show these links after you log in */}
-                  <Button
-                    onClick={logoutAndRedirectHome}
-                    color="secondary"
-                    variant="text"
-                    sx={{ m: 1 }}
-                  >
-                    Log Out
-                  </Button>
-                  <Link to="/user-profile">
-                    <IconButton>
-                      <Avatar sx={{ bgcolor: blue[300] }}>
+
+                    <IconButton onClick={handleClick}>
+                      <Avatar aria-controls="basix-menu" aria-haspopup="true"
+          aria-expanded={openMenu ? 'true': undefined}
+           sx={{ bgcolor: blue[300] }}>
                         {/* {user.firstName.charAt(0)} */}
                       </Avatar>
                     </IconButton>
-                  </Link>
+                    <Menu
+              id="basic-menu"
+              open={openMenu}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <MenuItem onClick={() => {
+                  navigateToUserProfile();
+                  handleClose();
+                }}>User Profile</MenuItem>
+              <MenuItem onClick={() => {
+                  navigateToCreatorDashboard();
+                  handleClose();
+                }}>Creator Dashboard</MenuItem>
+              <MenuItem onClick={() => {
+                  logoutAndRedirectHome();
+                  handleClose();
+                }}>Log Out</MenuItem>
+
+            </Menu>
+
                 </div>
               ) : (
                 <div>
