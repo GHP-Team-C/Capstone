@@ -13,7 +13,7 @@ const Lesson = db.define("lesson", {
     },
   },
   visibleTo: {
-    type: Sequelize.ENUM("Public", "Private", "Organization"),
+    type: Sequelize.ENUM("Public", "Private"),
     defaultValue: "Public",
   },
   published: {

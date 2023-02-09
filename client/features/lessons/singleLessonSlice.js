@@ -144,12 +144,11 @@ export const updateSlideText = createAsyncThunk(
 
 export const createLesson = createAsyncThunk(
   "lessons/post",
-  async ({ name, level, visibleTo, userId }) => {
+  async ({ name, level, userId }) => {
     try {
       const { data } = await axios.post("/api/lessons", {
         name,
         level,
-        visibleTo,
         userId,
       });
       return data;
