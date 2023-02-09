@@ -52,7 +52,7 @@ export const authenticateSignUp = createAsyncThunk(
   'auth/authenticatesignup',
   async ({ firstName, lastName, username,email, password, method }, thunkAPI) => {
     try {
-      const avatars = ['Wholey.jpg', 'Eighthy.jpg', 'TwoEighthy.jpg']
+      const avatars = ['wholey.png', 'eighthy.png', 'twoEighthy.png']
       let avatarUrl = `/avatars/${avatars[Math.floor(Math.random() * 3)]}`
 
       const res = await axios.post(`/auth/${method}`, { firstName, lastName, username, email, password, avatarUrl});
