@@ -74,7 +74,7 @@ const AuthForm = ({ name, displayName }) => {
                   }/>
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit" disabled={!firstName || !lastName || !username || !email || !password}>{displayName}</button>
         </div>
         {error && <div> {error} </div>}
       </form>

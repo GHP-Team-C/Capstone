@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { authenticate } from '../../app/store';
 import { useNavigate } from 'react-router-dom';
@@ -10,19 +10,26 @@ import { useNavigate } from 'react-router-dom';
 **/
 
 const AuthForm = ({ name, displayName }) => {
-  const { error } = useSelector((state) => state.auth);
+  const { error, success} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
-  const handleSubmit = (evt) => {
+
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    dispatch(authenticate({ username, password, method: formName }));
-    navigate('/')
+    await dispatch(authenticate({ username, password, method: formName }));
+
   };
+
+   useEffect(()=>{
+  if(success) {
+    navigate("/")
+  }
+  }, [success])
 
 
 

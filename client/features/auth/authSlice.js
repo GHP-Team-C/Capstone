@@ -77,12 +77,14 @@ export const authSlice = createSlice({
   initialState: {
     me: {},
     error: null,
+    success: false
   },
   reducers: {
     logout(state, action) {
       window.localStorage.removeItem(TOKEN);
       state.me = {};
       state.error = null;
+      state.success = false;
     },
   },
   extraReducers: (builder) => {
@@ -98,6 +100,12 @@ export const authSlice = createSlice({
     builder.addCase(authenticateSignUp.rejected, (state, action) => {
       state.error = action.payload;
     });
+    builder.addCase(authenticate.fulfilled, (state, action)=>{
+      state.success = true
+    })
+    builder.addCase(authenticateSignUp.fulfilled, (state, action)=>{
+      state.success = true
+    })
   },
 });
 
