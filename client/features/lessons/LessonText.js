@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateSlideText } from "./singleLessonSlice";
-import { TextareaAutosize } from "@mui/material";
+import { TextareaAutosize, TextField } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 
 const LessonText = ({ slide }) => {
@@ -23,16 +23,19 @@ const LessonText = ({ slide }) => {
 
   return (
     <div>
-      <label htmlFor="lessonText">Lesson Instructions</label>
       <ClickAwayListener onClickAway={saveText}>
-        <TextareaAutosize
-          rows="20"
-          cols="50"
+        <TextField
+          required
           id="lessonText"
           name="lessonText"
+          label="Lesson Instructions"
           onChange={handleChange}
           value={text}
-        ></TextareaAutosize>
+          variant="outlined"
+          multiline
+          rows={10}
+          sx={{ width: 700 }}
+        />
       </ClickAwayListener>
     </div>
   );

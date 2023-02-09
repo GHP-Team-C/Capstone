@@ -14,6 +14,7 @@ import {
   DialogContentText,
   DialogActions,
   TextareaAutosize,
+  TextField,
 } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import LessonText from "./LessonText";
@@ -113,13 +114,16 @@ const LessonTemplate = () => {
         <Paper elevation={3}>
           <Box p={2} align="center">
             <ClickAwayListener onClickAway={saveTitle}>
-              <TextareaAutosize
+              <TextField
+                required
                 id="name"
                 name="name"
-                style={{ fontSize: "24px" }}
+                label="Lesson Name"
                 onChange={handleChange}
                 value={title}
-              ></TextareaAutosize>
+                variant="outlined"
+                sx={{ width: 450 }}
+              />
             </ClickAwayListener>
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
