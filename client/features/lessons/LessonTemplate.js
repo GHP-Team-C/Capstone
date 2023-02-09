@@ -16,6 +16,14 @@ import {
   TextareaAutosize,
   TextField,
 } from "@mui/material";
+import {
+  Visibility,
+  VisibilityOff,
+  Delete,
+  RemoveCircleOutline,
+  ControlPoint,
+  CheckCircleOutline,
+} from "@mui/icons-material";
 import { ClickAwayListener } from "@mui/base";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
@@ -122,7 +130,7 @@ const LessonTemplate = () => {
                 onChange={handleChange}
                 value={title}
                 variant="outlined"
-                sx={{ width: 450 }}
+                sx={{ width: 500 }}
               />
             </ClickAwayListener>
           </Box>
@@ -164,24 +172,46 @@ const LessonTemplate = () => {
           flexDirection="column"
         >
           <Stack direction="row" spacing={3} justifyContent="center">
-            <ButtonGroup variant="contained" size="small">
-              <Button onClick={togglePublishStatus}>
-                {lesson.published ? "Unpublish Lesson" : "Publish Lesson"}
-              </Button>
-              <Button onClick={() => handleOpen("lesson")}>
-                Delete Lesson
-              </Button>
-            </ButtonGroup>
+            <Button
+              startIcon={<ControlPoint />}
+              variant="contained"
+              onClick={handleAddSlide}
+            >
+              Add Slide
+            </Button>
             {lesson.slides.length > 1 && (
-              <Button variant="contained" onClick={() => handleOpen("slide")}>
-                Delete Slide
+              <Button
+                startIcon={<RemoveCircleOutline />}
+                variant="contained"
+                onClick={() => handleOpen("slide")}
+              >
+                Remove Slide
               </Button>
             )}
-            <Button variant="contained" onClick={handleAddSlide}>
-              Add Another Slide
+            {lesson.published ? (
+              <Button
+                startIcon={<VisibilityOff />}
+                variant="contained"
+                onClick={togglePublishStatus}
+              >
+                Unpublish Lesson
+              </Button>
+            ) : (
+              <Button startIcon={<Visibility />} onClick={togglePublishStatus}>
+                Publish Lesson
+              </Button>
+            )}
+            <Button
+              startIcon={<Delete />}
+              variant="contained"
+              onClick={() => handleOpen("lesson")}
+            >
+              Delete Lesson
             </Button>
             <NavLink to={"/creator-dashboard"}>
-              <Button variant="contained">Done Editing Lesson</Button>
+              <Button startIcon={<CheckCircleOutline />} variant="contained">
+                Done Editing Lesson
+              </Button>
             </NavLink>
           </Stack>
         </Box>
