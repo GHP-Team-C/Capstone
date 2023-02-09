@@ -8,6 +8,11 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Box,
 } from "@mui/material";
 import {
   deleteLessonAsync,
@@ -51,13 +56,27 @@ const UserLessonCard = (props) => {
 
   return (
     <div>
-      <h3>{lesson.name}</h3> <Link to={`/edit/lessons/${lesson.id}/slides/1`}><Button>Edit</Button></Link><Link to={`/lessons/${lesson.id}/slides/1`}><Button>View</Button></Link>
-      <Button onClick={togglePublishStatus} variant="text">
-        {publishStatusButton(lesson)}{" "}
-      </Button>
-      <Button onClick={handleOpen} variant="text">
-        Delete
-      </Button>
+      <Box sx={{ minWidth: 275 }} m={2} p={2}>
+        <Card variant="outlined">
+          <CardContent>
+            <Typography variant="h5">{lesson.name}</Typography>
+          </CardContent>
+          <CardActions>
+            <Link to={`/edit/lessons/${lesson.id}/slides/1`}>
+              <Button>Edit</Button>
+            </Link>
+            <Link to={`/lessons/${lesson.id}/slides/1`}>
+              <Button>View</Button>
+            </Link>
+            <Button onClick={togglePublishStatus} variant="text">
+              {publishStatusButton(lesson)}{" "}
+            </Button>
+            <Button onClick={handleOpen} variant="text">
+              Delete
+            </Button>{" "}
+          </CardActions>
+        </Card>
+      </Box>
       {open && (
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Are you sure?</DialogTitle>

@@ -178,10 +178,13 @@ const LessonTemplate = () => {
             </ClickAwayListener>
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
-            <MusicalStaff slide={slide} activeElement={activeElement}
-            setActiveElement={setActiveElement}
-            sampler={sampler}/>
-            <PianoKeys slide={slide} activeElement={activeElement}/>
+            <MusicalStaff
+              slide={slide}
+              activeElement={activeElement}
+              setActiveElement={setActiveElement}
+              sampler={sampler}
+            />
+            <PianoKeys slide={slide} activeElement={activeElement} />
           </Stack>
           <Box
             m={1}
@@ -243,7 +246,11 @@ const LessonTemplate = () => {
                 Unpublish Lesson
               </Button>
             ) : (
-              <Button startIcon={<Visibility />} onClick={togglePublishStatus}>
+              <Button
+                startIcon={<Visibility />}
+                variant="contained"
+                onClick={togglePublishStatus}
+              >
                 Publish Lesson
               </Button>
             )}
