@@ -119,7 +119,7 @@ const LessonTemplate = () => {
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
-        <Paper elevation={3}>
+        <Paper elevation={3} m={3} p={2}>
           <Box p={2} align="center">
             <ClickAwayListener onClickAway={saveTitle}>
               <TextField
@@ -165,7 +165,8 @@ const LessonTemplate = () => {
           </Stack>
         </Paper>
         <Box
-          m={1}
+          m={2}
+          p={3}
           display="flex"
           justifyContent="center"
           alignItems="center"
