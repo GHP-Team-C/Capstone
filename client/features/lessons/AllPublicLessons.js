@@ -37,8 +37,8 @@ const AllPublicLessons = () => {
     return level === "all" ? publicLessons : filteredLessons;
   };
 
-  const handleView = () => {
-    navigate(`/lessons/${lesson.id}/slides/1`);
+  const handleView = (id) => {
+    navigate(`/lessons/${id}/slides/1`);
   };
 
   const lessonsLister = (lessonsList) => {
@@ -46,15 +46,13 @@ const AllPublicLessons = () => {
       ? lessonsList.map((lesson) => (
           <div key={lesson.id}>
             <Box sx={{ width: 550 }} m={2}>
-              <Card variant="outlined">
+              <Card
+                variant="outlined"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleView(lesson.id)}
+              >
                 <CardContent>
-                  <Typography
-                    variant="h6"
-                    onClick={handleView}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {lesson.name}
-                  </Typography>
+                  <Typography variant="h6">{lesson.name}</Typography>
                   <Typography variant="subtitle1">
                     {lesson.level.charAt(0).toUpperCase() +
                       lesson.level.slice(1)}
