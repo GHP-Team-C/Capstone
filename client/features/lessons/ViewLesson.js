@@ -95,7 +95,7 @@ const ViewLesson = () => {
   }, [lesson]);
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [anchorElTutorial, setAnchorElTutorial] = useState(null);
+
 
   const handleClick = async (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -111,28 +111,7 @@ const ViewLesson = () => {
     navigate(`/lessons/${lId}/slides/${value}`);
   };
 
-  const openTutorial = Boolean(anchorElTutorial);
-  const tutorialId = openTutorial ? "simple-popper" : undefined;
 
-  const handleStaffInstructions = (event)=>{
-    setAnchorElTutorial(anchorElTutorial ? null : event.currentTarget
-    );
-  }
-
-  const handlePianoInstructions = (event)=>{
-    setAnchorElTutorial(anchorElTutorial ? null : event.currentTarget
-    );
-  }
-
-const staffInstructions = ()=>{
-  return(
-    <div>
-      <ul>
-        <li>This is a Staff - a common form of notation to display musical notes. Click on note to hear the sound! </li>
-      </ul>
-    </div>
-  )
-}
 
   if (lesson)
     return (
@@ -150,21 +129,13 @@ const staffInstructions = ()=>{
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
           <h1>{lesson.name}</h1>
         </Box>
-        <Stack direction="row" spacing={2} justifyContent="space-evenly">
-          <ViewMusicalStaff
-            slide={slide}
-            activeElement={activeElement}
-            setActiveElement={setActiveElement}
-            sampler={sampler}
-          />
-          <ViewPianoKeys slide={slide} activeElement={activeElement} />
-        </Stack>
+        <Stack direction="row" spacing={2} justifyContent="space-evenly" alignItems="center">
         <PopupState variant="popover" popupId="demo-popup-popover">
       {(popupState) => (
         <div>
-          <Button variant="contained" {...bindTrigger(popupState)}>
+          <button variant="contained" {...bindTrigger(popupState)}>
             ?
-          </Button>
+          </button>
           <Popover
             {...bindPopover(popupState)}
             anchorOrigin={{
@@ -181,12 +152,19 @@ const staffInstructions = ()=>{
         </div>
       )}
     </PopupState>
-    <PopupState variant="popover" popupId="demo-popup-popover">
+          <ViewMusicalStaff
+            slide={slide}
+            activeElement={activeElement}
+            setActiveElement={setActiveElement}
+            sampler={sampler}
+          />
+          <ViewPianoKeys slide={slide} activeElement={activeElement} />
+          <PopupState variant="popover" popupId="demo-popup-popover">
       {(popupState) => (
         <div>
-          <Button variant="contained" {...bindTrigger(popupState)}>
+          <button variant="contained" {...bindTrigger(popupState)}>
             ?
-          </Button>
+          </button>
           <Popover
             {...bindPopover(popupState)}
             anchorOrigin={{
@@ -203,6 +181,9 @@ const staffInstructions = ()=>{
         </div>
       )}
     </PopupState>
+        </Stack>
+
+
 
 
         <Box
