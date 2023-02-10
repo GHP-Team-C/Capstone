@@ -65,7 +65,11 @@ const Navbar = () => {
 
                 </Link>
               </div>
+
             </Box>
+          <Box sx={{ display: "flex", flexgrow: 1}}>
+          <img src="/logo.jpg" id="navlogo" className="responsive" />
+          </Box>
             <div>
               {isLoggedIn ? (
                 <div>
