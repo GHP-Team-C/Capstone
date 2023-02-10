@@ -66,9 +66,9 @@ const UserLessonCard = (props) => {
 
   return (
     <div>
-      <Box sx={{ minWidth: 275 }} m={2}>
+      <Box sx={{ width: 350 }} m={2}>
         <Card variant="outlined">
-          <Stack direction="row">
+          <Stack direction="row" justifyContent="space-between">
             <CardContent>
               <Typography
                 variant="h5"
