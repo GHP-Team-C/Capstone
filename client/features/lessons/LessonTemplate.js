@@ -15,6 +15,7 @@ import {
   DialogActions,
   TextareaAutosize,
   TextField,
+  Badge,
 } from "@mui/material";
 import {
   Visibility,
@@ -184,8 +185,13 @@ const LessonTemplate = () => {
               variant="outlined"
               sx={{ width: 500 }}
             />
-            <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
-            {isAlertVisible && <Typography>Title Saved ✓</Typography>}
+            {isAlertVisible ? (
+              <Badge badgeContent={"Saved!"} color="primary">
+                <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
+              </Badge>
+            ) : (
+              <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
+            )}
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
             <MusicalStaff
@@ -256,7 +262,11 @@ const LessonTemplate = () => {
                 Unpublish Lesson
               </Button>
             ) : (
-              <Button startIcon={<Visibility />} onClick={togglePublishStatus}>
+              <Button
+                startIcon={<Visibility />}
+                variant="contained"
+                onClick={togglePublishStatus}
+              >
                 Publish Lesson
               </Button>
             )}

@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateSlideText } from "./singleLessonSlice";
-import { TextareaAutosize, TextField, Typography } from "@mui/material";
+import { TextareaAutosize, TextField, Typography, Badge } from "@mui/material";
 import { Save } from "@mui/icons-material";
 
 const LessonText = ({ slide }) => {
@@ -41,8 +41,13 @@ const LessonText = ({ slide }) => {
         rows={10}
         sx={{ width: 700 }}
       />
-      <Save onClick={saveText} style={{ cursor: "pointer" }} />
-      {isAlertVisible && <Typography>Lesson Instructions Saved ✓</Typography>}
+      {isAlertVisible ? (
+        <Badge badgeContent={"Saved!"} color="primary">
+          <Save onClick={saveText} style={{ cursor: "pointer" }} />
+        </Badge>
+      ) : (
+        <Save onClick={saveText} style={{ cursor: "pointer" }} />
+      )}
     </div>
   );
 };
