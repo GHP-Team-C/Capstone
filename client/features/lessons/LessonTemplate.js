@@ -290,11 +290,16 @@ const LessonTemplate = () => {
                       horizontal: "center",
                     }}
                   >
+                    <Box>
+                      <ul>
                     <Typography sx={{ p: 2 }}>
-                      This is the Piano Display - this handy tool reads the
+                      <li>This is the Piano Display - this handy tool reads the
                       Staff and displays the note or notes that are currently
-                      selected. Click around on the Staff to see it in action.
+                      selected. Click around on the Staff to see it in action.</li>
+<li>The Player Piano on the top of the screen allows you to play if you don't have a piano at home. Keys S D F G H J K L on your keyboard will play the notes C D E F G A B C D on the piano. E R Y U I will play sharps, caps-lock will raise an octave, and holding the control key will engage the pedal. Try plucking out a tune!</li>
                     </Typography>
+                    </ul>
+                    </Box>
                   </Popover>
                 </div>
               )}
@@ -331,8 +336,10 @@ const LessonTemplate = () => {
                       horizontal: "center",
                     }}
                   >
-                    <Typography sx={{ p: 2 }}>
+                    <Box>
                       <ul>
+                    <Typography sx={{ p: 2 }}>
+
                         <li>
                           This is a text field - where you can pour the
                           knowledge of the ages into the minds of your pupils!
@@ -344,8 +351,9 @@ const LessonTemplate = () => {
                           changes will be automatically saved and you can find
                           the draft back in your Creator Dashboard
                         </li>
-                      </ul>
                     </Typography>
+                    </ul>
+                    </Box>
                   </Popover>
                 </div>
               )}
