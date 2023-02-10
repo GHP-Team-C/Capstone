@@ -177,7 +177,6 @@ const LessonTemplate = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = async (event) => {
-    console.log("opening piano in edit view");
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
