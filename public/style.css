@@ -20,7 +20,15 @@ form div {
   display: inline-block;
 }
 
+#lessonTextContainer {
+  position: relative;
+}
 
+.saveIcon {
+  position: absolute;
+  bottom: 0;
+  right: 100;
+}
 
 .vf-stavenote:hover {
   fill: blue;

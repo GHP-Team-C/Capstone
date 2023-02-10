@@ -28,7 +28,7 @@ const LessonText = ({ slide }) => {
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   return (
-    <div>
+    <div id="lessonTextContainer">
 
       <TextField
         required
@@ -44,10 +44,10 @@ const LessonText = ({ slide }) => {
       />
       {isAlertVisible ? (
         <Badge badgeContent={"Saved!"} color="primary">
-          <Save onClick={saveText} style={{ cursor: "pointer" }} />
+          <Save className="saveIcon" onClick={saveText} style={{ cursor: "pointer" }} />
         </Badge>
       ) : (
-        <Save onClick={saveText} style={{ cursor: "pointer" }} />
+        <Save className="saveIcon" onClick={saveText} style={{ cursor: "pointer" }} />
       )}
 
     </div>
