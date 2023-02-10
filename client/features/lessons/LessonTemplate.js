@@ -24,7 +24,7 @@ import {
   ControlPoint,
   CheckCircleOutline,
 } from "@mui/icons-material";
-import { ClickAwayListener } from "@mui/base";
+// import { ClickAwayListener } from "@mui/base";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -120,6 +120,7 @@ const LessonTemplate = () => {
   };
 
   const saveTitle = () => {
+    console.log("title saved");
     dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
   };
 
@@ -164,24 +165,28 @@ const LessonTemplate = () => {
       <>
         <Paper elevation={3} m={3} p={2}>
           <Box p={2} align="center">
-            <ClickAwayListener onClickAway={saveTitle}>
-              <TextField
-                required
-                id="name"
-                name="name"
-                label="Lesson Name"
-                onChange={handleChange}
-                value={title}
-                variant="outlined"
-                sx={{ width: 500 }}
-              />
-            </ClickAwayListener>
+            {/* <ClickAwayListener onClickAway={saveTitle}> */}
+            <TextField
+              required
+              id="name"
+              name="name"
+              label="Lesson Name"
+              onChange={handleChange}
+              value={title}
+              variant="outlined"
+              sx={{ width: 500 }}
+              onMouseOut={saveTitle}
+            />
+            {/* </ClickAwayListener> */}
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
-            <MusicalStaff slide={slide} activeElement={activeElement}
-            setActiveElement={setActiveElement}
-            sampler={sampler}/>
-            <PianoKeys slide={slide} activeElement={activeElement}/>
+            <MusicalStaff
+              slide={slide}
+              activeElement={activeElement}
+              setActiveElement={setActiveElement}
+              sampler={sampler}
+            />
+            <PianoKeys slide={slide} activeElement={activeElement} />
           </Stack>
           <Box
             m={1}
