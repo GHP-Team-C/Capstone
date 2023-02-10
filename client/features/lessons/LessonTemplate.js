@@ -233,14 +233,41 @@ const LessonTemplate = () => {
           </Stack>
 
           <Box
-            m={1}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
+            p={2} align="center"
           >
             <LessonText slide={slide} />
+
+            <PopupState variant="popover" popupId="demo-popup-popover">
+      {(popupState) => (
+        <div>
+          <button variant="contained" {...bindTrigger(popupState)}>
+            ?
+          </button>
+          <Popover
+            {...bindPopover(popupState)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Typography sx={{ p: 2 }}>
+              <ul>
+                <li>This is a text field - where you can pour the knowledge of the ages into the minds of your pupils!</li>
+                <li>Finally, below there are buttons to add or delete a Slide, and when you're all finished, to Publish your lesson. If you're not done editing, don't worry! Your changes will be automatically saved and you can find the draft back in your Creator Dashboard</li></ul></Typography>
+          </Popover>
+
+        </div>
+      )}
+    </PopupState>
+
           </Box>
+
+
+
           <Stack
             spacing={2}
             justifyContent="center"
