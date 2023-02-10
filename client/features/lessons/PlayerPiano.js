@@ -3,14 +3,19 @@ import { Instrument } from "piano-chart";
 
 let windowListener = undefined;
 
-const PlayerPiano = ({ sampler, open }) => {
+const PlayerPiano = ({ sampler, open, setAnchorEl }) => {
   let playerPianoDiv = document.getElementById("playerPianoDiv");
 
   useEffect(() => {
     pianoCreator();
-  }, []);
+    return () => {
+      windowListener.abort();
+    };
+  });
 
   const pianoCreator = () => {
+    const playerPopper = document.getElementById("player-popper");
+    playerPopper.addEventListener("mouseleave", () => setAnchorEl(null));
     const piano = new Instrument(document.getElementById("playerPianoDiv"), {
       startOctave: 2,
       endOctave: 7,
