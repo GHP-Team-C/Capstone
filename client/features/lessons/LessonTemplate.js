@@ -15,6 +15,7 @@ import {
   DialogActions,
   TextareaAutosize,
   TextField,
+  Badge,
   Popper,
 } from "@mui/material";
 import {
@@ -24,8 +25,8 @@ import {
   RemoveCircleOutline,
   ControlPoint,
   CheckCircleOutline,
+  Save,
 } from "@mui/icons-material";
-import { ClickAwayListener } from "@mui/base";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -119,10 +120,19 @@ const LessonTemplate = () => {
 
   const handleChange = (e) => {
     setTitle(e.target.value);
+    dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
+    setIsAlertVisible(true);
+    setTimeout(() => {
+      setIsAlertVisible(false);
+    }, 2000);
   };
 
   const saveTitle = () => {
     dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
+    setIsAlertVisible(true);
+    setTimeout(() => {
+      setIsAlertVisible(false);
+    }, 2000);
   };
 
   const togglePublishStatus = async () => {
@@ -151,6 +161,7 @@ const LessonTemplate = () => {
 
   const [open, setOpen] = useState(false);
   const [toDelete, setToDelete] = useState("");
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   const handleOpen = (toBeDeleted) => {
     setOpen(true);
@@ -202,18 +213,24 @@ const LessonTemplate = () => {
             </Popper>
           </Box>
           <Box p={2} align="center">
-            <ClickAwayListener onClickAway={() => {}}>
-              <TextField
-                required
-                id="name"
-                name="name"
-                label="Lesson Name"
-                onChange={handleChange}
-                value={title}
-                variant="outlined"
-                sx={{ width: 500 }}
-              />
-            </ClickAwayListener>
+            <TextField
+              required
+              id="name"
+              name="name"
+              label="Lesson Name"
+              onChange={handleChange}
+              value={title}
+              variant="outlined"
+              sx={{ width: 500 }}
+            />
+            {isAlertVisible ? (
+              <Badge badgeContent={"Saved!"} color="primary">
+                <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
+              </Badge>
+            ) : (
+              <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
+            )}
+           
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
             <MusicalStaff
@@ -284,7 +301,11 @@ const LessonTemplate = () => {
                 Unpublish Lesson
               </Button>
             ) : (
-              <Button startIcon={<Visibility />} onClick={togglePublishStatus}>
+              <Button
+                startIcon={<Visibility />}
+                variant="contained"
+                onClick={togglePublishStatus}
+              >
                 Publish Lesson
               </Button>
             )}
