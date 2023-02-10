@@ -75,7 +75,7 @@ const PianoKeys = ({ slide, activeElement }) => {
   };
 
   const pianoStyle = {
-    marginTop: "95px",
+    marginTop: "55px",
     width: "600px",
   };
 
