@@ -213,7 +213,7 @@ const LessonTemplate = () => {
               </Box>
             </Popper>
           </Box>
-          <Box p={2} align="center">
+          <Box p={2} align="center" className="lessonTextContainer">
             <TextField
               required
               id="name"
@@ -226,10 +226,10 @@ const LessonTemplate = () => {
             />
             {isAlertVisible ? (
               <Badge badgeContent={"Saved!"} color="primary">
-                <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
+                <Save className="titleSaveIcon" onClick={saveTitle} style={{ cursor: "pointer" }} />
               </Badge>
             ) : (
-              <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
+              <Save className="titleSaveIcon" onClick={saveTitle} style={{ cursor: "pointer" }} />
             )}
           </Box>
 

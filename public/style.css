@@ -20,13 +20,19 @@ form div {
   display: inline-block;
 }
 
-#lessonTextContainer {
+.lessonTextContainer {
   position: relative;
 }
 
 .saveIcon {
   position: absolute;
   bottom: 0;
+  right: 100;
+}
+
+.titleSaveIcon {
+  position: absolute;
+  bottom: 40%;
   right: 100;
 }
 

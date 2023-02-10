@@ -28,7 +28,7 @@ const LessonText = ({ slide }) => {
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   return (
-    <div id="lessonTextContainer">
+    <div className="lessonTextContainer">
 
       <TextField
         required
