@@ -7,7 +7,9 @@ import {
   Pagination,
   Button,
   Popper,
-} from "@mui/material";
+  Popover,
+} from  "@mui/material";
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import ViewLessonText from "./ViewLessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -93,6 +95,7 @@ const ViewLesson = () => {
   }, [lesson]);
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElTutorial, setAnchorElTutorial] = useState(null);
 
   const handleClick = async (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -108,17 +111,28 @@ const ViewLesson = () => {
     navigate(`/lessons/${lId}/slides/${value}`);
   };
 
+  const openTutorial = Boolean(anchorElTutorial);
+  const tutorialId = openTutorial ? "simple-popper" : undefined;
+
   const handleStaffInstructions = (event)=>{
-    setAnchorEl(anchorEl ? null : event.currentTarget
+    setAnchorElTutorial(anchorElTutorial ? null : event.currentTarget
     );
   }
 
   const handlePianoInstructions = (event)=>{
-    setAnchorEl(anchorEl ? null : event.currentTarget
+    setAnchorElTutorial(anchorElTutorial ? null : event.currentTarget
     );
   }
 
-
+const staffInstructions = ()=>{
+  return(
+    <div>
+      <ul>
+        <li>This is a Staff - a common form of notation to display musical notes. Click on note to hear the sound! </li>
+      </ul>
+    </div>
+  )
+}
 
   if (lesson)
     return (
@@ -145,20 +159,51 @@ const ViewLesson = () => {
           />
           <ViewPianoKeys slide={slide} activeElement={activeElement} />
         </Stack>
-        <Box m={1} display="flex" justifyContent="left" alignItems="left">
-          <button type="button" onClick={handleStaffInstructions}>
+        <PopupState variant="popover" popupId="demo-popup-popover">
+      {(popupState) => (
+        <div>
+          <Button variant="contained" {...bindTrigger(popupState)}>
             ?
-          </button>
-          <Popper open={open} anchorEl={anchorEl}>
-          </Popper>
-        </Box>
-        <Box m={1} display="flex" justifyContent="right" alignItems="right">
-          <button type="button" onClick={handlePianoInstructions}>
+          </Button>
+          <Popover
+            {...bindPopover(popupState)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Typography sx={{ p: 2 }}>This is a Staff - a common form of notation to display musical notes. Click on a note to hear the sound!</Typography>
+          </Popover>
+        </div>
+      )}
+    </PopupState>
+    <PopupState variant="popover" popupId="demo-popup-popover">
+      {(popupState) => (
+        <div>
+          <Button variant="contained" {...bindTrigger(popupState)}>
             ?
-          </button>
-          <Popper open={open} anchorEl={anchorEl}>
-          </Popper>
-        </Box>
+          </Button>
+          <Popover
+            {...bindPopover(popupState)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Typography sx={{ p: 2 }}>The Piano Display shows the notes that are selected on the Staff - Click a different note on the staff to see the keyboard change!</Typography>
+          </Popover>
+        </div>
+      )}
+    </PopupState>
+
 
         <Box
           m={1}
