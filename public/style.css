@@ -21,9 +21,32 @@ form div {
 }
 
 
+#navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#lessonslink {
+  margin: 0;
+  padding: 0;
+}
+
 #navlogo {
-  width: 33%;
+  width: 20rem;
   margin: .5rem;
+}
+
+#augment {
+  font-weight: 100;
+  color: #37587f;;
+}
+#ed {
+  font-weight: 900;
+  color: #0a498c;
+}
+
+#augmentedNote {
+  font-weight: 100;
 }
 
 .responsive {

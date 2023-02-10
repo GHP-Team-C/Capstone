@@ -51,25 +51,23 @@ const Navbar = () => {
     <>
       <div>
         <AppBar position="fixed" sx={{ bgcolor: grey[300] }}>
-          <Toolbar sx={{ p: -1 }}>
-            <Box sx={{ display: "flex", flexGrow: 1 }}>
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between", p: -1 }}>
+            <Box sx={{ display: "flex" }}>
               <Link to="/">
                 <IconButton>
                   <Home></Home>
                 </IconButton>
               </Link>
               <div>
-                <Link to="/all-public-lessons">
+                <Link  to="/all-public-lessons">
 
                 <Button>Browse Lessons</Button>
 
                 </Link>
               </div>
-
             </Box>
-          <Box sx={{ display: "flex", flexgrow: 1}}>
-          <img src="/logo.jpg" id="navlogo" className="responsive" />
-          </Box>
+            <div><img src="/logo.png" id="navlogo"/></div>
+
             <div>
               {isLoggedIn ? (
                 <div>
