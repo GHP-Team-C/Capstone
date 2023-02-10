@@ -29,7 +29,6 @@ const LessonText = ({ slide }) => {
 
   return (
     <div className="lessonTextContainer">
-
       <TextField
         required
         id="lessonText"
@@ -49,7 +48,6 @@ const LessonText = ({ slide }) => {
       ) : (
         <Save className="saveIcon" onClick={saveText} style={{ cursor: "pointer" }} />
       )}
-
     </div>
   );
 };

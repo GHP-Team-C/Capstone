@@ -122,11 +122,6 @@ const LessonTemplate = () => {
 
   const handleChange = (e) => {
     setTitle(e.target.value);
-    dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
-    setIsAlertVisible(true);
-    setTimeout(() => {
-      setIsAlertVisible(false);
-    }, 2000);
   };
 
   const saveTitle = () => {
