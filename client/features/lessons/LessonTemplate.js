@@ -292,28 +292,29 @@ const LessonTemplate = () => {
                   >
                     <Box>
                       <ul>
-                    <Typography sx={{ p: 2 }}>
-                      <li>This is the Piano Display - this handy tool reads the
-                      Staff and displays the note or notes that are currently
-                      selected. Click around on the Staff to see it in action.</li>
-<li>The Player Piano on the top of the screen allows you to play if you don't have a piano at home. Keys S D F G H J K L on your keyboard will play the notes C D E F G A B C D on the piano. E R Y U I will play sharps, caps-lock will raise an octave, and holding the control key will engage the pedal. Try plucking out a tune!</li>
-                    </Typography>
-                    </ul>
+                        <Typography sx={{ p: 2 }}>
+                          <li>
+                            This is the Piano Display - this handy tool reads
+                            the Staff and displays the note or notes that are
+                            currently selected. Click around on the Staff to see
+                            it in action.
+                          </li>
+                          <li>
+                            The Player Piano on the top of the screen allows you
+                            to play if you don't have a piano at home. Keys S D
+                            F G H J K L on your keyboard will play the notes C D
+                            E F G A B C D on the piano. E R Y U I will play
+                            sharps, caps-lock will raise an octave, and holding
+                            the control key will engage the pedal. Try plucking
+                            out a tune!
+                          </li>
+                        </Typography>
+                      </ul>
                     </Box>
                   </Popover>
                 </div>
               )}
             </PopupState>
-          </Stack>
-
-          <Stack direction="row" spacing={2} justifyContent="space-evenly">
-            <MusicalStaff
-              slide={slide}
-              activeElement={activeElement}
-              setActiveElement={setActiveElement}
-              sampler={sampler}
-            />
-            <PianoKeys slide={slide} activeElement={activeElement} />
           </Stack>
 
           <Box p={2} align="center">
@@ -338,21 +339,20 @@ const LessonTemplate = () => {
                   >
                     <Box>
                       <ul>
-                    <Typography sx={{ p: 2 }}>
-
-                        <li>
-                          This is a text field - where you can pour the
-                          knowledge of the ages into the minds of your pupils!
-                        </li>
-                        <li>
-                          Finally, below there are buttons to add or delete a
-                          Slide, and when you're all finished, to Publish your
-                          lesson. If you're not done editing, don't worry! Your
-                          changes will be automatically saved and you can find
-                          the draft back in your Creator Dashboard
-                        </li>
-                    </Typography>
-                    </ul>
+                        <Typography sx={{ p: 2 }}>
+                          <li>
+                            This is a text field - where you can pour the
+                            knowledge of the ages into the minds of your pupils!
+                          </li>
+                          <li>
+                            Finally, below there are buttons to add or delete a
+                            Slide, and when you're all finished, to Publish your
+                            lesson. If you're not done editing, don't worry!
+                            Your changes will be automatically saved and you can
+                            find the draft back in your Creator Dashboard
+                          </li>
+                        </Typography>
+                      </ul>
                     </Box>
                   </Popover>
                 </div>
