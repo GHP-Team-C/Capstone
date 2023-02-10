@@ -28,12 +28,7 @@ const CreatorDashboard = () => {
       </Typography>
       <div>
         <Link to="/create-lesson">
-          <Button
-            startIcon={<ControlPoint />}
-            variant="contained"
-            m={2}
-            onClick={createLessonHandler}
-          >
+          <Button startIcon={<ControlPoint />} variant="contained" m={2}>
             Create New Lesson
           </Button>
         </Link>

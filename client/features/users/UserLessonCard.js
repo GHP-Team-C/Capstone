@@ -13,6 +13,7 @@ import {
   CardActions,
   Typography,
   Box,
+  Stack,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import {
@@ -67,25 +68,29 @@ const UserLessonCard = (props) => {
     <div>
       <Box sx={{ minWidth: 275 }} m={2}>
         <Card variant="outlined">
-          <CardContent>
-            <Typography
-              variant="h5"
-              onClick={handleView}
-              style={{ cursor: "pointer" }}
-            >
-              {lesson.name}
-            </Typography>
-          </CardContent>
+          <Stack direction="row">
+            <CardContent>
+              <Typography
+                variant="h5"
+                onClick={handleView}
+                style={{ cursor: "pointer" }}
+              >
+                {lesson.name}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Edit
+                fontSize="small"
+                onClick={handleEdit}
+                style={{ cursor: "pointer" }}
+              />
+              <Delete onClick={handleOpen} style={{ cursor: "pointer" }} />
+            </CardActions>
+          </Stack>
           <CardActions>
             <Button onClick={togglePublishStatus} variant="text">
               {publishStatusButton(lesson)}{" "}
             </Button>
-            <Edit
-              fontSize="small"
-              onClick={handleEdit}
-              style={{ cursor: "pointer" }}
-            />
-            <Delete onClick={handleOpen} style={{ cursor: "pointer" }} />
           </CardActions>
         </Card>
       </Box>
