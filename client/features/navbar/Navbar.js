@@ -60,7 +60,7 @@ const Navbar = () => {
               </Link>
               <div>
                 <Link to="/all-public-lessons">
-                <Button >Public Lessons</Button>
+                <Button >Lessons Feed</Button>
                 </Link>
               </div>
             </Box>
