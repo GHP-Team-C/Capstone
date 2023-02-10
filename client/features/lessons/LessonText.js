@@ -42,8 +42,8 @@ const LessonText = ({ slide }) => {
         sx={{ width: 700 }}
       />
       {isAlertVisible ? (
-        <Badge badgeContent={"Saved!"} color="primary">
-          <Save className="saveIcon" onClick={saveText} style={{ cursor: "pointer" }} />
+        <Badge className="saveIcon" badgeContent={"Saved!"} color="primary" style={{ position: "absolute" }}>
+          <Save className="saveIcon" onClick={saveText} style={{ cursor: "pointer"}} />
         </Badge>
       ) : (
         <Save className="saveIcon" onClick={saveText} style={{ cursor: "pointer" }} />
