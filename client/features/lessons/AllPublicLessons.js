@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchAllLessons } from "./lessonsSlice";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
 
 const AllPublicLessons = () => {
   const dispatch = useDispatch();
   const lessons = useSelector((state) => state.lessons);
+  const navigate = useNavigate();
 
   const publicLessons =
     lessons && lessons.length
@@ -27,11 +37,31 @@ const AllPublicLessons = () => {
     return level === "all" ? publicLessons : filteredLessons;
   };
 
+  const handleView = () => {
+    navigate(`/lessons/${lesson.id}/slides/1`);
+  };
+
   const lessonsLister = (lessonsList) => {
     return lessonsList && lessonsList.length
       ? lessonsList.map((lesson) => (
           <div key={lesson.id}>
-            <Link to={`/lessons/${lesson.id}/slides/1`}>{lesson.name}</Link>
+            <Box sx={{ width: 550 }} m={2}>
+              <Card variant="outlined">
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    onClick={handleView}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {lesson.name}
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    {lesson.level.charAt(0).toUpperCase() +
+                      lesson.level.slice(1)}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
           </div>
         ))
       : "No Lessons";

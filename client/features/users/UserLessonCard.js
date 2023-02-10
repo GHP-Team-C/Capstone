@@ -8,7 +8,16 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Box,
+  Stack,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
 import {
   deleteLessonAsync,
   publishStatusSingleLesson,
@@ -47,17 +56,69 @@ const UserLessonCard = (props) => {
     setOpen(false);
   };
 
+  const handleView = () => {
+    navigate(`/lessons/${lesson.id}/slides/1`);
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit/lessons/${lesson.id}/slides/1`);
+  };
+
   //const [publishStatus, setPublishStatus] = useState(false)
 
   return (
     <div>
-      <h3>{lesson.name}</h3> <Link to={`/edit/lessons/${lesson.id}/slides/1`}><Button>Edit</Button></Link><Link to={`/lessons/${lesson.id}/slides/1`}><Button>View</Button></Link>
-      <Button onClick={togglePublishStatus} variant="text">
-        {publishStatusButton(lesson)}{" "}
-      </Button>
-      <Button onClick={handleOpen} variant="text">
-        Delete
-      </Button>
+      <Box sx={{ width: 550 }} m={2}>
+        <Card variant="outlined">
+          <Stack direction="row" justifyContent="space-between">
+            <CardContent>
+              <Typography
+                variant="h5"
+                onClick={handleView}
+                style={{ cursor: "pointer" }}
+              >
+                {lesson.name}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Edit
+                fontSize="small"
+                onClick={handleEdit}
+                style={{ cursor: "pointer" }}
+              />
+              <Delete onClick={handleOpen} style={{ cursor: "pointer" }} />
+              {lesson.published ? (
+                <FormControlLabel
+                  value="Published"
+                  control={
+                    <Switch
+                      checked
+                      onChange={togglePublishStatus}
+                      color="primary"
+                    />
+                  }
+                  label={
+                    <Typography sx={{ fontSize: 10 }}>Published</Typography>
+                  }
+                  labelPlacement="bottom"
+                />
+              ) : (
+                <FormControlLabel
+                  value="Unbublished"
+                  control={
+                    <Switch onChange={togglePublishStatus} color="primary" />
+                  }
+                  label={
+                    <Typography sx={{ fontSize: 10 }}>Unpublished</Typography>
+                  }
+                  labelPlacement="bottom"
+                />
+              )}
+            </CardActions>
+          </Stack>
+          <CardActions></CardActions>
+        </Card>
+      </Box>
       {open && (
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Are you sure?</DialogTitle>
