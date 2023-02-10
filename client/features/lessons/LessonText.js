@@ -29,6 +29,7 @@ const LessonText = ({ slide }) => {
 
   return (
     <div>
+
       <TextField
         required
         id="lessonText"
@@ -48,6 +49,7 @@ const LessonText = ({ slide }) => {
       ) : (
         <Save onClick={saveText} style={{ cursor: "pointer" }} />
       )}
+
     </div>
   );
 };
