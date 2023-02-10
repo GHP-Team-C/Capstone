@@ -122,8 +122,8 @@ export const updateLessonTitle = createAsyncThunk(
   "singleLesson/title/put",
   async ({ id, title }) => {
     try {
-      const { data } = await axios.put(`/api/lessons/${id}/name`, title);
-      return data;
+      await axios.put(`/api/lessons/${id}/name`, title);
+      return;
     } catch (err) {
       return err.message;
     }
@@ -183,9 +183,6 @@ const singleLessonSlice = createSlice({
         state.lesson = action.payload;
       })
       .addCase(publishStatusSingleLesson.fulfilled, (state, action) => {
-        state.lesson = action.payload;
-      })
-      .addCase(updateLessonTitle.fulfilled, (state, action) => {
         state.lesson = action.payload;
       });
   },
