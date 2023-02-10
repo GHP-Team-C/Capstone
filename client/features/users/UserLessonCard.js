@@ -14,6 +14,8 @@ import {
   Typography,
   Box,
   Stack,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import {
@@ -66,7 +68,7 @@ const UserLessonCard = (props) => {
 
   return (
     <div>
-      <Box sx={{ width: 350 }} m={2}>
+      <Box sx={{ width: 550 }} m={2}>
         <Card variant="outlined">
           <Stack direction="row" justifyContent="space-between">
             <CardContent>
@@ -85,13 +87,36 @@ const UserLessonCard = (props) => {
                 style={{ cursor: "pointer" }}
               />
               <Delete onClick={handleOpen} style={{ cursor: "pointer" }} />
+              {lesson.published ? (
+                <FormControlLabel
+                  value="Published"
+                  control={
+                    <Switch
+                      checked
+                      onChange={togglePublishStatus}
+                      color="primary"
+                    />
+                  }
+                  label={
+                    <Typography sx={{ fontSize: 10 }}>Published</Typography>
+                  }
+                  labelPlacement="bottom"
+                />
+              ) : (
+                <FormControlLabel
+                  value="Unbublished"
+                  control={
+                    <Switch onChange={togglePublishStatus} color="primary" />
+                  }
+                  label={
+                    <Typography sx={{ fontSize: 10 }}>Unpublished</Typography>
+                  }
+                  labelPlacement="bottom"
+                />
+              )}
             </CardActions>
           </Stack>
-          <CardActions>
-            <Button onClick={togglePublishStatus} variant="text">
-              {publishStatusButton(lesson)}{" "}
-            </Button>
-          </CardActions>
+          <CardActions></CardActions>
         </Card>
       </Box>
       {open && (
