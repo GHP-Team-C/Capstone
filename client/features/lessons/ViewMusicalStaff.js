@@ -159,8 +159,54 @@ const ViewMusicalStaff = ({
   //   }
   // };
 
+  const playHandler = async (i) => {
+    if (i > 4) {
+      setActiveElement({ idx: -1, id: -1, note: "", octave: "", duration: "" });
+      return;
+    }
+
+    if (notes.length) {
+      const note = notes[i - 1];
+      const noteSVG = document.getElementById(`vf-note${i}`);
+      if (noteSVG) {
+        if (note.attrs.duration !== "qr") {
+          await Tone.start();
+          if (note.attrs.triad !== "") {
+            const notes = note.attrs.noteName.split("");
+            const octaves = note.attrs.octave.split("");
+            let finalNotes = [];
+            for (let i = 0; i < notes.length; i++) {
+              finalNotes.push(`${notes[i]}${octaves[i]}`);
+            }
+            if (sampler.loaded) sampler.triggerAttackRelease(finalNotes, "4n");
+          } else {
+            if (sampler.loaded)
+              sampler.triggerAttackRelease(
+                `${note.attrs.noteName}${note.attrs.octave}`,
+                "4n"
+              );
+          }
+        }
+        setActiveElement({
+          idx: i - 1,
+          id: note.attrs.pk,
+          noteName: note.attrs.noteName,
+          octave: note.attrs.octave,
+          duration: note.attrs.duration,
+          triad: note.attrs.triad,
+        });
+      }
+      setTimeout(() => {
+        playHandler(i + 1);
+      }, 1000);
+    }
+  };
+
   return (
     <div>
+      <Button onClick={() => playHandler(1)} variant="outlined">
+        Play
+      </Button>
       <div id="staffDiv"></div>
     </div>
   );
