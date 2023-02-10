@@ -16,8 +16,8 @@ View Lesson:
 --------------
 First time here? Take a look around at these tools!
 
-1. This is a Staff - a common form of notation to display musical notes.
-2. This Piano displays the notes that are selected on the Staff - go ahead and click on one!
+1. This is a Staff - a common form of notation to display musical notes. Click on a note to hear the sound!
+2. The Piano Display shows the notes that are selected on the Staff - Click a different note on the staff to see the keyboard change!
 3. The Player Piano on the top of the screen allows you to practice if you don't have a piano at home. Keys A S D F G H J K L on your keyboard will play the notes C D E F G A B C D on the piano - try plucking out a tune!
 --------------
 
