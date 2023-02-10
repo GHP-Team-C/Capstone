@@ -15,7 +15,9 @@ import {
   DialogActions,
   TextareaAutosize,
   TextField,
+  Popover,
 } from "@mui/material";
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import {
   Visibility,
   VisibilityOff,
@@ -177,12 +179,59 @@ const LessonTemplate = () => {
               />
             </ClickAwayListener>
           </Box>
-          <Stack direction="row" spacing={2} justifyContent="space-evenly">
+          <Stack direction="row" spacing={2} justifyContent="space-evenly" alignItems="center">
+          <PopupState variant="popover" popupId="demo-popup-popover" >
+      {(popupState) => (
+        <div>
+          <button variant="contained" {...bindTrigger(popupState)}>
+            ?
+          </button>
+          <Popover
+            {...bindPopover(popupState)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Typography sx={{ p: 2 }}>This is the Staff Editor - click a note or a rest on the staff to select it, then choose from the dropdown menus to modify the selected note.</Typography>
+          </Popover>
+        </div>
+      )}
+    </PopupState>
             <MusicalStaff slide={slide} activeElement={activeElement}
             setActiveElement={setActiveElement}
             sampler={sampler}/>
             <PianoKeys slide={slide} activeElement={activeElement}/>
+
+            <PopupState variant="popover" popupId="demo-popup-popover">
+      {(popupState) => (
+        <div>
+          <button variant="contained" {...bindTrigger(popupState)}>
+            ?
+          </button>
+          <Popover
+            {...bindPopover(popupState)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Typography sx={{ p: 2 }}>This is the Piano Display - this handy tool reads the Staff and displays the note or notes that are currently selected. Click around on the Staff to see it in action.</Typography>
+          </Popover>
+
+        </div>
+      )}
+    </PopupState>
           </Stack>
+
           <Box
             m={1}
             display="flex"

@@ -159,6 +159,7 @@ const ViewLesson = () => {
             sampler={sampler}
           />
           <ViewPianoKeys slide={slide} activeElement={activeElement} />
+          
           <PopupState variant="popover" popupId="demo-popup-popover">
       {(popupState) => (
         <div>
