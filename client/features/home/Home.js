@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <div className="landing">
       <Stack justifyContent="center" alignItems="center" spacing={2}>
-        <Typography variant="h3">Welcome to AugmentED!</Typography>
+        <Typography variant="h3">Welcome to <span id="augment">augment</span><span id="ed">Ed</span><span id="augmentedNote">♫⁺</span></Typography>
         <Typography variant="h4"> Learn to play music!</Typography>
         <Link to="/all-public-lessons">
           <Button>Browse All Public Lessons</Button>
