@@ -19,7 +19,7 @@ import {
   Badge,
   Popper,
 } from "@mui/material";
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import {
   Visibility,
   VisibilityOff,
@@ -231,60 +231,75 @@ const LessonTemplate = () => {
             ) : (
               <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
             )}
-           
           </Box>
 
-          <Stack direction="row" spacing={2} justifyContent="space-evenly" alignItems="center">
-          <PopupState variant="popover" popupId="demo-popup-popover" >
-      {(popupState) => (
-        <div>
-          <button variant="contained" {...bindTrigger(popupState)}>
-            ?
-          </button>
-          <Popover
-            {...bindPopover(popupState)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="space-evenly"
+            alignItems="center"
           >
-            <Typography sx={{ p: 2 }}>This is the Staff Editor - click a note or a rest on the staff to select it, then choose from the dropdown menus to modify the selected note.</Typography>
-          </Popover>
-        </div>
-      )}
-    </PopupState>
-            <MusicalStaff slide={slide} activeElement={activeElement}
-            setActiveElement={setActiveElement}
-            sampler={sampler}/>
-            <PianoKeys slide={slide} activeElement={activeElement}/>
+            <PopupState variant="popover" popupId="demo-popup-popover">
+              {(popupState) => (
+                <div>
+                  <button variant="contained" {...bindTrigger(popupState)}>
+                    ?
+                  </button>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <Typography sx={{ p: 2 }}>
+                      This is the Staff Editor - click a note or a rest on the
+                      staff to select it, then choose from the dropdown menus to
+                      modify the selected note.
+                    </Typography>
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
+            <MusicalStaff
+              slide={slide}
+              activeElement={activeElement}
+              setActiveElement={setActiveElement}
+              sampler={sampler}
+            />
+            <PianoKeys slide={slide} activeElement={activeElement} />
 
             <PopupState variant="popover" popupId="demo-popup-popover">
-      {(popupState) => (
-        <div>
-          <button variant="contained" {...bindTrigger(popupState)}>
-            ?
-          </button>
-          <Popover
-            {...bindPopover(popupState)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <Typography sx={{ p: 2 }}>This is the Piano Display - this handy tool reads the Staff and displays the note or notes that are currently selected. Click around on the Staff to see it in action.</Typography>
-          </Popover>
-
-        </div>
-      )}
-    </PopupState>
+              {(popupState) => (
+                <div>
+                  <button variant="contained" {...bindTrigger(popupState)}>
+                    ?
+                  </button>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <Typography sx={{ p: 2 }}>
+                      This is the Piano Display - this handy tool reads the
+                      Staff and displays the note or notes that are currently
+                      selected. Click around on the Staff to see it in action.
+                    </Typography>
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
+          </Stack>
 
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
             <MusicalStaff
@@ -294,44 +309,48 @@ const LessonTemplate = () => {
               sampler={sampler}
             />
             <PianoKeys slide={slide} activeElement={activeElement} />
-
           </Stack>
 
-          <Box
-            p={2} align="center"
-          >
+          <Box p={2} align="center">
             <LessonText slide={slide} />
 
             <PopupState variant="popover" popupId="demo-popup-popover">
-      {(popupState) => (
-        <div>
-          <button variant="contained" {...bindTrigger(popupState)}>
-            ?
-          </button>
-          <Popover
-            {...bindPopover(popupState)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <Typography sx={{ p: 2 }}>
-              <ul>
-                <li>This is a text field - where you can pour the knowledge of the ages into the minds of your pupils!</li>
-                <li>Finally, below there are buttons to add or delete a Slide, and when you're all finished, to Publish your lesson. If you're not done editing, don't worry! Your changes will be automatically saved and you can find the draft back in your Creator Dashboard</li></ul></Typography>
-          </Popover>
-
-        </div>
-      )}
-    </PopupState>
-
+              {(popupState) => (
+                <div>
+                  <button variant="contained" {...bindTrigger(popupState)}>
+                    ?
+                  </button>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <Typography sx={{ p: 2 }}>
+                      <ul>
+                        <li>
+                          This is a text field - where you can pour the
+                          knowledge of the ages into the minds of your pupils!
+                        </li>
+                        <li>
+                          Finally, below there are buttons to add or delete a
+                          Slide, and when you're all finished, to Publish your
+                          lesson. If you're not done editing, don't worry! Your
+                          changes will be automatically saved and you can find
+                          the draft back in your Creator Dashboard
+                        </li>
+                      </ul>
+                    </Typography>
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
           </Box>
-
-
 
           <Stack
             spacing={2}
