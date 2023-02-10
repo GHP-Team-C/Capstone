@@ -20,7 +20,15 @@ form div {
   display: inline-block;
 }
 
+#navlogo {
+  width: 33%;
+  margin: .5rem;
+}
 
+.responsive {
+  width: 100%;
+  height: auto;
+}
 
 .vf-stavenote:hover {
   fill: blue;
