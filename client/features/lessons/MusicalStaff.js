@@ -279,6 +279,7 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
           id="select-note"
           value={note}
           label="note"
+          disabled={!entryType}
           onChange={handleNoteChange}
         >
           {noteArray.map((note) => (
@@ -295,6 +296,7 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
           id="select-triad"
           value={triad}
           label="triad"
+          disabled={!entryType}
           onChange={handleTriadChange}
         >
           {triadArray.map((triad) => (
@@ -311,6 +313,7 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
           id="select-octave"
           value={octave}
           label="octave"
+          disabled={!entryType}
           onChange={handleOctaveChange}
         >
           {octaveArray.map((octave) => (
@@ -320,7 +323,7 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
           ))}
         </Select>
       </FormControl>
-      <Button onClick={restHandler} variant="outlined">
+      <Button onClick={restHandler} variant="outlined" disabled={!entryType}>
         Rest
       </Button>
       <div id="staffDiv"></div>
