@@ -23,8 +23,8 @@ import {
   RemoveCircleOutline,
   ControlPoint,
   CheckCircleOutline,
+  Save,
 } from "@mui/icons-material";
-// import { ClickAwayListener } from "@mui/base";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -117,11 +117,19 @@ const LessonTemplate = () => {
 
   const handleChange = (e) => {
     setTitle(e.target.value);
+    dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
+    setIsAlertVisible(true);
+    setTimeout(() => {
+      setIsAlertVisible(false);
+    }, 2000);
   };
 
   const saveTitle = () => {
-    console.log("title saved");
     dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
+    setIsAlertVisible(true);
+    setTimeout(() => {
+      setIsAlertVisible(false);
+    }, 2000);
   };
 
   const togglePublishStatus = async () => {
@@ -150,6 +158,7 @@ const LessonTemplate = () => {
 
   const [open, setOpen] = useState(false);
   const [toDelete, setToDelete] = useState("");
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   const handleOpen = (toBeDeleted) => {
     setOpen(true);
@@ -165,7 +174,6 @@ const LessonTemplate = () => {
       <>
         <Paper elevation={3} m={3} p={2}>
           <Box p={2} align="center">
-            {/* <ClickAwayListener onClickAway={saveTitle}> */}
             <TextField
               required
               id="name"
@@ -175,9 +183,9 @@ const LessonTemplate = () => {
               value={title}
               variant="outlined"
               sx={{ width: 500 }}
-              onMouseOut={saveTitle}
             />
-            {/* </ClickAwayListener> */}
+            <Save onClick={saveTitle} style={{ cursor: "pointer" }} />
+            {isAlertVisible && <Typography>Title Saved ✓</Typography>}
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
             <MusicalStaff
