@@ -185,9 +185,13 @@ const ViewLesson = () => {
               horizontal: 'center',
             }}
           >
-            <Typography sx={{ p: 2 }}><ul>
+            <Box>
+              <ul>
+            <Typography sx={{ p: 2 }}>
                 <li>The Piano Display shows the notes that are selected on the Staff - Click a different note on the staff to see the keyboard change!</li>
-                <li>The Player Piano on the top of the screen allows you to practice if you don't have a piano at home. Keys A S D F G H J K L on your keyboard will play the notes C D E F G A B C D on the piano - try plucking out a tune!</li></ul></Typography>
+                <li>The Player Piano on the top of the screen allows you to practice if you don't have a piano at home. Keys S D F G H J K L on your keyboard will play the notes C D E F G A B C D on the piano. E R Y U I will play sharps, caps-lock will raise an octave, and holding the control key will engage the pedal. Try plucking out a tune!</li></Typography>
+                </ul>
+                </Box>
           </Popover>
         </div>
       )}
