@@ -108,6 +108,18 @@ const ViewLesson = () => {
     navigate(`/lessons/${lId}/slides/${value}`);
   };
 
+  const handleStaffInstructions = (event)=>{
+    setAnchorEl(anchorEl ? null : event.currentTarget
+    );
+  }
+
+  const handlePianoInstructions = (event)=>{
+    setAnchorEl(anchorEl ? null : event.currentTarget
+    );
+  }
+
+
+
   if (lesson)
     return (
       <>
@@ -133,6 +145,20 @@ const ViewLesson = () => {
           />
           <ViewPianoKeys slide={slide} activeElement={activeElement} />
         </Stack>
+        <Box m={1} display="flex" justifyContent="left" alignItems="left">
+          <button type="button" onClick={handleStaffInstructions}>
+            ?
+          </button>
+          <Popper open={open} anchorEl={anchorEl}>
+          </Popper>
+        </Box>
+        <Box m={1} display="flex" justifyContent="right" alignItems="right">
+          <button type="button" onClick={handlePianoInstructions}>
+            ?
+          </button>
+          <Popper open={open} anchorEl={anchorEl}>
+          </Popper>
+        </Box>
 
         <Box
           m={1}
