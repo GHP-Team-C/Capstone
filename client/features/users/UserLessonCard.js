@@ -14,6 +14,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
 import {
   deleteLessonAsync,
   publishStatusSingleLesson,
@@ -52,28 +53,39 @@ const UserLessonCard = (props) => {
     setOpen(false);
   };
 
+  const handleView = () => {
+    navigate(`/lessons/${lesson.id}/slides/1`);
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit/lessons/${lesson.id}/slides/1`);
+  };
+
   //const [publishStatus, setPublishStatus] = useState(false)
 
   return (
     <div>
-      <Box sx={{ minWidth: 275 }} m={2} p={2}>
+      <Box sx={{ minWidth: 275 }} m={2}>
         <Card variant="outlined">
           <CardContent>
-            <Typography variant="h5">{lesson.name}</Typography>
+            <Typography
+              variant="h5"
+              onClick={handleView}
+              style={{ cursor: "pointer" }}
+            >
+              {lesson.name}
+            </Typography>
           </CardContent>
           <CardActions>
-            <Link to={`/edit/lessons/${lesson.id}/slides/1`}>
-              <Button>Edit</Button>
-            </Link>
-            <Link to={`/lessons/${lesson.id}/slides/1`}>
-              <Button>View</Button>
-            </Link>
             <Button onClick={togglePublishStatus} variant="text">
               {publishStatusButton(lesson)}{" "}
             </Button>
-            <Button onClick={handleOpen} variant="text">
-              Delete
-            </Button>{" "}
+            <Edit
+              fontSize="small"
+              onClick={handleEdit}
+              style={{ cursor: "pointer" }}
+            />
+            <Delete onClick={handleOpen} style={{ cursor: "pointer" }} />
           </CardActions>
         </Card>
       </Box>

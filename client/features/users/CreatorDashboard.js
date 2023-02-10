@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { ControlPoint } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleUser } from "./singleUserSlice";
@@ -23,10 +23,17 @@ const CreatorDashboard = () => {
 
   return (
     <div>
-      <h1>Creator Dashboard</h1>
+      <Typography variant="h4" m={2}>
+        Creator Dashboard
+      </Typography>
       <div>
         <Link to="/create-lesson">
-          <Button startIcon={<ControlPoint />} variant="contained">
+          <Button
+            startIcon={<ControlPoint />}
+            variant="contained"
+            m={2}
+            onClick={createLessonHandler}
+          >
             Create New Lesson
           </Button>
         </Link>
