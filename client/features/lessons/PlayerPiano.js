@@ -6,8 +6,6 @@ let windowListener = undefined;
 const PlayerPiano = ({ sampler, open, setAnchorEl }) => {
   let playerPianoDiv = document.getElementById("playerPianoDiv");
 
-  console.log("i'm being rendered!");
-
   useEffect(() => {
     pianoCreator();
     return () => {
@@ -48,6 +46,11 @@ const PlayerPiano = ({ sampler, open, setAnchorEl }) => {
     });
 
     function downHandler({ key }) {
+      if (keysHeld.Control && keyToNote[key] && sampler.loaded) {
+        pedalKey[key] = true;
+        sampler.triggerAttack(keyToNote[key]);
+      }
+      if (key === "Control") keysHeld.Control = true;
       if (!keysHeld[key] && keyToNote[key] && sampler.loaded) {
         keysHeld[key] = true;
         sampler.triggerAttack(keyToNote[key]);
@@ -60,7 +63,21 @@ const PlayerPiano = ({ sampler, open, setAnchorEl }) => {
     }
 
     function upHandler({ key }) {
-      if (keyToNote[key] && sampler.loaded) {
+      if (key === "Control") {
+        keysHeld.Control = false;
+        Object.keys(keysHeld).forEach((noteKey) => {
+          if (pedalKey[noteKey]) {
+            pedalKey[noteKey] = false;
+            sampler.triggerRelease(keyToNote[noteKey]);
+            if (Array.isArray(keyToNote[noteKey])) {
+              keyToNote[noteKey].forEach((arrayKey) => {
+                piano.keyUp(arrayKey);
+              });
+            } else piano.keyUp(keyToNote[noteKey]);
+          }
+        });
+      }
+      if (keyToNote[key] && !keysHeld.Control) {
         keysHeld[key] = false;
         sampler.triggerRelease(keyToNote[key]);
         if (Array.isArray(keyToNote[key])) {
@@ -68,6 +85,17 @@ const PlayerPiano = ({ sampler, open, setAnchorEl }) => {
             piano.keyUp(key);
           });
         } else piano.keyUp(keyToNote[key]);
+      } else if (keyToNote[key] && keysHeld.Control) {
+        Object.keys(keysHeld).forEach((noteKey) => {
+          if (keysHeld[noteKey] && noteKey !== "Control") {
+            keysHeld[noteKey] = false;
+            if (Array.isArray(keyToNote[noteKey])) {
+              keyToNote[noteKey].forEach((arrayKey) => {
+                piano.keyUp(arrayKey);
+              });
+            } else piano.keyUp(keyToNote[noteKey]);
+          }
+        });
       }
     }
 
@@ -134,6 +162,8 @@ const PlayerPiano = ({ sampler, open, setAnchorEl }) => {
   };
 
   const keysHeld = {};
+
+  const pedalKey = {};
 
   return (
     <div>
