@@ -23,7 +23,7 @@ const LessonText = ({ slide }) => {
 
   return (
     <div>
-      <ClickAwayListener onClickAway={saveText}>
+      <ClickAwayListener onClickAway={() => {}}>
         <TextField
           required
           id="lessonText"

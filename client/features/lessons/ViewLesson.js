@@ -109,9 +109,14 @@ const ViewLesson = () => {
     return (
       <>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <button aria-describedby={id} type="button" onClick={handleClick}>
+          <Button
+            variant="contained"
+            aria-describedby={id}
+            type="button"
+            onClick={handleClick}
+          >
             Player Piano
-          </button>
+          </Button>
           <Popper id={id} open={open} anchorEl={anchorEl}>
             <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
               {
