@@ -96,15 +96,12 @@ const ViewLesson = () => {
 
   const handleClick = async (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
-    if (!open) await Tone.start();
-    else navigate(0);
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popper" : undefined;
+  const id = open ? "player-popper" : undefined;
 
   const handlePageChange = (event, value) => {
-    console.log("clicked, value:", value);
     navigate(`/lessons/${lId}/slides/${value}`);
   };
 
@@ -112,12 +109,23 @@ const ViewLesson = () => {
     return (
       <>
         <Box m={1} display="flex" justifyContent="center" alignItems="center">
-          <button aria-describedby={id} type="button" onClick={handleClick}>
+          <Button
+            variant="contained"
+            aria-describedby={id}
+            type="button"
+            onClick={handleClick}
+          >
             Player Piano
-          </button>
+          </Button>
           <Popper id={id} open={open} anchorEl={anchorEl}>
             <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
-              {<PlayerPiano sampler={sampler} open={open} />}
+              {
+                <PlayerPiano
+                  sampler={sampler}
+                  open={open}
+                  setAnchorEl={setAnchorEl}
+                />
+              }
             </Box>
           </Popper>
         </Box>

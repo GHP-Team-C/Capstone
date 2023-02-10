@@ -15,6 +15,7 @@ import {
   DialogActions,
   TextareaAutosize,
   TextField,
+  Popper,
 } from "@mui/material";
 import {
   Visibility,
@@ -41,6 +42,7 @@ import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
 import * as Tone from "tone";
+import PlayerPiano from "./PlayerPiano";
 
 const sampler = new Tone.Sampler({
   urls: {
@@ -159,12 +161,48 @@ const LessonTemplate = () => {
     setOpen(false);
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = async (event) => {
+    console.log("opening piano in edit view");
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const pianoOpen = Boolean(anchorEl);
+  const id = pianoOpen ? "player-popper" : undefined;
+
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
         <Paper elevation={3} m={3} p={2}>
+          <Box m={1} display="flex" justifyContent="center" alignItems="center">
+            <Button
+              variant="contained"
+              aria-describedby={id}
+              type="button"
+              onClick={handleClick}
+            >
+              Player Piano
+            </Button>
+            <Popper
+              style={{ zIndex: 2 }}
+              id={id}
+              open={pianoOpen}
+              anchorEl={anchorEl}
+            >
+              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                {
+                  <PlayerPiano
+                    sampler={sampler}
+                    open={pianoOpen}
+                    setAnchorEl={setAnchorEl}
+                  />
+                }
+              </Box>
+            </Popper>
+          </Box>
           <Box p={2} align="center">
-            <ClickAwayListener onClickAway={saveTitle}>
+            <ClickAwayListener onClickAway={() => {}}>
               <TextField
                 required
                 id="name"
@@ -178,10 +216,13 @@ const LessonTemplate = () => {
             </ClickAwayListener>
           </Box>
           <Stack direction="row" spacing={2} justifyContent="space-evenly">
-            <MusicalStaff slide={slide} activeElement={activeElement}
-            setActiveElement={setActiveElement}
-            sampler={sampler}/>
-            <PianoKeys slide={slide} activeElement={activeElement}/>
+            <MusicalStaff
+              slide={slide}
+              activeElement={activeElement}
+              setActiveElement={setActiveElement}
+              sampler={sampler}
+            />
+            <PianoKeys slide={slide} activeElement={activeElement} />
           </Stack>
           <Box
             m={1}
