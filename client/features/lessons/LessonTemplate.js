@@ -15,7 +15,11 @@ import {
   DialogActions,
   TextareaAutosize,
   TextField,
+  Popover,
+  Badge,
+  Popper,
 } from "@mui/material";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import {
   Visibility,
   VisibilityOff,
@@ -23,8 +27,8 @@ import {
   RemoveCircleOutline,
   ControlPoint,
   CheckCircleOutline,
+  Save,
 } from "@mui/icons-material";
-import { ClickAwayListener } from "@mui/base";
 import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -41,6 +45,7 @@ import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
 import * as Tone from "tone";
+import PlayerPiano from "./PlayerPiano";
 
 const sampler = new Tone.Sampler({
   urls: {
@@ -121,6 +126,10 @@ const LessonTemplate = () => {
 
   const saveTitle = () => {
     dispatch(updateLessonTitle({ id: lesson.id, title: { name: title } }));
+    setIsAlertVisible(true);
+    setTimeout(() => {
+      setIsAlertVisible(false);
+    }, 2000);
   };
 
   const togglePublishStatus = async () => {
@@ -149,6 +158,7 @@ const LessonTemplate = () => {
 
   const [open, setOpen] = useState(false);
   const [toDelete, setToDelete] = useState("");
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   const handleOpen = (toBeDeleted) => {
     setOpen(true);
@@ -159,25 +169,97 @@ const LessonTemplate = () => {
     setOpen(false);
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = async (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const pianoOpen = Boolean(anchorEl);
+  const id = pianoOpen ? "player-popper" : undefined;
+
   if (lesson && Object.keys(lesson).length > 8)
     return (
       <>
         <Paper elevation={3} m={3} p={2}>
-          <Box p={2} align="center">
-            <ClickAwayListener onClickAway={saveTitle}>
-              <TextField
-                required
-                id="name"
-                name="name"
-                label="Lesson Name"
-                onChange={handleChange}
-                value={title}
-                variant="outlined"
-                sx={{ width: 500 }}
-              />
-            </ClickAwayListener>
+          <Box m={1} display="flex" justifyContent="center" alignItems="center">
+            <Button
+              variant="contained"
+              aria-describedby={id}
+              type="button"
+              onClick={handleClick}
+            >
+              Player Piano
+            </Button>
+            <Popper
+              style={{ zIndex: 2 }}
+              id={id}
+              open={pianoOpen}
+              anchorEl={anchorEl}
+            >
+              <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                {
+                  <PlayerPiano
+                    sampler={sampler}
+                    open={pianoOpen}
+                    setAnchorEl={setAnchorEl}
+                  />
+                }
+              </Box>
+            </Popper>
           </Box>
-          <Stack direction="row" spacing={2} justifyContent="space-evenly">
+          <Box p={2} align="center" className="lessonTextContainer">
+            <TextField
+              required
+              id="name"
+              name="name"
+              label="Lesson Name"
+              onChange={handleChange}
+              value={title}
+              variant="outlined"
+              sx={{ width: 500 }}
+            />
+            {isAlertVisible ? (
+              <Badge badgeContent={"Saved!"} color="primary">
+                <Save className="titleSaveIcon" onClick={saveTitle} style={{ cursor: "pointer" }} />
+              </Badge>
+            ) : (
+              <Save className="titleSaveIcon" onClick={saveTitle} style={{ cursor: "pointer" }} />
+            )}
+          </Box>
+
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="space-evenly"
+            alignItems="center"
+          >
+            <PopupState variant="popover" popupId="demo-popup-popover">
+              {(popupState) => (
+                <div>
+                  <button variant="contained" {...bindTrigger(popupState)}>
+                    ?
+                  </button>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <Typography sx={{ p: 2 }}>
+                      This is the Staff Editor - click a note or a rest on the
+                      staff to select it, then choose from the dropdown menus to
+                      modify the selected note.
+                    </Typography>
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
             <MusicalStaff
               slide={slide}
               activeElement={activeElement}
@@ -185,16 +267,94 @@ const LessonTemplate = () => {
               sampler={sampler}
             />
             <PianoKeys slide={slide} activeElement={activeElement} />
+
+            <PopupState variant="popover" popupId="demo-popup-popover">
+              {(popupState) => (
+                <div>
+                  <button variant="contained" {...bindTrigger(popupState)}>
+                    ?
+                  </button>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <Box>
+                      <ul>
+                        <Typography sx={{ p: 2 }}>
+                          <li>
+                            This is the Piano Display - this handy tool reads
+                            the Staff and displays the note or notes that are
+                            currently selected. Click around on the Staff to see
+                            it in action.
+                          </li>
+                          <li>
+                            The Player Piano on the top of the screen allows you
+                            to play if you don't have a piano at home. Keys S D
+                            F G H J K L on your keyboard will play the notes C D
+                            E F G A B C D on the piano. E R Y U I will play
+                            sharps, caps-lock will raise an octave, and holding
+                            the control key will engage the pedal. Try plucking
+                            out a tune!
+                          </li>
+                        </Typography>
+                      </ul>
+                    </Box>
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
           </Stack>
-          <Box
-            m={1}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-          >
+
+          <Box p={2} align="center">
             <LessonText slide={slide} />
+
+            <PopupState variant="popover" popupId="demo-popup-popover">
+              {(popupState) => (
+                <div>
+                  <button variant="contained" {...bindTrigger(popupState)}>
+                    ?
+                  </button>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <Box>
+                      <ul>
+                        <Typography sx={{ p: 2 }}>
+                          <li>
+                            This is a text field - where you can pour the
+                            knowledge of the ages into the minds of your pupils!
+                          </li>
+                          <li>
+                            Finally, below there are buttons to add or delete a
+                            Slide, and when you're all finished, to Publish your
+                            lesson. If you're not done editing, don't worry!
+                            Your changes will be automatically saved and you can
+                            find the draft back in your Creator Dashboard
+                          </li>
+                        </Typography>
+                      </ul>
+                    </Box>
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
           </Box>
+
           <Stack
             spacing={2}
             justifyContent="center"

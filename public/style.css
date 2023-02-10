@@ -21,6 +21,32 @@ form div {
 }
 
 
+#navlogo {
+  width: 33%;
+  margin: .5rem;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
+.lessonTextContainer {
+  position: relative;
+}
+
+.saveIcon {
+  position: absolute;
+  bottom: 0;
+  right: 100;
+}
+
+.titleSaveIcon {
+  position: absolute;
+  bottom: 40%;
+  right: 100;
+
+}
 
 .vf-stavenote:hover {
   fill: blue;
