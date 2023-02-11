@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleUser } from "./singleUserSlice";
 import { Link } from "react-router-dom";
+import { Typography, Box, ButtonGroup, Button } from "@mui/material";
+import { black, grey } from "@mui/material/colors";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -16,16 +18,34 @@ const UserProfile = () => {
     dispatch(fetchSingleUser(userId));
   }, [dispatch]);
 
+  const [alignment, setAlignment] = React.useState("left");
+
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+    console.log(alignment);
+  };
+
   return (
     <div>
-      <h1>User Profile</h1>
-      <p>
-        Name: {firstName} {lastName}
-      </p>
-      <img src={avatarUrl} height='200px'/>
-      <p>Username: {username}</p>
-      <p>Email: {email}</p>
-      <Link to="/creator-dashboard">Creator Dashboard</Link>
+      <ButtonGroup variant="text" size="large">
+        <Button
+          sx={{ color: "black", "&:hover": { backgroundColor: "transparent" } }}
+          style={{ cursor: "default" }}
+        >
+          User Profile
+        </Button>
+        <Link to="/creator-dashboard">
+          <Button sx={{ color: "grey" }}>Creator Dashboard</Button>
+        </Link>
+      </ButtonGroup>
+      <Box m={2}>
+        <Typography variant="h3">
+          Welcome, {firstName} {lastName}!
+        </Typography>
+        <img src={avatarUrl} height="200px" />
+        <Typography variant="h6">Username: {username}</Typography>
+        <Typography variant="h6">Email: {email}</Typography>
+      </Box>
     </div>
   );
 };
