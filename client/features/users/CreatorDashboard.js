@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, ButtonGroup, Typography, Box } from "@mui/material";
-import { ControlPoint } from "@mui/icons-material";
+import { ControlPoint, Person, DesignServices } from "@mui/icons-material";
 import { black, grey } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleUser } from "./singleUserSlice";
@@ -26,10 +26,20 @@ const CreatorDashboard = () => {
     <div>
       <ButtonGroup variant="text" size="large">
         <Link to="/user-profile">
-          <Button sx={{ color: "grey" }}>User Profile</Button>
+          <Button startIcon={<Person />} sx={{ color: "grey" }}>
+            User Profile
+          </Button>
         </Link>
         <Button
-          sx={{ color: "black", "&:hover": { backgroundColor: "transparent" } }}
+          startIcon={<DesignServices />}
+          sx={{
+            color: "black",
+            textDecoration: "underline",
+            "&:hover": {
+              backgroundColor: "transparent",
+              textDecoration: "underline",
+            },
+          }}
           style={{ cursor: "default" }}
         >
           Creator Dashboard

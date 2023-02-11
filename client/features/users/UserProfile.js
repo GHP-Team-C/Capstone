@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleUser } from "./singleUserSlice";
 import { Link } from "react-router-dom";
 import { Typography, Box, ButtonGroup, Button } from "@mui/material";
+import { Person, DesignServices } from "@mui/icons-material";
 import { black, grey } from "@mui/material/colors";
 
 const UserProfile = () => {
@@ -29,13 +30,23 @@ const UserProfile = () => {
     <div>
       <ButtonGroup variant="text" size="large">
         <Button
-          sx={{ color: "black", "&:hover": { backgroundColor: "transparent" } }}
+          startIcon={<Person />}
+          sx={{
+            color: "black",
+            textDecoration: "underline",
+            "&:hover": {
+              backgroundColor: "transparent",
+              textDecoration: "underline",
+            },
+          }}
           style={{ cursor: "default" }}
         >
           User Profile
         </Button>
         <Link to="/creator-dashboard">
-          <Button sx={{ color: "grey" }}>Creator Dashboard</Button>
+          <Button startIcon={<DesignServices />} sx={{ color: "grey" }}>
+            Creator Dashboard
+          </Button>
         </Link>
       </ButtonGroup>
       <Box m={2}>
