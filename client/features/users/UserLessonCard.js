@@ -78,7 +78,6 @@ const UserLessonCard = (props) => {
               boxShadow: "2",
             },
           }}
-          onClick={handleView}
         >
           <Stack direction="row" justifyContent="space-between">
             <CardContent>
