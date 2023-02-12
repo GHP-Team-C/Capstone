@@ -103,6 +103,6 @@ form div {
   background-size: cover;
 }
 
-rect {
+#playerPianoDiv {
   cursor: pointer
 }
