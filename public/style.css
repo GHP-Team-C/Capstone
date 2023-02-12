@@ -75,3 +75,7 @@ form div {
   fill: blue;
   stroke: blue;
 }
+
+rect {
+  cursor: pointer
+}
