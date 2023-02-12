@@ -78,27 +78,30 @@ const AllPublicLessons = () => {
 
   return (
     <div>
-      <h1>Lessons by Level:</h1>
+      <Box m={2}>
+        {/* <Typography variant="h6" m={2}>Lessons by Level:</Typography> */}
+        <FormControl sx={{ m: 2, minWidth: 125 }} size="small">
+          <InputLabel id="select-level">Level</InputLabel>
+          <Select
+            labelId="select-level"
+            id="select-level"
+            value={level}
+            label="level"
+            onChange={handleLevelChange}
+          >
+            {levelsArray.map((level) => (
+              <MenuItem key={level} value={level}>
+                {level[0].toUpperCase() + level.slice(1)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel id="select-level">Level</InputLabel>
-        <Select
-          labelId="select-level"
-          id="select-level"
-          value={level}
-          label="level"
-          onChange={handleLevelChange}
-        >
-          {levelsArray.map((level) => (
-            <MenuItem key={level} value={level}>
-              {level[0].toUpperCase() + level.slice(1)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <h2>{level[0].toUpperCase() + level.slice(1)}</h2>
-      {lessonsLister(lessonsFilter(level))}
+        <Typography variant="h4" m={2}>
+          {level[0].toUpperCase() + level.slice(1)} Lessons
+        </Typography>
+        {lessonsLister(lessonsFilter(level))}
+      </Box>
     </div>
   );
 };

@@ -25,7 +25,7 @@ const UserLessonsList = (props) => {
         divider={<Divider orientation="vertical" flexItem />}
       >
         <div>
-          <Typography variant="h5" m={2}>
+          <Typography variant="h4" m={2}>
             Published Lessons
           </Typography>
           <div>
@@ -37,7 +37,7 @@ const UserLessonsList = (props) => {
           </div>
         </div>
         <div>
-          <Typography variant="h5" m={2}>
+          <Typography variant="h4" m={2}>
             Draft Lessons
           </Typography>
           <div>
