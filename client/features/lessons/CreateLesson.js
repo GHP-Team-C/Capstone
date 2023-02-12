@@ -14,7 +14,6 @@ import {
   Stack,
 } from "@mui/material";
 
-
 const CreateLesson = () => {
   const [name, setName] = useState("");
   const [level, setLevel] = useState("beginner");
@@ -38,13 +37,14 @@ const CreateLesson = () => {
 
   return (
     <div>
-      <Typography sx={{ m: 2 }}>Create A New Lesson</Typography>
+      <Typography variant="h4" sx={{ m: 2 }}>
+        Create A New Lesson
+      </Typography>
       <form id="create-lesson" onSubmit={handleSubmit} sx={{ m: 2 }}>
         <Stack direcion="row" spacing={2}>
           <FormControl>
             <FormLabel>Lesson Name</FormLabel>
             <TextField
-              label="Lesson Name"
               value={name}
               variant="outlined"
               sx={{ m: 2 }}
