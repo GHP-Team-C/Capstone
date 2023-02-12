@@ -168,7 +168,17 @@ const Navbar = () => {
                   </Button>
                 </Link>
                 <Link to="/signup">
-                  <Button variant="text" color="primary" disableRipple>
+                  <Button
+                    variant="text"
+                    color="primary"
+                    disableRipple
+                    sx={{
+                      ":hover": {
+                        backgroundColor: "transparent",
+                        color: "#71797E",
+                      },
+                    }}
+                  >
                     Sign Up
                   </Button>
                 </Link>
