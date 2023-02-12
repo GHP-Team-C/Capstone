@@ -191,6 +191,7 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
       notes.forEach((note, idx) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
+          noteSVG.style.cursor = "pointer";
           noteSVG.addEventListener("click", async () => {
             setDuration("q");
             if (note.attrs.triad === "") setEntryType("note");

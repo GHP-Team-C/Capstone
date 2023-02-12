@@ -93,6 +93,7 @@ const ViewMusicalStaff = ({
       notes.forEach((note, idx) => {
         const noteSVG = document.getElementById(`vf-note${idx + 1}`);
         if (noteSVG) {
+          noteSVG.style.cursor = "pointer";
           noteSVG.addEventListener("click", async () => {
             if (note.attrs.duration !== "qr") {
               await Tone.start();
