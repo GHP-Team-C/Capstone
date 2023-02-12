@@ -36,16 +36,38 @@ form div {
 }
 
 #augment {
-  font-weight: 100;
+  display: inline-block;
+  font-family: "Montserrat";
+  font-weight: 300;
+  -webkit-transform: scale(1, 1.1);
+  -moz-transform: scale(1, 1.1);
+  -o-transform: scale(1, 1.1);
+  transform: scale(1, 1.1);
   color: #37587f;
 }
 #ed {
-  font-weight: 900;
+  display: inline-block;
+  font-family: "Montserrat";
+  font-weight: 600;
+  -webkit-transform: scale(1, 1.1);
+  -moz-transform: scale(1, 1.1);
+  -o-transform: scale(1, 1.1);
+  transform: scale(1, 1.1);
   color: #0a498c;
 }
 
 #augmentedNote {
+  display: inline-block;
+  font-family: "Montserrat";
   font-weight: 100;
+  -webkit-transform: scale(1, 1.1);
+  -moz-transform: scale(1, 1.1);
+  -o-transform: scale(1, 1.1);
+  transform: scale(1, 1.1);
+}
+
+#homepagecard {
+  background: rgba(254, 253, 253, 0.6);
 }
 
 .responsive {

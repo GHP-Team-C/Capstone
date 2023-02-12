@@ -14,12 +14,20 @@ const Home = () => {
   return (
     <div className="landing">
       <Box width="98vw" height="90vh" display="flex" justifyContent="center">
-        <Box display="inline-block" m={20} justifyContent="center">
+        <Box display="flex" m={20} justifyContent="center" alignItems="center">
           <Card
+            id="homepagecard"
             m={10}
             p={10}
-            justifyContent="center"
-            sx={{ height: 400, width: 700, opacity: 0.6 }}
+            // justifyContent="center"
+            // alignItems="center"
+            sx={{
+              height: 400,
+              width: 700,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <Stack justifyContent="center" alignItems="center" spacing={2}>
               <Typography variant="h3">
@@ -29,7 +37,7 @@ const Home = () => {
               </Typography>
               <Typography variant="h4"> Learn to play music!</Typography>
               <Link to="/all-public-lessons">
-                <Button>Browse All Public Lessons</Button>
+                <Button>Browse Lessons</Button>
               </Link>
               {isLoggedIn ? (
                 <div>
