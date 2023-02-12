@@ -85,7 +85,9 @@ const Navbar = () => {
             </div>
           </Box>
           <div>
+            <Link to="/">
             <img src="/logo.png" id="navlogo" />
+            </Link>
           </div>
 
           <div>
