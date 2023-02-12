@@ -57,6 +57,11 @@ const Home = () => {
           </Card>
         </Box>
       </Box>
+      <footer>
+  <div class="footer-copyright text-center py-3">
+    © 2023 Copyright: Shoshana Levitt, Mae May, Zoe Moersch, Rachel Cora Wood
+  </div>
+</footer>
     </div>
   );
 };
