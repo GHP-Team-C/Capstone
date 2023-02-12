@@ -101,6 +101,8 @@ form div {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  /* background-blend-mode: overlay; */
-  /* color: #dfdfdf; */
+}
+
+rect {
+  cursor: pointer
 }
