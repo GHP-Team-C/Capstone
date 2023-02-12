@@ -9,6 +9,7 @@ import {
   Select,
   Button,
 } from "@mui/material";
+import { PlayCircleOutline } from "@mui/icons-material";
 import * as Tone from "tone";
 
 const ViewMusicalStaff = ({
@@ -204,7 +205,11 @@ const ViewMusicalStaff = ({
 
   return (
     <div>
-      <Button onClick={() => playHandler(1)} variant="outlined">
+      <Button
+        startIcon={<PlayCircleOutline />}
+        onClick={() => playHandler(1)}
+        variant="outlined"
+      >
         Play
       </Button>
       <div id="staffDiv"></div>
