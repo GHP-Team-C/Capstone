@@ -6,6 +6,10 @@ a {
   text-decoration: none;
 }
 
+a:visited {
+  color: #2a4783;
+}
+
 label {
   display: block;
 }
@@ -104,5 +108,5 @@ form div {
 }
 
 rect {
-  cursor: pointer
+  cursor: pointer;
 }

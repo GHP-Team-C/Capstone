@@ -36,6 +36,7 @@ const Home = () => {
                 <span id="augmentedNote">♫⁺</span>
               </Typography>
               <Typography variant="h4"> Learn to play music!</Typography>
+              <span></span>
               <Link to="/all-public-lessons">
                 <Button>Browse Lessons</Button>
               </Link>
