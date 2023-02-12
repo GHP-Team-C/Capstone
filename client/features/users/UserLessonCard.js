@@ -69,7 +69,16 @@ const UserLessonCard = (props) => {
   return (
     <div>
       <Box sx={{ width: 550 }} m={2}>
-        <Card variant="outlined">
+        <Card
+          variant="outlined"
+          sx={{
+            boxShadow: 1,
+            "&:hover": {
+              backgroundColor: "#FAFAFA",
+              boxShadow: "2",
+            },
+          }}
+        >
           <Stack direction="row" justifyContent="space-between">
             <CardContent>
               <Typography
