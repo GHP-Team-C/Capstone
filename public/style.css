@@ -49,6 +49,7 @@ form div {
   transform: scale(1, 1.1);
   color: #37587f;
 }
+
 #ed {
   display: inline-block;
   font-family: "Montserrat";
@@ -107,6 +108,19 @@ form div {
   background-size: cover;
 }
 
-rect {
-  cursor: pointer;
+#playerPianoDiv {
+  cursor: pointer
+}
+
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer-copyright {
+  width: 100%;
+  text-align: center;
+  color: gray;
+  background-color: white;
 }
