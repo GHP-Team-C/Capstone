@@ -7,7 +7,7 @@ const ViewLessonText = ({ slide }) => {
   if (slide)
     return (
       <div>
-        <Typography>{slide.text}</Typography>
+        <Typography><pre>{slide.text}</pre></Typography>
       </div>
     );
 };
