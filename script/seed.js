@@ -21,8 +21,8 @@ async function seed() {
 
   // Creating Notes
   const notes = await Promise.all(
-    noteData.map((data, idx) => {
-      data.id = idx+1
+    noteData.map((data) => {
+
       return Note.create(data);
     })
   );
@@ -30,15 +30,15 @@ async function seed() {
 
   // Creating Lessons
   const lessons = await Promise.all(
-    lessonData.map((data, idx) => {
-      data.id = idx+1
+    lessonData.map((data) => {
+
       return Lesson.create(data);
     })
   );
   // Creating Slides
   const slides = await Promise.all(
-    slideData.map((data, idx) => {
-      data.id = idx+1
+    slideData.map((data) => {
+
       return Slide.create(data);
     })
   );
