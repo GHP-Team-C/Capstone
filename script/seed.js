@@ -20,28 +20,11 @@ async function seed() {
   console.log("db synced!");
 
   // Creating Notes
-  const notes = await Promise.all(
-    noteData.map((data) => {
-
-      return Note.create(data);
-    })
-  );
-
-
+  const notes = await Note.bulkCreate(noteData);
   // Creating Lessons
-  const lessons = await Promise.all(
-    lessonData.map((data) => {
-
-      return Lesson.create(data);
-    })
-  );
+  const lessons = await Lesson.bulkCreate(lessonData);
   // Creating Slides
-  const slides = await Promise.all(
-    slideData.map((data) => {
-
-      return Slide.create(data);
-    })
-  );
+  const slides = await Slide.bulkCreate(slideData)
 
   // Creating Staffs
   const trebleClef = {
