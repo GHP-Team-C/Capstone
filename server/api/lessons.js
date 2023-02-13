@@ -1,13 +1,14 @@
 const router = require("express").Router();
 const {
-  models: { Lesson, LessonComment, Comment},
+  models: { Lesson, LessonComment, Comment },
 } = require("../db");
 const Slide = require("../db/models/Slide");
+const User = require("../db/models/User");
 module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const allLessons = await Lesson.findAll();
+    const allLessons = await Lesson.findAll({ order: [["name", "ASC"]] });
     res.json(allLessons);
   } catch (err) {
     next(err);
@@ -64,11 +65,16 @@ router.get("/:id", async (req, res, next) => {
         {
           model: Comment,
           through: {
-            model: LessonComment, where: {
-              lessonId: req.params.id
-            }
+            model: LessonComment,
+            where: {
+              lessonId: req.params.id,
+            },
           },
-        }
+        },
+        {
+          model: User,
+          attributes: ["username"],
+        },
       ],
       order: [[{ model: Slide }, "id"]],
     });

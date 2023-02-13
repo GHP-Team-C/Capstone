@@ -8,8 +8,8 @@ import {
   Button,
   Popper,
   Popover,
-} from  "@mui/material";
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+} from "@mui/material";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import ViewLessonText from "./ViewLessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -96,7 +96,6 @@ const ViewLesson = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-
   const handleClick = async (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -107,8 +106,6 @@ const ViewLesson = () => {
   const handlePageChange = (event, value) => {
     navigate(`/lessons/${lId}/slides/${value}`);
   };
-
-
 
   if (lesson)
     return (
@@ -134,32 +131,47 @@ const ViewLesson = () => {
             </Box>
           </Popper>
         </Box>
-        <Box m={1} display="flex" justifyContent="center" alignItems="center">
+        <Box
+          m={1}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
           <h1>{lesson.name}</h1>
+          <h3>By {lesson.user.username}</h3>
         </Box>
-        <Stack direction="row" spacing={2} justifyContent="space-evenly" alignItems="center">
-        <PopupState variant="popover" popupId="demo-popup-popover">
-      {(popupState) => (
-        <div>
-          <button variant="contained" {...bindTrigger(popupState)}>
-            ?
-          </button>
-          <Popover
-            {...bindPopover(popupState)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <Typography sx={{ p: 2 }}>This is a Staff - a common form of notation to display musical notes. Click on a note to hear the sound!</Typography>
-          </Popover>
-        </div>
-      )}
-    </PopupState>
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
+          <PopupState variant="popover" popupId="demo-popup-popover">
+            {(popupState) => (
+              <div>
+                <button variant="contained" {...bindTrigger(popupState)}>
+                  ?
+                </button>
+                <Popover
+                  {...bindPopover(popupState)}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <Typography sx={{ p: 2 }}>
+                    This is a Staff - a common form of notation to display
+                    musical notes. Click on a note to hear the sound!
+                  </Typography>
+                </Popover>
+              </div>
+            )}
+          </PopupState>
           <ViewMusicalStaff
             slide={slide}
             activeElement={activeElement}
@@ -169,37 +181,47 @@ const ViewLesson = () => {
           <ViewPianoKeys slide={slide} activeElement={activeElement} />
 
           <PopupState variant="popover" popupId="demo-popup-popover">
-      {(popupState) => (
-        <div>
-          <button variant="contained" {...bindTrigger(popupState)}>
-            ?
-          </button>
-          <Popover
-            {...bindPopover(popupState)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <Box>
-              <ul>
-            <Typography sx={{ p: 2 }}>
-                <li>The Piano Display shows the notes that are selected on the Staff - Click a different note on the staff to see the keyboard change!</li>
-                <li>The Player Piano on the top of the screen allows you to practice if you don't have a piano at home. Keys S D F G H J K L on your keyboard will play the notes C D E F G A B C D on the piano. E R Y U I will play sharps, caps-lock will raise an octave, and holding the control key will engage the pedal. Try plucking out a tune!</li></Typography>
-                </ul>
-                </Box>
-          </Popover>
-        </div>
-      )}
-    </PopupState>
+            {(popupState) => (
+              <div>
+                <button variant="contained" {...bindTrigger(popupState)}>
+                  ?
+                </button>
+                <Popover
+                  {...bindPopover(popupState)}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <Box>
+                    <ul>
+                      <Typography sx={{ p: 2 }}>
+                        <li>
+                          The Piano Display shows the notes that are selected on
+                          the Staff - Click a different note on the staff to see
+                          the keyboard change!
+                        </li>
+                        <li>
+                          The Player Piano on the top of the screen allows you
+                          to practice if you don't have a piano at home. Keys S
+                          D F G H J K L on your keyboard will play the notes C D
+                          E F G A B C D on the piano. E R Y U I will play
+                          sharps, caps-lock will raise an octave, and holding
+                          the control key will engage the pedal. Try plucking
+                          out a tune!
+                        </li>
+                      </Typography>
+                    </ul>
+                  </Box>
+                </Popover>
+              </div>
+            )}
+          </PopupState>
         </Stack>
-
-
-
 
         <Box
           m={1}
