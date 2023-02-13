@@ -75,6 +75,17 @@ form div {
   background: rgba(254, 253, 253, 0.6);
 }
 
+
+
+#slideText {
+  white-space: pre-wrap;
+  width: auto;
+  font-family: sans-serif;
+  display: table-cell;
+  word-wrap: break-word;
+  padding: 0 5rem 0 5rem;
+}
+
 .responsive {
   width: 100%;
   height: auto;
