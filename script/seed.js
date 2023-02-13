@@ -10,7 +10,6 @@ const lessonData = require("./data/lesson");
 const slideData = require("./data/slide");
 //const commentData = require("./data/comment");
 
-
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -24,17 +23,17 @@ async function seed() {
   // Creating Lessons
   const lessons = await Lesson.bulkCreate(lessonData);
   // Creating Slides
-  const slides = await Slide.bulkCreate(slideData)
+  const slides = await Slide.bulkCreate(slideData);
 
   // Creating Staffs
   const trebleClef = {
     timeSig: "4/4",
-    clef: "treble"
-  }
-//make a staff for every slide:
-  let staffData = []
+    clef: "treble",
+  };
+  //make a staff for every slide:
+  let staffData = [];
 
-  for (let i=0; i<slides.length; ++i) staffData.push(trebleClef)
+  for (let i = 0; i < slides.length; ++i) staffData.push(trebleClef);
 
   const staffs = await Promise.all(
     staffData.map((data) => {
@@ -44,42 +43,41 @@ async function seed() {
 
   // Creating Users
 
-  const avatars = ['wholey.png', 'eighthy.png', 'twoEighthy.png']
+  const avatars = ["wholey.png", "eighthy.png", "twoEighthy.png"];
 
   const users = await Promise.all([
     User.create({
-      username: "cody",
-      email: "cody@cody.edu",
-      firstName: "Cody",
-      lastName: "Pug",
+      username: "codie",
+      email: "codie@augmentEd.com",
+      firstName: "Codie",
+      lastName: "Ellington",
       password: "123",
-      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 3)]}`
+      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 3)]}`,
     }),
     User.create({
-      username: "murphy",
-      email: "murphy@murphy.gov",
-      firstName: "Murphy",
-      lastName: "Octopus",
+      username: "toni",
+      email: "toni@augmentEd.com",
+      firstName: "Toni",
+      lastName: "Holiday",
       password: "123",
-      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 3)]}`
+      avatarUrl: `/avatars/${avatars[Math.floor(Math.random() * 3)]}`,
     }),
   ]);
 
   //Creating UserComments
- /*  const comments = await Promise.all(
+  /*  const comments = await Promise.all(
     commentData.map((data) => {
       return Comment.create(data);
     })
   ); */
 
-
   //Assigning UserComment to Lessons
- /*  await Promise.all(
+  /*  await Promise.all(
     [lessons[0].addComments([1,2,3])],
     [lessons[1].addComments([4,5])]
   ); */
 
-/*   await Promise.all(
+  /*   await Promise.all(
     [users[0].addComments([3,5,2])],
     [users[1].addComments([1,4])]
   ); */
@@ -92,10 +90,14 @@ async function seed() {
   // ]);
 
   //Assign Piano to slide
-  const piano = {keys: "c4, e4, g4, b4"}
+  const piano = { keys: "c4, e4, g4, b4" };
 
   await Promise.all([
-    slides.map((slide, idx) => idx%2 ? slide.createPiano({ keys: "a4, b4, c4, g#4" }) : slide.createPiano(piano)),
+    slides.map((slide, idx) =>
+      idx % 2
+        ? slide.createPiano({ keys: "a4, b4, c4, g#4" })
+        : slide.createPiano(piano)
+    ),
   ]);
 
   // Creating Lessons
@@ -112,11 +114,10 @@ async function seed() {
     [lessons[8].setUser(1)]
   );
 
-
   //ADD NOTES TO ALL STAFFS
   await Promise.all(
     staffs.map((staff, idx) => {
-      staff.addNotes([1+(4*idx), 2+(4*idx), 3+(4*idx), 4+(4*idx)])
+      staff.addNotes([1 + 4 * idx, 2 + 4 * idx, 3 + 4 * idx, 4 + 4 * idx]);
     })
   );
 
