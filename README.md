@@ -1,13 +1,7 @@
 # augmentEd
 
-## Setup
+https://augmented.onrender.com
 
-- npm install
-- createdb capstone
-- npm run start:dev:seed
+augmentEd is peer-to-peer music education software designed for people who want to learn and teach music. With augmentEd, users can craft lessons using an editable musical staff, view the lessons created by other users, and play a virtual piano using their computer’s keyboard.
 
-The server will run on localhost:8080. The database has two pre-made users (cody (pw: 123) and murphy (pw: 123))! One of them will have created lessons assigned to him.
-
-Have fun, click things, try to break it!
-
-We are aware that the current pagination in the edit view covers some of the edit buttons and can be hard to use! It is in the process of being fixed. If you wish to access the buttons more easily, you can resize the page.
+Created by Shoshana Levitt, Mae May, Zoe Moersch, Rachel Cora Wood
