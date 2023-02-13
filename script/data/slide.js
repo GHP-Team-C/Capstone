@@ -21,22 +21,26 @@ module.exports = [
   },
   //Lesson 2, slide 1:
   {
-    text: "Look at this beautiful scale!",
+    text: "In 'Getting Started' you learned that the position of the notes determines the pitch...\n\n but which is which?!\n\nLuckily, there are two catchy ways to remmber the notes on the lines, and the notes on the spaces (next slide)",
+  },
+  //Lesson 2, slide 2:
+  {
+    text: "'Every Girl Boss Deserves Fame' (or 'Every Good Boy Deserves Fudge')\n\nThis stands for the Lines of the treble clef. Starting from the bottom, the notes are E G B D F! (next slide)",
+  },
+  //Lesson 2, slide 3:
+  {
+    text: "What about the spaces? Easy! Those ones are FACE! \n\n From the bottom up, F A C E. FACE! (next slide)",
+  },
+  //Lesson 2, slide 4:
+  {
+    text: "So then what about the notes outside of the lines?! \n\nA good practice for beginners is to start with the closest note that you DO know, and work your way one step at a time \n\n One step = one letter of the alphabet = from a line to the next space, or a space to the next line (next slide)",
+  },
+  //Lesson 2, slide 5:
+  {
+    text: "POP QUIZ!\n\nWhat are the notes displayed on the staff? (answers in next slide)",
   },
   {
-    text: "Would you like to learn how to play a song?",
-  },
-  {
-    text: "Go make some friends and just jam out!",
-  },
-  {
-    text: "Would you like to learn how to make a chord?",
-  },
-  {
-    text: "To make a chord, just stack thirds!",
-  },
-  {
-    text: "Look at this beautiful chord!",
+    text: "If you guessed C D B and A great work!",
   },
   {
     text: "Would you like to learn how to make a scale?",

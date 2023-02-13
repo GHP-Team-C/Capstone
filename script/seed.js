@@ -30,13 +30,15 @@ async function seed() {
 
   // Creating Lessons
   const lessons = await Promise.all(
-    lessonData.map((data) => {
+    lessonData.map((data, idx) => {
+      data.id = idx+1
       return Lesson.create(data);
     })
   );
   // Creating Slides
   const slides = await Promise.all(
-    slideData.map((data) => {
+    slideData.map((data, idx) => {
+      data.id = idx+1
       return Slide.create(data);
     })
   );
@@ -137,12 +139,12 @@ async function seed() {
 
   await Promise.all(
     [lessons[0].addSlides([1, 2, 3, 4, 5])],
-    [lessons[1].addSlides([6])],
-    [lessons[2].addSlides([7, 8, 9])],
-    [lessons[3].addSlides([10, 11, 12])],
-    [lessons[4].addSlides([13, 14, 15])],
-    [lessons[5].addSlides([16, 17, 18])],
-    [lessons[6].addSlides([19, 20, 21])],
+    [lessons[1].addSlides([6, 7, 8, 9, 10, 11])],
+    [lessons[2].addSlides([12, 13])],
+    [lessons[3].addSlides([14, 15])],
+    [lessons[4].addSlides([16, 17])],
+    [lessons[5].addSlides([18, 19])],
+    [lessons[6].addSlides([20, 21])],
     [lessons[7].addSlides([22, 23, 24])],
     [lessons[8].addSlides([25, 26, 27])]
   );
