@@ -11,27 +11,28 @@ module.exports = [
     level: "beginner",
     published: true,
   },
-  { name: "Learn A Song", level: "advanced" },
+  //Lesson 3
+  { name: "The Major Scale", level: "beginner", published: true },
   {
-    name: "Learn Chords II",
+    name: "The Minor Scale",
     level: "beginner",
     published: true,
   },
   {
-    name: "Learn Scales II",
+    name: "Chords I",
     level: "intermediate",
     published: true,
   },
-  { name: "Learn A Song II", level: "advanced" },
+  { name: "Chords II", level: "intermediate", published: true },
   {
-    name: "Learn Chords III",
-    level: "beginner",
+    name: "Lean On Me - Bill Withers",
+    level: "advanced",
     published: true,
   },
   {
-    name: "Learn Scales III",
-    level: "intermediate",
+    name: "Stay - Rihanna",
+    level: "advanced",
     published: true,
   },
-  { name: "Learn A Song III", level: "advanced", visibleTo: "Private" },
+  { name: "Modes", level: "advanced", published: true },
 ];

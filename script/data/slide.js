@@ -39,23 +39,28 @@ module.exports = [
   {
     text: "POP QUIZ!\n\nWhat are the notes displayed on the staff? (answers in next slide)",
   },
+  //Lesson 2, slide 6:
   {
     text: "If you guessed C D B and A great work!",
   },
+  //Lesson 3, slide 1
   {
-    text: "Would you like to learn how to make a scale?",
+    text: "Now that you've mastered the mysteries of reading musical staff notation, you're ready to learn about scales! (next slide)",
+  },
+   //Lesson 3, slide 2
+  {
+    text: "Scales are sequences of notes that move up or down one musical 'step' at a time. \n\n A step can be either a half-step or a whole step. \n\nTo understand better, look at the piano - two keys right next to each other like E and F are a half-step. Two keys with one key in between like C and D (with the black key between) are a whole step (next slide)",
+  },
+   //Lesson 3, slide 3
+  {
+    text: "The most common scale is called the Major scale, and in the key of C (the key we are in now, with no sharps or flats) the first note is...\n\nyou guessed it - C! \n\nFrom here, we move up one letter of the alphabet at a time - C D E F... (next slide)",
+  },
+  //Lesson 3, slide 4
+  {
+    text: "...G A B, and back to C again at the top! The sequence of half-steps and whole steps of a Major scale in any key is: \n\nWhole, Whole, Half, Whole, Whole, Whole, Half (next slide)",
   },
   {
-    text: "To make a scale, just move up by one diatonic note at a time!",
-  },
-  {
-    text: "Look at this beautiful scale!",
-  },
-  {
-    text: "Would you like to learn how to play a song?",
-  },
-  {
-    text: "Go make some friends and just jam out!",
+    text: "Now pull down the Player Piano from the top and play a Major Scale! (use the keys from 'S' to 'L' on your computer keyboard)\n\nLook at you go, Maestro! \n\n" ,
   },
   {
     text: "Would you like to learn how to make a chord?",
