@@ -6,10 +6,9 @@ const {
 } = require("../server/db");
 
 const noteData = require("./data/note");
-const staffData = require("./data/staff");
 const lessonData = require("./data/lesson");
 const slideData = require("./data/slide");
-const commentData = require("./data/comment");
+//const commentData = require("./data/comment");
 
 
 /**
@@ -22,17 +21,12 @@ async function seed() {
 
   // Creating Notes
   const notes = await Promise.all(
-    noteData.map((data) => {
+    noteData.map((data, idx) => {
+      data.id = idx+1
       return Note.create(data);
     })
   );
 
-  // Creating Staff
-  const staffs = await Promise.all(
-    staffData.map((data) => {
-      return Staff.create(data);
-    })
-  );
 
   // Creating Lessons
   const lessons = await Promise.all(
@@ -44,6 +38,22 @@ async function seed() {
   const slides = await Promise.all(
     slideData.map((data) => {
       return Slide.create(data);
+    })
+  );
+
+  // Creating Staffs
+  const trebleClef = {
+    timeSig: "4/4",
+    clef: "treble"
+  }
+//make a staff for every slide:
+  let staffData = []
+
+  for (let i=0; i<slides.length; ++i) staffData.push(trebleClef)
+
+  const staffs = await Promise.all(
+    staffData.map((data) => {
+      return Staff.create(data);
     })
   );
 
@@ -71,23 +81,23 @@ async function seed() {
   ]);
 
   //Creating UserComments
-  const comments = await Promise.all(
+ /*  const comments = await Promise.all(
     commentData.map((data) => {
       return Comment.create(data);
     })
-  );
+  ); */
 
 
   //Assigning UserComment to Lessons
-  await Promise.all(
+ /*  await Promise.all(
     [lessons[0].addComments([1,2,3])],
     [lessons[1].addComments([4,5])]
-  );
+  ); */
 
-  await Promise.all(
+/*   await Promise.all(
     [users[0].addComments([3,5,2])],
     [users[1].addComments([1,4])]
-  );
+  ); */
 
   //Creating Pianos
   // const pianos = await Promise.all([
@@ -118,16 +128,16 @@ async function seed() {
   );
 
 
-  //NEED TO ADD NOTES TO ALL STAFFS
+  //ADD NOTES TO ALL STAFFS
   await Promise.all(
     staffs.map((staff, idx) => {
-      idx % 2 ? staff.addNotes([5, 6, 7, 8]) : staff.addNotes([1, 2, 3, 4]);
+      staff.addNotes([1+(4*idx), 2+(4*idx), 3+(4*idx), 4+(4*idx)])
     })
   );
 
   await Promise.all(
-    [lessons[0].addSlides([1, 2, 3])],
-    [lessons[1].addSlides([4, 5, 6])],
+    [lessons[0].addSlides([1, 2, 3, 4, 5])],
+    [lessons[1].addSlides([6])],
     [lessons[2].addSlides([7, 8, 9])],
     [lessons[3].addSlides([10, 11, 12])],
     [lessons[4].addSlides([13, 14, 15])],
@@ -144,7 +154,7 @@ async function seed() {
   console.log(`seeded ${notes.length} notes`);
   console.log(`seeded ${staffs.length} staffs`);
   console.log(`seeded ${slides.length} slides`);
-  console.log(`seeded ${comments.length} slides`);
+  //console.log(`seeded ${comments.length} slides`);
   console.log(`seeded successfully`);
   return {
     users: {

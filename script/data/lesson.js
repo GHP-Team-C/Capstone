@@ -1,9 +1,11 @@
 module.exports = [
+  //Lesson 1
   {
-    name: "Learn Chords",
+    name: "Getting Started",
     level: "beginner",
     published: true,
   },
+  //Lesson 2
   {
     name: "Learn Scales",
     level: "intermediate",
