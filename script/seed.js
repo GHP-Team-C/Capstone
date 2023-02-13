@@ -140,13 +140,13 @@ async function seed() {
   await Promise.all(
     [lessons[0].addSlides([1, 2, 3, 4, 5])],
     [lessons[1].addSlides([6, 7, 8, 9, 10, 11])],
-    [lessons[2].addSlides([12, 13])],
-    [lessons[3].addSlides([14, 15])],
-    [lessons[4].addSlides([16, 17])],
-    [lessons[5].addSlides([18, 19])],
-    [lessons[6].addSlides([20, 21])],
-    [lessons[7].addSlides([22, 23, 24])],
-    [lessons[8].addSlides([25, 26, 27])]
+    [lessons[2].addSlides([12, 13, 14, 15, 16])],
+    [lessons[3].addSlides([17, 18])],
+    [lessons[4].addSlides([19, 20])],
+    [lessons[5].addSlides([21, 22])],
+    [lessons[6].addSlides([23, 24])],
+    [lessons[7].addSlides([25, 26])],
+    [lessons[8].addSlides([27, 28])]
   );
 
   await Promise.all(staffs.map((staff, idx) => staff.setSlide(idx + 1)));
