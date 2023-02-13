@@ -55,7 +55,7 @@ const Navbar = () => {
             <Link to="/">
               <IconButton
                 color="primary"
-                disableRipple
+                disableRipple="true"
                 sx={{
                   ":hover": {
                     backgroundColor: "transparent",
@@ -71,7 +71,7 @@ const Navbar = () => {
                 <Button
                   variant="text"
                   color="primary"
-                  disableRipple
+                  disableRipple="true"
                   sx={{
                     ":hover": {
                       backgroundColor: "transparent",
@@ -86,7 +86,7 @@ const Navbar = () => {
           </Box>
           <div>
             <Link to="/">
-            <img src="/logo.png" id="navlogo" />
+              <img src="/logo.png" id="navlogo" />
             </Link>
           </div>
 
@@ -100,7 +100,7 @@ const Navbar = () => {
                     aria-controls="basix-menu"
                     aria-haspopup="true"
                     aria-expanded={openMenu ? "true" : undefined}
-                    disableRipple
+                    disableRipple="true"
                     sx={{
                       ":hover": {
                         backgroundColor: "transparent",
@@ -158,7 +158,7 @@ const Navbar = () => {
                   <Button
                     variant="text"
                     color="primary"
-                    disableRipple
+                    disableRipple="true"
                     sx={{
                       ":hover": {
                         backgroundColor: "transparent",
@@ -173,7 +173,7 @@ const Navbar = () => {
                   <Button
                     variant="text"
                     color="primary"
-                    disableRipple
+                    disableRipple="true"
                     sx={{
                       ":hover": {
                         backgroundColor: "transparent",

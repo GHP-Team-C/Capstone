@@ -8,7 +8,7 @@ module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const allLessons = await Lesson.findAll();
+    const allLessons = await Lesson.findAll({ order: [["name", "ASC"]] });
     res.json(allLessons);
   } catch (err) {
     next(err);
