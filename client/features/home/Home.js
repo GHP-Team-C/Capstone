@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack } from "@mui/system";
 import { Typography, Box, Button, Paper, Card } from "@mui/material";
 import { useSelector } from "react-redux";
-import CreateLesson from "../lessons/CreateLesson";
 import { Link } from "react-router-dom";
 
 /**
@@ -59,10 +58,11 @@ const Home = () => {
         </Box>
       </Box>
       <footer>
-  <div class="footer-copyright text-center py-3">
-    © 2023 Copyright: Shoshana Levitt, Mae May, Zoe Moersch, Rachel Cora Wood
-  </div>
-</footer>
+        <div class="footer-copyright text-center py-3">
+          © 2023 Copyright: Shoshana Levitt, Mae May, Zoe Moersch, Rachel Cora
+          Wood
+        </div>
+      </footer>
     </div>
   );
 };

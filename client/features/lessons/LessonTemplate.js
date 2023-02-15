@@ -4,7 +4,6 @@ import {
   Box,
   Stack,
   Button,
-  ButtonGroup,
   Typography,
   Pagination,
   Paper,
@@ -33,7 +32,6 @@ import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchSingleLesson,
-  fetchStaffNotes,
   makeSlide,
   fetchSingleSlide,
   publishStatusSingleLesson,
@@ -220,11 +218,24 @@ const LessonTemplate = () => {
               sx={{ width: 500 }}
             />
             {isAlertVisible ? (
-              <Badge badgeContent={"Saved!"} className="titleSaveIcon"  color="primary" style={{ position: "absolute" }}>
-                <Save className="titleSaveIcon" onClick={saveTitle} style={{ cursor: "pointer" }} />
+              <Badge
+                badgeContent={"Saved!"}
+                className="titleSaveIcon"
+                color="primary"
+                style={{ position: "absolute" }}
+              >
+                <Save
+                  className="titleSaveIcon"
+                  onClick={saveTitle}
+                  style={{ cursor: "pointer" }}
+                />
               </Badge>
             ) : (
-              <Save className="titleSaveIcon" onClick={saveTitle} style={{ cursor: "pointer", position: "absolute" }} />
+              <Save
+                className="titleSaveIcon"
+                onClick={saveTitle}
+                style={{ cursor: "pointer", position: "absolute" }}
+              />
             )}
           </Box>
 
@@ -312,7 +323,7 @@ const LessonTemplate = () => {
             </PopupState>
           </Stack>
 
-          <Box p={2} align="center" >
+          <Box p={2} align="center">
             <LessonText slide={slide} />
 
             <PopupState variant="popover" popupId="demo-popup-popover">

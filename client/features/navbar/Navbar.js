@@ -13,7 +13,6 @@ import {
   Menu,
 } from "@mui/material";
 import { Home } from "@mui/icons-material";
-import { grey, blue } from "@mui/material/colors";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -93,8 +92,6 @@ const Navbar = () => {
           <div>
             {isLoggedIn ? (
               <div>
-                {/* The navbar will show these links after you log in */}
-
                 <IconButton onClick={handleClick}>
                   <Avatar
                     aria-controls="basix-menu"
@@ -107,9 +104,7 @@ const Navbar = () => {
                         color: "#71797E",
                       },
                     }}
-                  >
-                    {/* {user.firstName.charAt(0)} */}
-                  </Avatar>
+                  ></Avatar>
                 </IconButton>
                 <Menu
                   id="basic-menu"

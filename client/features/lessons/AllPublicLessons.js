@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchAllLessons } from "./lessonsSlice";
 import {
   FormControl,
@@ -96,7 +96,6 @@ const AllPublicLessons = () => {
             ))}
           </Select>
         </FormControl>
-
         <Typography variant="h4" m={2}>
           {level[0].toUpperCase() + level.slice(1)} Lessons
         </Typography>
