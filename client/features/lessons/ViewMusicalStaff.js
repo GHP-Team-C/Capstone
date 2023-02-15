@@ -130,17 +130,9 @@ const ViewMusicalStaff = ({
   };
 
   useEffect(() => {
-    //   if (activeElement.idx > -1 && toChange && slide) updateNote();
     drawStaff();
     if (notes.length) addNoteListeners();
   }, [notes]);
-
-  // useEffect(() => {
-  //   if (activeElement.noteName) {
-  //     setNote(activeElement.noteName);
-  //     setOctave(activeElement.octave);
-  //   }
-  // }, [activeElement]);
 
   useEffect(() => {
     notes.forEach((note, idx) => {
@@ -151,15 +143,6 @@ const ViewMusicalStaff = ({
       }
     });
   }, [activeElement, notes]);
-
-  // const restHandler = () => {
-  //   if (duration === "qr") setDuration("q");
-  //   else {
-  //     setNote("b");
-  //     setOctave("4");
-  //     setDuration(`qr`);
-  //   }
-  // };
 
   const playHandler = async (i) => {
     if (i > 4) {

@@ -21,7 +21,7 @@ describe("User model", () => {
         const { id } = await jwt.verify(token, process.env.JWT);
         expect(id).to.equal(users.codie.id);
       });
-    }); // end describe('correctPassword')
+    });
     describe("authenticate", () => {
       let user;
       beforeEach(
@@ -53,6 +53,6 @@ describe("User model", () => {
           }
         });
       });
-    }); // end describe('authenticate')
-  }); // end describe('instanceMethods')
-}); // end describe('User model')
+    });
+  });
+});

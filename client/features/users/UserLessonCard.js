@@ -64,8 +64,6 @@ const UserLessonCard = (props) => {
     navigate(`/edit/lessons/${lesson.id}/slides/1`);
   };
 
-  //const [publishStatus, setPublishStatus] = useState(false)
-
   return (
     <div>
       <Box sx={{ width: 550 }} m={2}>

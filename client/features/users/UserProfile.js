@@ -30,7 +30,6 @@ const UserProfile = () => {
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
-    console.log(alignment);
   };
 
   return (

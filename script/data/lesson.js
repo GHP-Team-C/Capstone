@@ -1,17 +1,14 @@
 module.exports = [
-  //Lesson 1
   {
     name: "Getting Started",
     level: "beginner",
     published: true,
   },
-  //Lesson 2
   {
     name: "Notes of the Staff",
     level: "beginner",
     published: true,
   },
-  //Lesson 3
   { name: "The Major Scale", level: "beginner", published: true },
   {
     name: "The Minor Scale",

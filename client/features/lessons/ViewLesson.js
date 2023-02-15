@@ -70,7 +70,6 @@ const ViewLesson = () => {
   const navigate = useNavigate();
 
   let { lId } = useParams();
-  //use sId as an index # in the singleLesson.lesson.slides array
   let { sId } = useParams();
 
   useEffect(() => {

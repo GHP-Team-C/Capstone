@@ -14,7 +14,6 @@ const CreatorDashboard = () => {
 
   const singleUser = useSelector((state) => state.singleUser);
 
-  //use this to tell lesson.published what to change to
   let lessons = [];
   if (singleUser) lessons = singleUser.lessons;
 

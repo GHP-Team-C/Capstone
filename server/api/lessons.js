@@ -15,7 +15,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Add staff & slide to new lesson
 router.post("/", async (req, res, next) => {
   try {
     const lesson = await Lesson.create(req.body);
@@ -162,7 +161,6 @@ router.put("/:id/name", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  // Add new
   try {
     const newLesson = await Lesson.create(req.body);
     res.json(newLesson);

@@ -5,9 +5,6 @@ import { useSelector } from "react-redux";
 import CreateLesson from "../lessons/CreateLesson";
 import { Link } from "react-router-dom";
 
-/**
- * COMPONENT
- */
 const Home = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
 
@@ -19,8 +16,6 @@ const Home = () => {
             id="homepagecard"
             m={10}
             p={10}
-            // justifyContent="center"
-            // alignItems="center"
             sx={{
               height: 400,
               width: 700,
@@ -59,10 +54,11 @@ const Home = () => {
         </Box>
       </Box>
       <footer>
-  <div class="footer-copyright text-center py-3">
-    © 2023 Copyright: Shoshana Levitt, Mae May, Zoe Moersch, Rachel Cora Wood
-  </div>
-</footer>
+        <div class="footer-copyright text-center py-3">
+          © 2023 Copyright: Shoshana Levitt, Mae May, Zoe Moersch, Rachel Cora
+          Wood
+        </div>
+      </footer>
     </div>
   );
 };

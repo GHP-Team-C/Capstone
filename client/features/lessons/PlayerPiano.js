@@ -100,7 +100,6 @@ const PlayerPiano = ({ sampler, open, setAnchorEl }) => {
     }
 
     const handleListeners = () => {
-      //on open
       if (open) {
         windowListener = new AbortController();
         window.addEventListener("keydown", downHandler, {
