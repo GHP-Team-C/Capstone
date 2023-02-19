@@ -25,7 +25,6 @@ const Navbar = () => {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    console.log(event.currentTarget);
   };
 
   const handleClose = () => {

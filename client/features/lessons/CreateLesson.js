@@ -27,7 +27,6 @@ const CreateLesson = () => {
     await dispatch(createLesson({ name, level, userId: userId }));
   };
 
-  //if the lesson model is changed to include more than 8 keys, this will need to be updated
   useEffect(() => {
     if (lesson) {
       if (Object.keys(lesson).length < 9)

@@ -1,5 +1,3 @@
-//this is the access point for all things database related!
-
 const db = require("./db");
 
 const User = require("./models/User");
@@ -10,11 +8,10 @@ const Staff = require("./models/Staff");
 const StaffNote = require("./models/StaffNote");
 const Slide = require("./models/Slide");
 const Piano = require("./models/Piano");
-const UserComment = require("./models/UserComment")
-const Comment = require("./models/Comment")
-const LessonComment =require("./models/LessonComment")
+const UserComment = require("./models/UserComment");
+const Comment = require("./models/Comment");
+const LessonComment = require("./models/LessonComment");
 
-//associations could go here!
 User.hasMany(Lesson);
 Lesson.belongsTo(User);
 Note.belongsToMany(Staff, { through: StaffNote });
@@ -29,9 +26,8 @@ Slide.hasOne(Staff);
 Piano.belongsTo(Slide);
 Slide.hasOne(Piano);
 
-Lesson.belongsToMany(Comment, {through: LessonComment})
-User.belongsToMany(Comment, {through: UserComment} )
-
+Lesson.belongsToMany(Comment, { through: LessonComment });
+User.belongsToMany(Comment, { through: UserComment });
 
 module.exports = {
   db,
@@ -46,6 +42,6 @@ module.exports = {
     Piano,
     Comment,
     UserComment,
-    LessonComment
+    LessonComment,
   },
 };
