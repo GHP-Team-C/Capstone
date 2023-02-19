@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import React, { useEffect } from "react";
 import { Instrument } from "piano-chart";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePiano, fetchPiano } from "./singleLessonSlice";
+import { fetchPiano } from "./singleLessonSlice";
 
 const PianoKeys = ({ slide, activeElement }) => {
   let pianoDiv = document.getElementById("pianoDiv");

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack } from "@mui/system";
 import { Typography, Box, Button, Paper, Card } from "@mui/material";
 import { useSelector } from "react-redux";
-import CreateLesson from "../lessons/CreateLesson";
 import { Link } from "react-router-dom";
 
 const Home = () => {

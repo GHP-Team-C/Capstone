@@ -4,7 +4,6 @@ import {
   Box,
   Stack,
   Button,
-  ButtonGroup,
   Typography,
   Pagination,
   Paper,
@@ -33,7 +32,6 @@ import LessonText from "./LessonText";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchSingleLesson,
-  fetchStaffNotes,
   makeSlide,
   fetchSingleSlide,
   publishStatusSingleLesson,
