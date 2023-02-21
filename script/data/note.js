@@ -396,22 +396,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -420,22 +421,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -444,22 +446,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -468,22 +471,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -492,22 +496,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -516,22 +521,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -540,22 +546,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -564,22 +571,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -588,22 +596,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -612,22 +621,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -636,22 +646,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -660,22 +671,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -684,22 +696,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -708,22 +721,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -732,22 +746,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -756,22 +771,23 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
   {
     noteName: "b",
@@ -780,21 +796,22 @@ module.exports = [
     domId: "1",
   },
   {
+
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "2",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "3",
   },
   {
     noteName: "b",
     octave: "4",
     duration: "qr",
-    domId: "1",
+    domId: "4",
   },
 ];
