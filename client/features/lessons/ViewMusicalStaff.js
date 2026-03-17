@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import { PlayCircleOutline } from "@mui/icons-material";
-import * as Tone from "tone";
+import { start } from "tone";
 
 const ViewMusicalStaff = ({
   slide,
@@ -97,7 +97,7 @@ const ViewMusicalStaff = ({
           noteSVG.style.cursor = "pointer";
           noteSVG.addEventListener("click", async () => {
             if (note.attrs.duration !== "qr") {
-              await Tone.start();
+              await start();
               if (note.attrs.triad !== "") {
                 const notes = note.attrs.noteName.split("");
                 const octaves = note.attrs.octave.split("");
@@ -155,7 +155,7 @@ const ViewMusicalStaff = ({
       const noteSVG = document.getElementById(`vf-note${i}`);
       if (noteSVG) {
         if (note.attrs.duration !== "qr") {
-          await Tone.start();
+          await start();
           if (note.attrs.triad !== "") {
             const notes = note.attrs.noteName.split("");
             const octaves = note.attrs.octave.split("");

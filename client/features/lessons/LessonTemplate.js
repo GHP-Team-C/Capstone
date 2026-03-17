@@ -42,10 +42,10 @@ import {
 import { useParams } from "react-router-dom";
 import MusicalStaff from "./MusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
-import * as Tone from "tone";
+import { Sampler } from "tone";
 import PlayerPiano from "./PlayerPiano";
 
-const sampler = new Tone.Sampler({
+const sampler = new Sampler({
   urls: {
     A3: "a3.mp3",
     A4: "a4.mp3",

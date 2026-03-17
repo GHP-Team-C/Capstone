@@ -9,7 +9,7 @@ import {
   Select,
   Button,
 } from "@mui/material";
-import * as Tone from "tone";
+import { start } from "tone";
 
 const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
   const [note, setNote] = useState("");
@@ -224,7 +224,7 @@ const MusicalStaff = ({ slide, activeElement, setActiveElement, sampler }) => {
   useEffect(() => {
     const infoSetter = async () => {
       if (activeElement.duration !== "qr" && sampler.loaded) {
-        await Tone.start();
+        await start();
         if (activeElement.triad !== "") {
           const notes = activeElement.noteName.split("");
           const octaves = activeElement.octave.split("");

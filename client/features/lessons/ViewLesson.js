@@ -21,9 +21,9 @@ import { useParams } from "react-router-dom";
 import ViewMusicalStaff from "./ViewMusicalStaff";
 import { NavLink, useNavigate } from "react-router-dom";
 import PlayerPiano from "./PlayerPiano";
-import * as Tone from "tone";
+import { Sampler } from "tone";
 
-const sampler = new Tone.Sampler({
+const sampler = new Sampler({
   urls: {
     A3: "a3.mp3",
     A4: "a4.mp3",
